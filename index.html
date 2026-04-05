@@ -1,70 +1,1776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F8F0F5">
+<title>Cassy Energy & Basket v7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--pk:#E491B2;--pk-l:#F5D0E0;--pk-d:#C76E94;
+--vi:#9B8EC4;--vi-l:#C9C0E4;--vi-d:#7A6BA8;
+--bl:#6BA4D9;--bl-l:#B3D4F0;--bl-d:#4A82B8;
+--or:#F4845F;--or-l:#FBCBBA;--or-d:#D16640;
+--gn:#6EBD73;--gn-l:#B8E4BA;--gn-d:#4A9C50;
+--go:#F0C45A;--go-l:#FAE6A0;
+--bg:#F8F0F5;--bgc:#FFF;--bga:#FDF5FA;
+--tx:#2D2040;--ts:#6B5B7B;--tm:#9B8EA8;
+--sh:0 2px 16px rgba(45,32,64,.08);
+--r:16px;--rs:10px;--nh:68px;
+--f:'Poppins',-apple-system,sans-serif;
+}
+html.dark{--bg:#1A1225;--bgc:#251B35;--bga:#2D2240;--tx:#F0E8F5;--ts:#B8A8C8;--tm:#7A6B8A;--sh:0 2px 16px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:auto;overflow:visible}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--f);background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+#app{max-width:430px;margin:0 auto;position:relative;padding-bottom:120px;background:var(--bg)}
+@supports(padding-bottom:env(safe-area-inset-bottom)){#app{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}}
+h1{font-size:1.4rem;font-weight:800;line-height:1.3}h2{font-size:1.15rem;font-weight:700}h3{font-size:1rem;font-weight:600;line-height:1.4}
+p{font-size:.88rem;line-height:1.55;color:var(--ts)}small{font-size:.76rem;color:var(--tm)}
+.c{background:var(--bgc);border-radius:var(--r);padding:14px;box-shadow:var(--sh);margin-bottom:10px;transition:transform .15s}.c:active{transform:scale(.98)}
+.cg-pk{background:linear-gradient(135deg,#F5D0E0,#E491B2);color:#2D2040}
+.cg-vi{background:linear-gradient(135deg,#C9C0E4,#9B8EC4);color:#2D2040}
+.cg-bl{background:linear-gradient(135deg,#B3D4F0,#6BA4D9);color:#2D2040}
+.cg-or{background:linear-gradient(135deg,#FBCBBA,#F4845F);color:#2D2040}
+.cg-gn{background:linear-gradient(135deg,#B8E4BA,#6EBD73);color:#2D2040}
+.cg-go{background:linear-gradient(135deg,#FAE6A0,#F0C45A);color:#2D2040}
+.cg-dk{background:linear-gradient(135deg,#2D2040,#4A3560);color:#fff}
+.bg{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:600}
+.bg-pk{background:var(--pk-l);color:var(--pk-d)}.bg-vi{background:var(--vi-l);color:var(--vi-d)}.bg-bl{background:var(--bl-l);color:var(--bl-d)}.bg-or{background:var(--or-l);color:var(--or-d)}.bg-gn{background:var(--gn-l);color:var(--gn-d)}.bg-go{background:var(--go-l);color:#8B6914}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:var(--rs);font-family:var(--f);font-size:.84rem;font-weight:600;border:none;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}.btn:active{transform:scale(.96)}
+.btn-pk{background:var(--pk);color:#fff}.btn-vi{background:var(--vi);color:#fff}.btn-o{background:0;border:2px solid var(--vi-l);color:var(--vi)}
+.pr-c{position:relative;display:flex;align-items:center;justify-content:center}
+.pr-r{transform:rotate(-90deg)}.pr-bg{fill:none;stroke:var(--bg);stroke-width:7}html.dark .pr-bg{stroke:rgba(255,255,255,.08)}
+.pr-f{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .8s ease}.pr-t{position:absolute;text-align:center}
+.pb{width:100%;height:7px;background:rgba(155,142,196,.15);border-radius:4px;overflow:hidden}.pb-f{height:100%;border-radius:4px;transition:width .6s ease}
+.ci{display:flex;align-items:center;gap:10px;padding:11px;border-radius:var(--rs);background:var(--bga);margin-bottom:5px;cursor:pointer;transition:all .15s;user-select:none;-webkit-tap-highlight-color:transparent;min-height:44px}
+.ci:active{transform:scale(.98)}.ci.ck{opacity:.6}.ci.ck .cl{text-decoration:line-through}
+.cb{width:22px;height:22px;border-radius:6px;border:2px solid var(--vi-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;transition:all .2s}
+.ci.ck .cb{background:var(--gn);border-color:var(--gn);color:#fff}
+.ce{font-size:1.1rem;flex-shrink:0}.cl{font-size:.82rem;font-weight:500;flex:1}.cp{font-size:.7rem;font-weight:700;color:var(--vi);background:var(--vi-l);padding:2px 7px;border-radius:10px}
+.gg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px 0}
+.gs{width:48px;height:48px;border-radius:12px;background:var(--bga);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}.gs:active{transform:scale(.9)}.gs.fl{background:var(--bl-l);animation:pop .3s ease}
+.bge{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 3px;border-radius:var(--rs);background:var(--bga);text-align:center}.bge.er{background:linear-gradient(135deg,var(--go-l),var(--pk-l))}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.lnav{display:flex;gap:4px;overflow-x:auto;padding:4px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}.lnav::-webkit-scrollbar{display:none}
+.ln-btn{padding:6px 12px;border-radius:20px;border:none;background:var(--bga);font-family:var(--f);font-size:.72rem;font-weight:600;color:var(--ts);cursor:pointer;white-space:nowrap;transition:all .15s;-webkit-tap-highlight-color:transparent}.ln-btn.act{background:var(--vi);color:#fff}.ln-btn:active{transform:scale(.95)}
+.lsc{display:none;animation:fi .25s ease}.lsc.act{display:block}
+.soir-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}.soir-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0}.soir-info{flex:1}.soir-info strong{font-size:.86rem}.soir-info p{margin-top:2px}
+.why-card{display:flex;gap:10px;align-items:flex-start}.why-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.book-card{background:var(--bgc);border-radius:var(--r);padding:14px;box-shadow:var(--sh);margin-bottom:10px;transition:transform .15s}.book-card:active{transform:scale(.98)}
+.book-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:12px;font-size:.65rem;font-weight:600}
+.star-row{display:flex;gap:2px}.star{font-size:1.1rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gl{width:44px;height:54px;border-radius:7px 7px 10px 10px;border:2px solid var(--bl-l);display:flex;align-items:flex-end;justify-content:center;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;-webkit-tap-highlight-color:transparent}
+.gl.fl{border-color:var(--bl)}.gl-f{position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(180deg,var(--bl-l),var(--bl));transition:height .4s ease;border-radius:0 0 8px 8px}.gl.fl .gl-f{height:100%}
+.gl-l{position:relative;z-index:1;font-size:.68rem;font-weight:700;color:var(--bl-d);padding-bottom:3px}.gl.fl .gl-l{color:#fff}
+.bnav{position:fixed;bottom:0;left:0;right:0;width:100%;max-width:430px;margin:0 auto;background:var(--bgc);border-top:1px solid rgba(155,142,196,.12);display:flex;align-items:center;justify-content:space-around;padding:8px 4px;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.04)}
+@supports(padding-bottom:env(safe-area-inset-bottom)){.bnav{padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}}
+.ni{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 2px;cursor:pointer;border-radius:10px;transition:all .15s;min-width:48px;-webkit-tap-highlight-color:transparent}
+.ni.act{background:var(--vi-l)}.ni-i{font-size:1.2rem}.ni-l{font-size:.56rem;font-weight:600;color:var(--tm)}.ni.act .ni-l{color:var(--vi-d);font-weight:700}
+.sc{display:none;padding:14px;animation:fi .25s ease}.sc.act{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes su{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cf{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.exh{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 0;-webkit-tap-highlight-color:transparent}
+.exa{transition:transform .3s;font-size:.75rem;color:var(--tm)}.exa.op{transform:rotate(180deg)}
+.exc{max-height:0;overflow:hidden;transition:max-height .35s ease-out}.exc.op{max-height:1200px}
+.chc{padding:14px;border-radius:var(--r);margin-bottom:10px}.chp{display:flex;gap:3px;margin-top:8px}.chd{width:100%;height:5px;border-radius:3px;background:rgba(255,255,255,.3)}.chd.dn{background:rgba(255,255,255,.9)}
+.bgi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bi{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 3px;border-radius:var(--rs);background:var(--bga);text-align:center}
+.bi.ea{background:linear-gradient(135deg,var(--go-l),var(--pk-l))}.bi.lo{opacity:.35}.bi-i{font-size:1.6rem}.bi-n{font-size:.62rem;font-weight:600;line-height:1.2}
+.rs{display:flex;gap:8px;align-items:flex-start;padding:6px 0}.sn{width:22px;height:22px;border-radius:50%;background:var(--vi-l);color:var(--vi-d);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}.st{font-size:.82rem;color:var(--ts)}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--gn);color:#fff;padding:10px 20px;border-radius:var(--rs);font-size:.82rem;font-weight:600;z-index:200;transition:transform .4s ease;box-shadow:0 8px 32px rgba(0,0,0,.15);max-width:90%;text-align:center}.toast.sh{transform:translateX(-50%) translateY(0)}
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;align-items:flex-end;justify-content:center}.mo.sh{display:flex}
+.mc{background:var(--bgc);border-radius:20px 20px 0 0;padding:20px 16px 36px;width:100%;max-width:430px;max-height:85vh;overflow-y:auto;animation:su .3s ease;-webkit-overflow-scrolling:touch}
+.mh{width:36px;height:4px;background:var(--tm);border-radius:2px;margin:0 auto 14px}
+.ib{background:var(--vi-l);border-left:4px solid var(--vi);border-radius:0 var(--rs) var(--rs) 0;padding:10px 12px;margin:8px 0}html.dark .ib{background:rgba(155,142,196,.12)}.ib p{color:var(--tx);font-size:.8rem}
+.lb{width:100%;height:6px;background:rgba(155,142,196,.15);border-radius:4px;overflow:hidden;margin:6px 0}.ls{height:100%;border-radius:4px;transition:width .6s ease;width:0}.lsg{height:5px;border-radius:3px;flex:1;background:rgba(155,142,196,.2)}.lsg.fl{background:var(--vi)}
+.pi{display:flex;gap:10px;justify-content:center;margin:16px 0}.pd{width:44px;height:44px;border-radius:10px;border:2px solid var(--vi-l);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;background:var(--bgc)}.pd.fl{border-color:var(--vi);background:var(--vi-l)}
+.pn{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:240px;margin:0 auto}.pk{height:48px;border-radius:10px;border:none;background:var(--bga);font-family:var(--f);font-size:1.1rem;font-weight:700;color:var(--tx);cursor:pointer}.pk:active{background:var(--vi-l);transform:scale(.95)}
+.dt{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:7px;font-size:.7rem;font-weight:600}
+.t-bk{background:var(--or-l);color:var(--or-d)}.t-ec{background:var(--bl-l);color:var(--bl-d)}.t-we{background:var(--gn-l);color:var(--gn-d)}.t-va{background:var(--pk-l);color:var(--pk-d)}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 6px;position:sticky;top:0;background:var(--bg);z-index:50}
+.dtg{width:34px;height:34px;border-radius:50%;background:var(--bgc);border:none;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh)}
+.cc{display:none;position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:300}.cc.act{display:block}.cfp{position:absolute;width:8px;height:8px;border-radius:2px;animation:cf 3s ease forwards}
+.onb-s{display:none;text-align:center;padding:10px 4px}.onb-s.act{display:block}.hlp{font-size:.76rem;color:var(--tm);font-style:italic;margin:2px 0 6px}
+.br-circle{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--vi-l),var(--pk-l));margin:16px auto;display:flex;align-items:center;justify-content:center;transition:transform 1.5s ease,background 1.5s ease;font-size:1.6rem;font-weight:800;color:var(--vi)}
+.br-circle.br-in{transform:scale(1.35);background:linear-gradient(135deg,var(--bl-l),var(--vi-l))}
+.br-circle.br-hold{transform:scale(1.35);background:linear-gradient(135deg,var(--vi-l),var(--pk-l))}
+.br-circle.br-out{transform:scale(.75);background:linear-gradient(135deg,var(--pk-l),var(--or-l))}
+.fx{display:flex}.fc{display:flex;flex-direction:column}.ac{align-items:center}.jb{justify-content:space-between}.jc{justify-content:center}
+.g1{gap:4px}.g2{gap:8px}.g3{gap:10px}.g4{gap:14px}.mt1{margin-top:4px}.mt2{margin-top:8px}.mt3{margin-top:10px}.mb1{margin-bottom:4px}.mb2{margin-bottom:8px}.mb3{margin-bottom:10px}.ml1{margin-left:6px}.tc{text-align:center}.wf{width:100%}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--vi-l);border-radius:2px}
+.meal-tl{position:relative;padding-left:28px}.meal-tl::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--vi-l)}
+.meal-item{position:relative;margin-bottom:12px}.meal-dot{position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;border:2px solid var(--vi);background:var(--bgc)}
+.meal-item.active .meal-dot{background:var(--or);border-color:var(--or)}
+.meal-item.done{opacity:.6}.meal-item.done .meal-dot,.meal-dot.ck{background:var(--gn);border-color:var(--gn)}
+.meal-info{flex:1}
+.bk-card{background:var(--bga);border-radius:var(--rs);padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+.bk-cover{width:50px;height:70px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.cal-cell{padding:6px 2px;border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;min-height:32px;display:flex;align-items:center;justify-content:center}
+.cal-cell.today{background:var(--vi);color:#fff;border-radius:50%;width:32px;height:32px;margin:0 auto}
+.cal-cell.basket{color:var(--or-d);background:var(--or-l)}
+.cal-cell.holiday{color:var(--pk-d);background:var(--pk-l)}
+.cal-head{font-size:.65rem;font-weight:700;color:var(--tm);padding:4px 0}
+@media(max-width:380px){h1{font-size:1.2rem}h3{font-size:.9rem}p{font-size:.82rem}.c{padding:11px}.ni-l{font-size:.5rem}.ni-i{font-size:1.05rem}.ln-btn{padding:5px 10px;font-size:.68rem}.bgi{grid-template-columns:repeat(3,1fr);gap:8px}}
+@media(max-width:340px){h1{font-size:1.1rem}.c{padding:10px}.btn{padding:8px 14px;font-size:.8rem}.sc{padding:10px}.gs{width:40px;height:40px}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<div id="confetti" class="cc"></div>
+<div id="app">
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <div style="font-size:.68rem;font-weight:600;color:var(--vi)">CASSY ENERGY & BASKET <span style="opacity:.5;font-size:.55rem">v7</span></div>
+    <div class="fx ac g2"><span id="hClock" style="font-size:.78rem;font-weight:700"></span><span id="hWeek" class="bg bg-vi" style="font-size:.62rem"></span></div>
+  </div>
+  <div class="fx ac g2">
+    <div class="fx ac g1"><span style="font-size:1.1rem">🔥</span><span id="hStr" style="font-size:1rem;font-weight:800;color:var(--or)">0</span></div>
+    <button class="dtg" onclick="refreshMsg()" id="refBtn">🔄</button>
+    <button class="dtg" onclick="tDk()">🌙</button>
+  </div>
+</div>
 
-CASSY ENERGY & BASKET v7
+<!-- HOME -->
+<div id="s-home" class="sc act">
+  <div class="mb2"><h1 id="hGrt">Bonjour Cassy</h1><p id="hDate" style="font-size:.8rem;margin-top:2px"></p><p class="hlp">Ici, tu vois ce que tu dois faire aujourd'hui.</p><div class="fx g2 mt1" id="hTags"></div></div>
+  <div class="c cg-vi mb2" style="animation:su .4s ease"><div style="font-size:.68rem;font-weight:700;opacity:.7;margin-bottom:3px">💬 MESSAGE DU JOUR</div><p id="hMsg" style="color:#2D2040;font-weight:600;font-size:.9rem;line-height:1.5"></p></div>
 
-🔥
-0
-🔄 🌙
-Bonjour Cassy
+  <!-- Rituel matin / soir integre -->
+  <div id="hRituel" style="display:none"></div>
 
-Ici, tu vois ce que tu dois faire aujourd'hui.
-💬 MESSAGE DU JOUR
+  <div class="c fx ac g3 mb2">
+    <div class="pr-c" style="width:82px;height:82px"><svg class="pr-r" width="82" height="82"><circle class="pr-bg" cx="41" cy="41" r="35"/><circle class="pr-f" id="hRing" cx="41" cy="41" r="35" stroke="var(--vi)" stroke-dasharray="219.91" stroke-dashoffset="219.91"/></svg><div class="pr-t"><div id="hScN" style="font-size:1.3rem;font-weight:800;color:var(--vi)">0</div><div style="font-size:.5rem;color:var(--tm);font-weight:600">/ 100</div></div></div>
+    <div style="flex:1"><div style="font-size:.7rem;font-weight:600;color:var(--tm)">SCORE DU JOUR</div><p class="hlp" style="margin:0">Ton score montre a quel point tu as pris soin de toi aujourd'hui.</p><div id="hLvl" style="font-size:.82rem;font-weight:700;color:var(--vi);margin:2px 0"></div><p id="hPr" style="font-size:.76rem"></p><div class="lb mt1"><div class="ls" id="hLB"></div></div></div>
+  </div>
 
+  <!-- Next action -->
+  <div class="c mb2" style="border-left:4px solid var(--or)"><div class="fx ac g2"><span style="font-size:1.1rem">👉</span><div><div style="font-size:.68rem;font-weight:600;color:var(--or)">PROCHAINE ACTION</div><p id="hNext" style="font-weight:600;color:var(--tx);font-size:.84rem"></p></div></div></div>
 
-0
-/ 100
-SCORE DU JOUR
-Ton score montre a quel point tu as pris soin de toi aujourd'hui.
+  <!-- Next meal -->
+  <div class="c mb2" style="border-left:4px solid var(--gn)"><div class="fx ac g2"><span style="font-size:1.1rem">🍽️</span><div><div style="font-size:.68rem;font-weight:600;color:var(--gn)">PROCHAIN REPAS</div><p id="hMeal" style="font-weight:600;color:var(--tx);font-size:.84rem"></p></div></div></div>
 
+  <!-- Defi du jour -->
+  <div class="c cg-pk mb2"><div class="fx ac g2"><span style="font-size:1.1rem">🎯</span><div><div style="font-size:.68rem;font-weight:700;opacity:.7">DEFI DU JOUR</div><p id="hDefi" style="font-weight:600;color:#2D2040;font-size:.84rem"></p></div></div></div>
 
+  <!-- Objectifs -->
+  <div class="c mb2"><div class="fx ac jb mb2"><h3>🏆 Objectifs du jour</h3><span id="hOC" class="bg bg-vi"></span></div><p class="hlp" style="margin-top:-4px;margin-bottom:6px">Coche chaque objectif quand tu l'as fait. Chaque case cochee te donne des points.</p><div id="hObjs"></div></div>
 
-👉
-PROCHAINE ACTION
+  <!-- Rappels -->
+  <div class="c mb2"><h3 class="mb2">⏰ Rappels</h3>
+    <div class="fx ac g2 mb1"><span>📱</span><p style="font-size:.82rem;font-weight:600;color:var(--tx)">Telephone pose a 20h00</p></div>
+    <div class="fx ac g2 mb1"><span>🌙</span><p style="font-size:.82rem;font-weight:600;color:var(--tx)">Coucher a 21h30</p></div>
+    <div class="fx ac g2" id="hRappelBasket" style="display:none"><span>🏀</span><p id="hRappelBkTxt" style="font-size:.82rem;font-weight:600;color:var(--tx)"></p></div>
+  </div>
 
-🍽️
-PROCHAIN REPAS
+  <!-- Mon moment calme -->
+  <div class="c mb2" onclick="showCalm()" style="cursor:pointer;border-left:4px solid var(--vi)"><div class="fx ac jb"><div class="fx ac g2"><span style="font-size:1.1rem">🕊️</span><div><div style="font-size:.68rem;font-weight:600;color:var(--vi)">TOUT MON MOMENT CALME</div><p style="font-weight:600;color:var(--tx);font-size:.84rem">Toutes mes prieres, respirations et gratitude</p></div></div><span style="color:var(--tm)">›</span></div></div>
 
-🎯
-DEFI DU JOUR
+  <!-- Quick status -->
+  <div class="c mb2"><h3 class="mb2">📊 Resume</h3><div class="fx jb" style="text-align:center"><div class="fc ac"><span style="font-size:1.3rem">💧</span><small id="sW">0/6</small></div><div class="fc ac"><span style="font-size:1.3rem">🍽️</span><small id="sE">--</small></div><div class="fc ac"><span style="font-size:1.3rem">😴</span><small id="sS">--</small></div><div class="fc ac"><span style="font-size:1.3rem">📱</span><small id="sP">--</small></div><div class="fc ac"><span style="font-size:1.3rem">🏀</span><small id="sB">--</small></div></div></div>
 
-🏆 Objectifs du jour
-Coche chaque objectif quand tu l'as fait. Chaque case cochee te donne des points.
+  <!-- Discipline -->
+  <div class="c cg-dk mb2"><div class="fx ac g2 mb1"><span style="font-size:1.1rem">💪</span><h3 style="color:#fff">La discipline, c'est un super-pouvoir</h3></div><p style="color:rgba(255,255,255,.8);font-size:.8rem">Ce n'est pas une punition. C'est ta capacite a faire les bons choix chaque jour. C'est ce qui fait la difference entre rever et progresser.</p></div>
 
-⏰ Rappels
-📱
-Telephone pose a 20h00
-🌙
-Coucher a 21h30
-🕊️
-TOUT MON MOMENT CALME
-Toutes mes prieres, respirations et gratitude
-›
-📊 Resume
-💧
-0/6
-🍽️
---
-😴
---
-📱
---
-🏀
---
-💪
-La discipline, c'est un super-pouvoir
-Ce n'est pas une punition. C'est ta capacite a faire les bons choix chaque jour. C'est ce qui fait la difference entre rever et progresser.
-📅 Cette semaine
-Voir tout
+  <!-- Mini calendar -->
+  <div class="c mb2"><div class="fx ac jb mb2"><h3>📅 Cette semaine</h3><button class="btn-o btn" style="padding:4px 10px;font-size:.72rem" onclick="showCal()">Voir tout</button></div><div id="hMiniCal"></div></div>
 
-Ton coach Patrick (Papa) 💜
-🏠
-Accueil
-⚡
-Energie
-💧
-Eau
-🏆
-Defis
-📖
-Lecture
-👤
-Profil
+  <div class="tc mt3 mb3"><p style="font-size:.8rem;font-style:italic;color:var(--pk)">Ton coach Patrick (Papa) 💜</p></div>
+</div>
+
+<!-- ENERGIE -->
+<div id="s-energy" class="sc">
+  <h1 class="mb2">⚡ Energie & Repas</h1><p class="hlp">Suis tes repas et collations pour donner a ton corps le bon carburant.</p>
+  <div class="ib mb2"><p>L'energie, c'est le carburant de ta journee. Bien manger au bon moment te permet de courir, reflechir et progresser. Ton corps est une machine de competition : donne-lui le meilleur ! 🏎️</p></div>
+  <div class="c fx ac jb mb2"><div><div style="font-size:.68rem;color:var(--tm);font-weight:600">ENERGIE DU JOUR</div><div id="eSc" style="font-size:1.3rem;font-weight:800;color:var(--or)">0 pts</div></div><div style="font-size:1.8rem" id="eEm">🔋</div></div>
+
+  <!-- Meal timeline -->
+  <div class="c mb2"><h3 class="mb2" id="eMealTitle">🕐 Timeline repas du jour</h3><p class="hlp" style="margin-top:-4px;margin-bottom:6px">Clique sur un repas pour le cocher quand tu l'as mange.</p><div class="meal-tl" id="eMealTL"></div></div>
+
+  <!-- Si pas faim -->
+  <div class="c mb2"><div class="exh" onclick="tEx('e-nf')"><div class="fx ac g2"><span style="font-size:1.1rem">🤔</span><h3>Si je n'ai pas tres faim...</h3></div><span class="exa" id="a-e-nf">▼</span></div>
+  <div class="exc" id="e-nf"><div class="ib"><p>C'est normal de ne pas toujours avoir tres faim. Mais ton corps a quand meme besoin d'energie. Voici des solutions legeres et faciles :</p></div>
+  <div style="margin-top:8px">
+    <div class="ci" style="cursor:default"><span class="ce">🥤</span><span class="cl">Smoothie banane + lait + miel</span></div>
+    <div class="ci" style="cursor:default"><span class="ce">🥣</span><span class="cl">Yaourt + miel + quelques cereales</span></div>
+    <div class="ci" style="cursor:default"><span class="ce">🍎</span><span class="cl">Compote + petit beurre</span></div>
+    <div class="ci" style="cursor:default"><span class="ce">🥛</span><span class="cl">Lait + banane ecrasee</span></div>
+    <div class="ci" style="cursor:default"><span class="ce">🍞</span><span class="cl">Tartine beurre + fruit</span></div>
+    <div class="ci" style="cursor:default"><span class="ce">🧃</span><span class="cl">Jus de fruit maison + biscuit</span></div>
+  </div>
+  <p class="mt2" style="font-size:.8rem;font-style:italic;color:var(--vi)">Meme un petit quelque chose, c'est mieux que rien. Ton corps te remerciera.</p>
+  </div></div>
+
+  <!-- Energy items -->
+  <div id="eItems"></div>
+
+  <!-- Recettes -->
+  <div class="c mb2 mt2"><h3 class="mb2">👩‍🍳 Recettes rapides</h3><div id="rcC"></div></div>
+</div>
+
+<!-- EAU -->
+<div id="s-water" class="sc">
+  <h1 class="mb2">💧 Hydratation</h1><p class="hlp">Clique sur un verre chaque fois que tu bois pour suivre ta journee.</p>
+  <div class="ib mb2"><p>Ton corps est compose a plus de 60% d'eau. Quand tu bouges, tu perds de l'eau. Si tu ne bois pas assez, tu te fatigues, tu te concentres moins et tes muscles recuperent moins bien. L'eau, c'est la base de tout. 💧</p></div>
+  <div class="c tc mb2"><div style="font-size:.68rem;font-weight:600;color:var(--tm)">OBJECTIF DU JOUR</div><div class="fx ac jc g2 mt1"><span style="font-size:1.6rem">🎯</span><span id="wG" style="font-size:1.3rem;font-weight:800;color:var(--bl)"></span></div><small id="wR"></small></div>
+  <div class="c mb2"><div class="fx ac jb mb1"><h3>Tes verres d'eau</h3><span id="wC" class="bg bg-bl"></span></div><p class="hlp" style="margin-bottom:4px">Clique sur un verre pour le remplir. Tu peux aussi cliquer pour corriger.</p><div class="gg" id="wGr"></div><div class="pb mt2"><div class="pb-f" id="wP" style="background:linear-gradient(90deg,var(--bl-l),var(--bl))"></div></div><p id="wE" class="tc mt2" style="font-weight:600;font-size:.86rem"></p></div>
+  <div class="c mb2" style="border-left:4px solid var(--bl)"><div class="fx ac g2"><span style="font-size:1.1rem">💡</span><div><div style="font-size:.68rem;font-weight:600;color:var(--bl)">MINI OBJECTIF</div><p id="wM" style="font-weight:600;color:var(--tx);font-size:.82rem"></p></div></div></div>
+  <div class="c mb2"><div class="exh" onclick="tEx('ww')"><div class="fx ac g2"><span>🧠</span><h3>Pourquoi bien boire ?</h3></div><span class="exa" id="a-ww">▼</span></div><div class="exc" id="ww"><div class="rs"><div class="sn" style="background:var(--bl-l);color:var(--bl-d)">1</div><div class="st"><strong>Ton cerveau</strong> fonctionne mieux hydrate. Deshydratee = du mal a te concentrer.</div></div><div class="rs"><div class="sn" style="background:var(--bl-l);color:var(--bl-d)">2</div><div class="st"><strong>Tes muscles</strong> sont plus forts. Moins de crampes, plus de puissance au basket.</div></div><div class="rs"><div class="sn" style="background:var(--bl-l);color:var(--bl-d)">3</div><div class="st"><strong>Ton energie</strong> en depend. Une petite deshydratation te fatigue deja.</div></div><div class="rs"><div class="sn" style="background:var(--bl-l);color:var(--bl-d)">4</div><div class="st"><strong>Ta recuperation</strong> est plus rapide. L'eau aide a eliminer les toxines.</div></div></div></div>
+</div>
+
+<!-- CHALLENGES -->
+<div id="s-challenges" class="sc">
+  <h1 class="mb2">🏆 Challenges</h1><p class="hlp">Choisis un defi, valide chaque jour, et gagne ton badge a la fin.</p>
+  <div class="ib mb2"><p>Chaque challenge t'aide a construire une vraie habitude. Releve le defi, gagne un badge, et deviens plus forte chaque jour ! 💪</p></div>
+  <div id="chL"></div>
+</div>
+
+<!-- LECTURE -->
+<div id="s-lecture" class="sc">
+  <!-- Sub-navigation lecture -->
+  <div class="lnav mb2" id="lNav">
+    <button class="ln-btn act" onclick="swL('home')">Accueil</button>
+    <button class="ln-btn" onclick="swL('books')">A lire</button>
+    <button class="ln-btn" onclick="swL('maison')">Maison</button>
+    <button class="ln-btn" onclick="swL('read')">Lus</button>
+    <button class="ln-btn" onclick="swL('soir')">Soir</button>
+    <button class="ln-btn" onclick="swL('defi')">Defis</button>
+    <button class="ln-btn" onclick="swL('why')">Pourquoi</button>
+  </div>
+
+  <!-- SUB 1: HOME LECTURE -->
+  <div id="l-home" class="lsc act">
+    <div class="tc mb2"><div style="font-size:2.6rem;margin-bottom:6px">📚</div><h1 style="color:var(--vi)">Mon coin lecture</h1><p style="font-size:.84rem;margin-top:4px;color:var(--ts);font-style:italic">Lire pour grandir, rever et devenir plus forte.</p><p class="hlp" style="margin-top:4px">Ici, tu fais grandir ton esprit et tu construis une habitude calme pour le soir.</p></div>
+
+    <div class="c cg-vi mb2" style="animation:su .4s ease"><p style="color:#2D2040;font-size:.84rem;line-height:1.55">Ici, tu peux faire grandir ton esprit. Lire, c'est une facon de devenir plus calme, plus forte, plus concentree et plus confiante. Chaque page que tu lis est une petite victoire pour toi.</p><p style="color:#2D2040;font-size:.82rem;font-weight:700;margin-top:8px;font-style:italic" id="lMsgInspi">Les championnes entrainent aussi leur tete.</p></div>
+
+    <!-- Stats lecture -->
+    <div class="c mb2"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center">
+      <div style="padding:10px;background:var(--bga);border-radius:10px"><div style="font-size:1.5rem">📖</div><div id="lStatBooks" style="font-size:1.2rem;font-weight:800;color:var(--vi)">0</div><small>Livres lus</small></div>
+      <div style="padding:10px;background:var(--bga);border-radius:10px"><div style="font-size:1.5rem">⏱️</div><div id="lStatWeek" style="font-size:1.2rem;font-weight:800;color:var(--pk)">0</div><small>Min / semaine</small></div>
+      <div style="padding:10px;background:var(--bga);border-radius:10px"><div style="font-size:1.5rem">🔥</div><div id="lStatStreak" style="font-size:1.2rem;font-weight:800;color:var(--or)">0</div><small>Serie soirs</small></div>
+    </div></div>
+
+    <!-- Objectif semaine -->
+    <div class="c mb2"><div class="fx ac jb mb1"><h3>📊 Objectif lecture</h3><span class="bg bg-vi" id="lObjBadge">0/70 min</span></div>
+    <div class="pb"><div class="pb-f" id="lProg" style="background:linear-gradient(90deg,var(--vi-l),var(--vi));width:0%"></div></div>
+    <small style="margin-top:4px;display:block">70 min / semaine = 10 min / jour</small></div>
+
+    <!-- J'ai lu aujourd'hui -->
+    <div class="c mb2"><h3 class="mb2">⏱️ J'ai lu aujourd'hui</h3><div class="fx g2 jc" style="flex-wrap:wrap">
+      <button class="btn btn-o" onclick="addRead(5)">+5 min</button>
+      <button class="btn btn-o" onclick="addRead(10)">+10 min</button>
+      <button class="btn btn-o" onclick="addRead(15)">+15 min</button>
+      <button class="btn btn-vi" onclick="addRead(20)">+20 min</button>
+    </div><p class="tc mt2" style="font-size:.84rem">Aujourd'hui : <strong id="lToday" style="color:var(--vi)">0 min</strong></p></div>
+
+    <!-- Prochain livre -->
+    <div class="c mb2" style="border-left:4px solid var(--vi)"><div class="fx ac g2"><span style="font-size:1.1rem">📖</span><div><div style="font-size:.68rem;font-weight:600;color:var(--vi)">PROCHAIN LIVRE A LIRE</div><p id="lNextBook" style="font-weight:600;color:var(--tx);font-size:.84rem">--</p></div></div></div>
+
+    <!-- Lecture du soir preview -->
+    <div class="c cg-dk mb2" onclick="swL('soir')" style="cursor:pointer"><div class="fx ac g2 mb1"><span style="font-size:1.1rem">🌙</span><h3 style="color:#fff">Ma lecture du soir</h3></div><p style="color:rgba(255,255,255,.8);font-size:.8rem">Apres 20h00, offre a ton cerveau un moment calme avec un livre.</p><div class="fx jb ac mt1"><small style="color:var(--pk-l)">Voir le programme du soir</small><span style="color:rgba(255,255,255,.5)">›</span></div></div>
+
+    <!-- Boutons navigation -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" class="mb2">
+      <div class="c tc" onclick="swL('books')" style="cursor:pointer;padding:16px 10px"><span style="font-size:1.5rem">🌟</span><p style="font-weight:700;font-size:.84rem;margin-top:4px">Mes livres a lire</p></div>
+      <div class="c tc" onclick="swL('read')" style="cursor:pointer;padding:16px 10px"><span style="font-size:1.5rem">✅</span><p style="font-weight:700;font-size:.84rem;margin-top:4px">Mes livres lus</p></div>
+      <div class="c tc" onclick="swL('defi')" style="cursor:pointer;padding:16px 10px"><span style="font-size:1.5rem">🎯</span><p style="font-weight:700;font-size:.84rem;margin-top:4px">Mon defi lecture</p></div>
+      <div class="c tc" onclick="swL('why')" style="cursor:pointer;padding:16px 10px"><span style="font-size:1.5rem">💡</span><p style="font-weight:700;font-size:.84rem;margin-top:4px">Pourquoi lire</p></div>
+    </div>
+
+    <div class="c cg-pk mb2"><div class="fx ac g2"><span style="font-size:1.1rem">💜</span><div><p style="font-size:.82rem;color:#2D2040;font-weight:600">La lecture n'est pas une punition. C'est un moment rien que pour toi. Un moment de calme, de confiance et de force interieure.</p></div></div></div>
+  </div>
+
+  <!-- SUB 2: LIVRES A LIRE -->
+  <div id="l-books" class="lsc">
+    <div class="fx ac g2 mb2"><button class="btn btn-o" style="padding:4px 10px;font-size:.76rem" onclick="swL('home')">←</button><h1>Mes livres a lire 🌟</h1></div>
+    <div class="ib mb2"><p>Chaque livre est une aventure qui t'attend. Choisis celui qui te fait envie et lance-toi !</p></div>
+    <div id="booksToRead"></div>
+  </div>
+
+  <!-- SUB: MES LIVRES A LA MAISON -->
+  <div id="l-maison" class="lsc">
+    <div class="fx ac g2 mb2"><button class="btn btn-o" style="padding:4px 10px;font-size:.76rem" onclick="swL('home')">&#8592;</button><h1>Mes livres a la maison 📚</h1></div>
+    <p class="hlp">Ajoute les livres que tu as deja chez toi et suis ta progression.</p>
+    <div class="ib mb2"><p>Tu peux ajouter ici les livres que tu as deja a la maison et que tu veux lire plus tard. Quand tu commenceras un livre, tu pourras le suivre ici. Quand tu l'auras termine, il ira dans tes livres lus.</p></div>
+
+    <div class="c fx jb tc mb2">
+      <div style="flex:1;padding:8px"><div id="mbWait" style="font-size:1.3rem;font-weight:800;color:var(--vi)">0</div><small>En attente</small></div>
+      <div style="flex:1;padding:8px"><div id="mbStarted" style="font-size:1.3rem;font-weight:800;color:var(--or)">0</div><small>Commences</small></div>
+      <div style="flex:1;padding:8px"><div id="mbDone" style="font-size:1.3rem;font-weight:800;color:var(--gn)">0</div><small>Termines</small></div>
+    </div>
+
+    <button class="btn btn-vi wf mb2" onclick="tEx('mb-form')">+ Ajouter un livre</button>
+
+    <div class="exc" id="mb-form">
+      <div class="c mb2">
+        <h3 class="mb2">Ajouter un livre</h3>
+        <div class="mb2"><small style="font-weight:600;color:var(--tx)">Titre du livre *</small><input id="mbTitle" type="text" placeholder="Le titre de ton livre..." style="width:100%;padding:10px 12px;border:2px solid var(--vi-l);border-radius:var(--rs);font-family:var(--f);font-size:.86rem;background:var(--bga);color:var(--tx);margin-top:4px;-webkit-appearance:none"></div>
+        <div class="mb2"><small style="font-weight:600;color:var(--tx)">Auteur</small><input id="mbAuthor" type="text" placeholder="Qui l'a ecrit ? (optionnel)" style="width:100%;padding:10px 12px;border:2px solid var(--vi-l);border-radius:var(--rs);font-family:var(--f);font-size:.86rem;background:var(--bga);color:var(--tx);margin-top:4px;-webkit-appearance:none"></div>
+        <div class="mb2"><small style="font-weight:600;color:var(--tx)">Petite note</small><textarea id="mbNote" placeholder="De quoi ca parle ? (optionnel)" rows="2" style="width:100%;padding:10px 12px;border:2px solid var(--vi-l);border-radius:var(--rs);font-family:var(--f);font-size:.84rem;resize:vertical;background:var(--bga);color:var(--tx);margin-top:4px"></textarea></div>
+        <div class="mb2"><small style="font-weight:600;color:var(--tx)">Pourquoi j'ai envie de le lire</small><textarea id="mbWhy" placeholder="Qu'est-ce qui te donne envie ? (optionnel)" rows="2" style="width:100%;padding:10px 12px;border:2px solid var(--vi-l);border-radius:var(--rs);font-family:var(--f);font-size:.84rem;resize:vertical;background:var(--bga);color:var(--tx);margin-top:4px"></textarea></div>
+        <div class="mb2"><small style="font-weight:600;color:var(--tx)">Categorie</small><div class="fx g1 mt1" style="flex-wrap:wrap" id="mbCats">
+          <span class="ln-btn" onclick="selMbCat(this,'sport')">&#127936; Sport</span>
+          <span class="ln-btn" onclick="selMbCat(this,'confiance')">&#128170; Confiance</span>
+          <span class="ln-btn" onclick="selMbCat(this,'aventure')">&#127775; Aventure</span>
+          <span class="ln-btn" onclick="selMbCat(this,'calme')">&#127769; Calme</span>
+          <span class="ln-btn" onclick="selMbCat(this,'soir')">&#128214; Pour le soir</span>
+          <span class="ln-btn" onclick="selMbCat(this,'motivation')">&#128293; Motivation</span>
+          <span class="ln-btn act" onclick="selMbCat(this,'autre')">&#10024; Autre</span>
+        </div></div>
+        <button class="btn btn-pk wf" onclick="addMyBook()">Ajouter ce livre</button>
+        <p class="tc mt1"><small style="color:var(--tm);cursor:pointer" onclick="tEx('mb-form')">Annuler</small></p>
+      </div>
+    </div>
+
+    <div class="c mb2" style="border-left:4px solid var(--vi)" id="mbNextCard"><div class="fx ac g2"><span style="font-size:1.1rem">📖</span><div><div style="font-size:.68rem;font-weight:600;color:var(--vi)">PROCHAIN LIVRE CONSEILLE</div><p id="mbNext" style="font-weight:600;color:var(--tx);font-size:.84rem">--</p></div></div></div>
+
+    <div id="mbList"></div>
+
+    <div class="c cg-pk mb2 tc" style="margin-top:8px"><p style="color:#2D2040;font-size:.82rem;font-weight:600">Chaque livre que tu possedes est une aventure qui t'attend. 💜</p></div>
+  </div>
+
+  <!-- SUB 3: LIVRES LUS -->
+  <div id="l-read" class="lsc">
+    <div class="fx ac g2 mb2"><button class="btn btn-o" style="padding:4px 10px;font-size:.76rem" onclick="swL('home')">←</button><h1>Mes livres lus ✅</h1></div>
+    <div class="c cg-vi mb2"><p style="color:#2D2040;font-size:.82rem">Chaque livre termine est une victoire calme. Tu fais grandir ton esprit page apres page.</p></div>
+    <div id="booksRead"></div>
+    <div id="bookNotes"></div>
+  </div>
+
+  <!-- SUB 4: LECTURE DU SOIR -->
+  <div id="l-soir" class="lsc">
+    <div class="fx ac g2 mb2"><button class="btn btn-o" style="padding:4px 10px;font-size:.76rem" onclick="swL('home')">←</button><h1>Ma lecture du soir 🌙</h1></div>
+    <p class="hlp">Ton programme calme pour le soir, apres avoir pose ton telephone.</p>
+
+    <div class="c cg-dk mb2"><p style="color:rgba(255,255,255,.9);font-size:.86rem;line-height:1.6">Apres 20h00, ton telephone se repose aussi. A la place, tu peux offrir a ton cerveau un moment calme avec un livre. Lire le soir, c'est une facon douce de terminer la journee.</p></div>
+
+    <!-- Etapes du soir -->
+    <div class="c mb2"><h3 class="mb2">✨ Mon programme du soir</h3>
+      <div class="soir-step"><div class="soir-num" style="background:var(--or-l);color:var(--or-d)">1</div><div class="soir-info"><strong>Je pose mon telephone</strong><p style="font-size:.78rem;color:var(--ts)">A 20h00, le telephone se repose. C'est ton moment a toi.</p></div></div>
+      <div class="soir-step"><div class="soir-num" style="background:var(--vi-l);color:var(--vi-d)">2</div><div class="soir-info"><strong>Je prends mon livre</strong><p style="font-size:.78rem;color:var(--ts)">Celui qui t'attend sur ta table de nuit ou dans ton sac.</p></div></div>
+      <div class="soir-step"><div class="soir-num" style="background:var(--pk-l);color:var(--pk-d)">3</div><div class="soir-info"><strong>Je lis 10 a 20 minutes</strong><p style="font-size:.78rem;color:var(--ts)">Pas besoin de plus. Meme 5 pages, c'est deja bien.</p></div></div>
+      <div class="soir-step"><div class="soir-num" style="background:var(--go-l);color:#8B6914">4</div><div class="soir-info"><strong>Mon moment de priere ou gratitude</strong><p style="font-size:.78rem;color:var(--ts)">Un petit moment pour dire merci et retrouver la paix. <span style="color:var(--vi);cursor:pointer;font-weight:600" onclick="showCalm()">Ouvrir</span></p></div></div>
+      <div class="soir-step"><div class="soir-num" style="background:var(--bl-l);color:var(--bl-d)">5</div><div class="soir-info"><strong>Ma respiration calme</strong><p style="font-size:.78rem;color:var(--ts)">Quelques respirations pour relacher ta journee. <span style="color:var(--vi);cursor:pointer;font-weight:600" onclick="showCalm()">Ouvrir</span></p></div></div>
+      <div class="soir-step"><div class="soir-num" style="background:var(--pk-l);color:var(--pk-d)">6</div><div class="soir-info"><strong>Routine hygiene</strong><p style="font-size:.78rem;color:var(--ts)">Dents, visage, pyjama. Prepare-toi pour la nuit.</p></div></div>
+      <div class="soir-step"><div class="soir-num" style="background:var(--gn-l);color:var(--gn-d)">7</div><div class="soir-info"><strong>Je me couche a 21h30</strong><p style="font-size:.78rem;color:var(--ts)">Tu as bien merite ce repos. Bonne nuit.</p></div></div>
+    </div>
+
+    <!-- Timeline visuelle -->
+    <div class="c mb2" style="border-left:4px solid var(--vi)"><h3 class="mb2">🕐 Timeline du soir</h3>
+      <div class="fx ac g2 mb1"><span style="font-weight:700;font-size:.84rem;color:var(--or);min-width:50px">20h00</span><p style="font-size:.82rem">📱 Telephone pose</p></div>
+      <div class="fx ac g2 mb1"><span style="font-weight:700;font-size:.84rem;color:var(--vi);min-width:50px">20h00</span><p style="font-size:.82rem">📖 Lecture calme (10-20 min)</p></div>
+      <div class="fx ac g2 mb1"><span style="font-weight:700;font-size:.84rem;color:var(--pk);min-width:50px">20h20</span><p style="font-size:.82rem">🙏 Priere ou gratitude (5 min)</p></div>
+      <div class="fx ac g2 mb1"><span style="font-weight:700;font-size:.84rem;color:var(--bl);min-width:50px">20h25</span><p style="font-size:.82rem">🌬️ Respiration calme (5 min)</p></div>
+      <div class="fx ac g2 mb1"><span style="font-weight:700;font-size:.84rem;color:var(--or);min-width:50px">20h30</span><p style="font-size:.82rem">🪥 Routine hygiene</p></div>
+      <div class="fx ac g2 mb1"><span style="font-weight:700;font-size:.84rem;color:var(--tm);min-width:50px">21h00</span><p style="font-size:.82rem">🌙 Preparation au lit</p></div>
+      <div class="fx ac g2"><span style="font-weight:700;font-size:.84rem;color:var(--gn);min-width:50px">21h30</span><p style="font-size:.82rem">😴 Coucher — bonne nuit !</p></div>
+    </div>
+
+    <!-- Pourquoi lire le soir -->
+    <div class="c mb2"><h3 class="mb2">💡 Pourquoi lire le soir ?</h3>
+      <div class="rs"><div class="sn" style="background:var(--vi-l);color:var(--vi-d)">🧠</div><div class="st"><strong>Ton cerveau se calme</strong> — la lecture reduit le stress en 6 minutes. C'est prouve.</div></div>
+      <div class="rs"><div class="sn" style="background:var(--bl-l);color:var(--bl-d)">😴</div><div class="st"><strong>Tu dors mieux</strong> — un livre prepare ton sommeil, contrairement au telephone.</div></div>
+      <div class="rs"><div class="sn" style="background:var(--pk-l);color:var(--pk-d)">📱</div><div class="st"><strong>C'est mieux que le telephone</strong> — la lumiere bleue empeche de dormir, un livre non.</div></div>
+      <div class="rs"><div class="sn" style="background:var(--gn-l);color:var(--gn-d)">💪</div><div class="st"><strong>C'est une belle habitude</strong> — les personnes qui lisent le soir sont plus calmes et plus fortes.</div></div>
+    </div>
+
+    <div class="c cg-pk mb2"><p style="color:#2D2040;font-size:.82rem;font-weight:600;text-align:center">Lire le soir, c'est prendre soin de toi en silence. 💜</p></div>
+  </div>
+
+  <!-- SUB 5: DEFI LECTURE -->
+  <div id="l-defi" class="lsc">
+    <div class="fx ac g2 mb2"><button class="btn btn-o" style="padding:4px 10px;font-size:.76rem" onclick="swL('home')">←</button><h1>Mon defi lecture 🎯</h1></div>
+    <div class="ib mb2"><p>Chaque soir de lecture construit une habitude. Releve tes defis, gagne tes badges et deviens une vraie lectrice.</p></div>
+
+    <!-- Lecture du soir checker -->
+    <div class="c mb2"><div class="fx ac jb"><div><h3>📖 Lecture du soir</h3><small>As-tu lu ce soir ?</small></div>
+      <button class="btn btn-vi" id="lSoirBtn" onclick="valLectureSoir()">Oui, j'ai lu !</button>
+    </div><div class="fx ac g2 mt2"><span style="font-size:.68rem;font-weight:600;color:var(--tm)">SERIE ACTUELLE</span><span id="lSoirStreak" style="font-size:1.1rem;font-weight:800;color:var(--or)">0</span><span style="font-size:.76rem;color:var(--ts)">soirs</span></div></div>
+
+    <!-- Defis lecture -->
+    <div id="lDefiCards"></div>
+
+    <!-- Badges lecture -->
+    <div class="c mb2"><h3 class="mb2">🏅 Badges lecture</h3><div class="bgi" id="lBadges"></div></div>
+  </div>
+
+  <!-- SUB 6: POURQUOI LIRE -->
+  <div id="l-why" class="lsc">
+    <div class="fx ac g2 mb2"><button class="btn btn-o" style="padding:4px 10px;font-size:.76rem" onclick="swL('home')">←</button><h1>Pourquoi lire m'aide 💡</h1></div>
+    <p class="hlp">Decouvre pourquoi la lecture te rend plus forte, plus calme et plus confiante.</p>
+
+    <div class="c cg-vi mb2 tc"><p style="color:#2D2040;font-size:.9rem;font-weight:700">Une championne fait aussi grandir sa tete.</p></div>
+
+    <div class="c mb2">
+      <div class="why-card mb2"><span class="why-icon" style="background:var(--vi-l)">🧠</span><div><strong>Lire aide ton cerveau a se calmer</strong><p style="font-size:.8rem;color:var(--ts);margin-top:3px">Apres seulement 6 minutes de lecture, ton stress diminue. C'est le meilleur anti-stress naturel.</p></div></div>
+      <div class="why-card mb2"><span class="why-icon" style="background:var(--bl-l)">😴</span><div><strong>Lire peut t'aider a mieux dormir</strong><p style="font-size:.8rem;color:var(--ts);margin-top:3px">Contrairement au telephone, un livre prepare ton cerveau au sommeil. Tu t'endors plus vite et mieux.</p></div></div>
+      <div class="why-card mb2"><span class="why-icon" style="background:var(--pk-l)">🗣️</span><div><strong>Lire t'aide a mieux parler et comprendre</strong><p style="font-size:.8rem;color:var(--ts);margin-top:3px">Tu enrichis ton vocabulaire, tu comprends mieux les choses, tu t'exprimes plus facilement.</p></div></div>
+      <div class="why-card mb2"><span class="why-icon" style="background:var(--or-l)">💡</span><div><strong>Lire te donne des idees et du courage</strong><p style="font-size:.8rem;color:var(--ts);margin-top:3px">Les histoires t'inspirent, te montrent que tout est possible et te donnent de la force.</p></div></div>
+      <div class="why-card mb2"><span class="why-icon" style="background:var(--gn-l)">💪</span><div><strong>Lire, c'est aussi entrainer ton esprit</strong><p style="font-size:.8rem;color:var(--ts);margin-top:3px">Comme le basket entraine ton corps, la lecture entraine ta concentration et ta reflexion.</p></div></div>
+      <div class="why-card"><span class="why-icon" style="background:var(--go-l)">✨</span><div><strong>Lire rend plus forte de l'interieur</strong><p style="font-size:.8rem;color:var(--ts);margin-top:3px">Confiance, calme, intelligence, imagination. Chaque page lue te fait grandir un peu.</p></div></div>
+    </div>
+
+    <div class="c cg-dk mb2 tc"><p style="color:rgba(255,255,255,.9);font-size:.84rem;font-weight:600">La lecture est une victoire douce. Chaque soir de lecture compte. Un esprit fort se construit aussi page apres page. 💜</p></div>
+  </div>
+</div>
+
+<!-- PROFIL -->
+<div id="s-profil" class="sc">
+  <div class="c tc mb2" style="padding:20px 14px"><div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--pk),var(--vi));margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:2.2rem">🏀</div><h1>Cassy Viator</h1><p id="pAge" style="font-size:.86rem;margin-top:3px"></p><div class="fx jc g2 mt1"><span class="bg bg-pk">🏀 Basket</span><span class="bg bg-vi">📚 College</span><span class="bg bg-bl">💪 Discipline</span></div><p class="hlp" style="margin-top:6px">Ici, tu regardes tes progres, tes routines et tes bonnes habitudes.</p></div>
+
+  <div class="c mb2"><div class="fx ac jb mb1"><h3>📈 Progression</h3><span id="pLvl" class="bg bg-vi"></span></div><div class="lb"><div class="ls" id="pLB"></div></div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px"><div style="padding:10px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:var(--or)" id="pStr">0</div><small>🔥 Serie</small></div><div style="padding:10px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:var(--vi)" id="pWS">0</div><small>📊 Semaine</small></div><div style="padding:10px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:var(--gn)" id="pBS">0</div><small>🏆 Record</small></div><div style="padding:10px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:var(--bl)" id="pDy">0</div><small>📅 Jours</small></div></div></div>
+
+  <div class="c mb2"><h3 class="mb2">🏅 Badges</h3><p class="hlp" style="margin-top:-4px;margin-bottom:6px">Les badges gris se debloqueront avec tes bonnes habitudes. Les badges colores, tu les as gagnes !</p><div class="bgi" id="pBg"></div></div>
+
+  <!-- Routines -->
+  <div class="c mb2"><h3 class="mb2">📋 Routines</h3><p class="hlp" style="margin-top:-4px;margin-bottom:6px">Tes programmes etape par etape. Clique pour ouvrir et suivre chaque routine.</p><div id="rtL"></div></div>
+
+  <!-- Checklists -->
+  <div class="c mb2"><h3 class="mb2">🎒 Checklists</h3><p class="hlp" style="margin-top:-4px;margin-bottom:6px">Verifie ton sac avant de partir. Coche chaque element quand c'est pret.</p>
+    <div class="exh" onclick="tEx('ck-ecole')"><div class="fx ac g2"><span>📚</span><h3 style="font-size:.9rem">Sac d'ecole</h3></div><span class="exa" id="a-ck-ecole">▼</span></div>
+    <div class="exc" id="ck-ecole"><div id="ckEcole"></div></div>
+    <div class="exh" onclick="tEx('ck-basket')"><div class="fx ac g2"><span>🏀</span><h3 style="font-size:.9rem">Sac de basket</h3></div><span class="exa" id="a-ck-basket">▼</span></div>
+    <div class="exc" id="ck-basket"><div id="ckBasket"></div></div>
+  </div>
+
+  <!-- Telephone explainer -->
+  <div class="c cg-dk mb2"><div class="fx ac g2 mb1"><span style="font-size:1.1rem">📱</span><h3 style="color:#fff">Telephone & Sommeil</h3></div><p style="color:rgba(255,255,255,.85);font-size:.8rem;margin-bottom:8px">Ton telephone emet une lumiere bleue qui trompe ton cerveau. Il croit que c'est le jour et ne fabrique plus la melatonine, l'hormone du sommeil.</p><div style="background:rgba(255,255,255,.1);border-radius:8px;padding:10px;margin-bottom:8px"><p style="color:#fff;font-weight:700;font-size:.86rem;margin-bottom:4px">🌙 La regle :</p><p style="color:rgba(255,255,255,.85);font-size:.8rem">📱 Telephone pose a <strong>20h00</strong><br>😴 Coucher a <strong>21h30</strong><br>Soit 1h30 sans ecran pour bien preparer ton sommeil.</p></div><p style="color:var(--pk-l);font-size:.8rem;font-weight:600">Bien dormir = mieux recuperer + mieux grandir + mieux jouer + mieux reflechir. C'est un investissement.</p></div>
+
+  <!-- Guide -->
+  <div class="c mb2">
+    <div class="exh" onclick="tEx('guide')"><div class="fx ac g2"><span style="font-size:1.1rem">📖</span><div><h3>Comment utiliser mon app ?</h3><small>Mon mode d'emploi</small></div></div><span class="exa" id="a-guide">▼</span></div>
+    <div class="exc" id="guide">
+      <div class="ib mb2"><p>Ce petit guide t'explique comment utiliser ton application au quotidien. Si tu ne sais pas quoi faire, reviens ici !</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--vi)">☀️ Le matin</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Ouvre l'app et regarde ton programme du jour sur l'ecran Accueil. Coche ton petit-dejeuner et bois ton premier verre d'eau.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--or)">🕐 Dans la journee</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Va dans Energie pour cocher tes repas. Va dans Eau pour cliquer sur tes verres. Coche tes objectifs sur l'Accueil.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--pk)">🌙 Le soir</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">A 20h00, pose ton telephone. Lis 10-20 minutes. Fais ta routine hygiene. Au lit a 21h30. Coche tes objectifs du soir.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--gn)">⭐ Comment je gagne des points</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Chaque objectif coche, chaque repas suivi et chaque verre d'eau te donne des points. Ton score va de 0 a 100. Plus tu coches, plus ton score monte.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--go)">🏅 Comment je gagne des badges</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Les badges se debloquent quand tu gardes de bonnes habitudes plusieurs jours d'affilee. Ce sont des recompenses pour ta regularite. Les badges gris sont ceux que tu n'as pas encore gagnes.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--bl)">🏆 Les defis</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Va dans l'onglet Defis, choisis un challenge, et valide chaque jour. Quand tu termines un defi, tu gagnes un badge special.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--vi)">💧 L'eau</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Ton corps a besoin d'eau pour bien fonctionner. 6 verres par jour, 8 les jours de basket. Clique simplement sur chaque verre quand tu bois.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--or)">📱 Pourquoi poser le telephone a 20h00</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">La lumiere bleue du telephone empeche ton cerveau de fabriquer la melatonine (l'hormone du sommeil). En le posant a 20h00, tu dors mieux, tu recuperes mieux et tu grandis mieux.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--pk)">📖 La lecture du soir</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Lire calme ton cerveau en 6 minutes. C'est le meilleur remplacement du telephone le soir. Va dans Lecture pour suivre tes lectures et valider tes soirs de lecture.</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--gn)">🔥 La serie (streak)</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Ta serie compte les jours ou tu as eu un score de 60% ou plus. Plus ta serie est longue, plus tu es reguliere. C'est ton super-pouvoir !</p></div>
+
+      <div style="margin-bottom:12px"><strong style="font-size:.88rem;color:var(--vi)">📚 Mes livres a la maison</strong><p style="font-size:.82rem;color:var(--ts);margin-top:3px">Dans Lecture puis Maison, tu peux ajouter les livres que tu as chez toi. Tu peux les suivre : a lire, commence, termine. Quand tu finis un livre, il va dans Livres lus.</p></div>
+
+      <div class="c cg-vi mt2"><p style="color:#2D2040;font-size:.82rem;font-weight:600;text-align:center">L'important, ce n'est pas d'etre parfaite. C'est d'avancer chaque jour. 💜</p></div>
+    </div>
+  </div>
+
+  <!-- Revoir l'onboarding -->
+  <div class="c mb2" onclick="showOnb()" style="cursor:pointer"><div class="fx ac g2"><span style="font-size:1.1rem">💜</span><div><h3>Revoir l'introduction</h3><small>L'ecran de bienvenue</small></div></div></div>
+
+  <!-- Parents -->
+  <div class="c mb2" onclick="sPM()"><div class="fx ac jb"><div class="fx ac g2"><span style="font-size:1.1rem">🔒</span><div><h3>Espace Parents</h3><small>Suivi et parametres</small></div></div><span style="color:var(--tm)">›</span></div></div>
+
+  <div class="tc mt3 mb3"><p style="font-size:.86rem;font-style:italic;color:var(--pk);font-weight:600">Ton coach Patrick (Papa) 💜</p><small>Avril — Septembre 2026</small></div>
+</div>
+</div><!-- /app -->
+<!-- PARENTS MODAL -->
+<div class="mo" id="pMo"><div class="mc"><div class="mh"></div>
+<div id="pPn"><div class="tc mb3"><span style="font-size:2.2rem">🔒</span><h2 class="mt2">Espace Parents</h2><p class="mt1">Code a 4 chiffres</p></div><div class="pi" id="piD"><div class="pd" id="p-0"></div><div class="pd" id="p-1"></div><div class="pd" id="p-2"></div><div class="pd" id="p-3"></div></div><div class="pn"><button class="pk" onclick="ePin(1)">1</button><button class="pk" onclick="ePin(2)">2</button><button class="pk" onclick="ePin(3)">3</button><button class="pk" onclick="ePin(4)">4</button><button class="pk" onclick="ePin(5)">5</button><button class="pk" onclick="ePin(6)">6</button><button class="pk" onclick="ePin(7)">7</button><button class="pk" onclick="ePin(8)">8</button><button class="pk" onclick="ePin(9)">9</button><button class="pk" onclick="cPM()">✕</button><button class="pk" onclick="ePin(0)">0</button><button class="pk" onclick="dPin()">←</button></div><p id="piE" style="color:var(--or);text-align:center;margin-top:10px;font-size:.8rem;display:none">Code incorrect.</p></div>
+<div id="pDs" style="display:none"><div class="fx ac jb mb2"><h2>📊 Suivi</h2><button class="btn btn-o" onclick="cPM()" style="padding:5px 10px;font-size:.76rem">Fermer</button></div>
+<div class="c mb2"><h3 class="mb1">Resume</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="padding:8px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:var(--vi)" id="prSc">--</div><small>Score</small></div><div style="padding:8px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:var(--or)" id="prSt">--</div><small>Serie</small></div><div style="padding:8px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:var(--bl)" id="prW">--</div><small>Eau</small></div><div style="padding:8px;background:var(--bga);border-radius:8px;text-align:center"><div style="font-size:1.1rem;font-weight:800;color:var(--gn)" id="prLv">--</div><small>Niveau</small></div></div></div>
+<div class="c mb2"><h3 class="mb1">Badges</h3><div id="prBd"></div></div>
+<div class="c mb2"><h3 class="mb1">Challenges</h3><div id="prCh"></div></div>
+<div class="c mb2"><h3 class="mb1">Historique (7j)</h3><div id="prHi"></div></div>
+<div class="c mb2"><h3 class="mb1">Notes bien-etre</h3><div id="prNotes"></div></div>
+<div class="ib"><p><strong>Note :</strong> Application de discipline positive. Aucune donnee medicale. Les scores mesurent la regularite. L'objectif est la progression, pas la perfection.</p></div>
+</div></div></div>
+
+<!-- CALENDAR MODAL -->
+<div class="mo" id="calMo"><div class="mc"><div class="mh"></div>
+<div class="fx ac jb mb2"><h2>📅 Calendrier</h2><button class="btn btn-o" onclick="closeCal()" style="padding:5px 10px;font-size:.76rem">Fermer</button></div>
+<div class="fx ac jc g3 mb2"><button class="btn btn-o" style="padding:4px 12px;font-size:.82rem" onclick="calNav(-1)">←</button><h3 id="calTitle"></h3><button class="btn btn-o" style="padding:4px 12px;font-size:.82rem" onclick="calNav(1)">→</button></div>
+<div class="cal-grid" id="calGrid"></div>
+<div class="mt2" style="display:flex;flex-wrap:wrap;gap:6px"><span class="dt t-ec">Ecole</span><span class="dt t-bk">Basket</span><span class="dt t-we">Week-end</span><span class="dt t-va">Vacances</span></div>
+</div></div>
+
+<!-- BIRTHDAY -->
+<div class="mo" id="bMo"><div class="mc tc" style="padding:36px 20px"><div style="font-size:3.5rem;margin-bottom:14px">🎂🎉</div><h1 style="color:var(--pk);font-size:1.6rem">Joyeux anniversaire Cassy !</h1><p style="font-size:1rem;font-weight:600;margin:14px 0;color:var(--tx)">13 ans !</p><p style="font-size:.88rem;line-height:1.6;margin-bottom:16px">Tu grandis, tu progresses, tu deviens plus forte chaque jour. Ton coach Patrick (Papa) est tellement fier de toi. 💜</p><button class="btn btn-pk" onclick="document.getElementById('bMo').classList.remove('sh')">Merci Papa 💜</button></div></div>
+
+<!-- MON MOMENT CALME -->
+<div class="mo" id="calmMo"><div class="mc">
+<div class="mh"></div>
+<div class="fx ac jb mb2"><h2>🕊️ Mon moment calme</h2><button class="btn btn-o" onclick="closeCalm()" style="padding:5px 10px;font-size:.76rem">Fermer</button></div>
+<p class="hlp mb2">Un espace doux pour respirer, prier et retrouver la paix.</p>
+
+<div class="c cg-vi mb2 tc"><p style="color:#2D2040;font-size:.88rem;font-weight:600;line-height:1.6" id="calmMsgTxt"></p></div>
+
+<h3 class="mb1">🙏 Mes prieres</h3>
+<p class="hlp mb2">Des petites prieres simples pour chaque moment de ta journee.</p>
+<div id="calmPrayers"></div>
+
+<h3 class="mb1 mt3">🌬️ Ma respiration</h3>
+<p class="hlp mb2">Respire doucement pour te calmer et te recentrer.</p>
+<div id="calmMedits"></div>
+
+<div id="brActive" style="display:none" class="c cg-dk mb2 tc">
+  <p style="color:rgba(255,255,255,.8);font-size:.82rem;margin-bottom:6px" id="brIntro"></p>
+  <div class="br-circle" id="brCircle"><span id="brCount"></span></div>
+  <p style="color:#fff;font-size:1.05rem;font-weight:700;margin:8px 0" id="brText"></p>
+  <small style="color:var(--pk-l)" id="brCycleCount"></small>
+  <div class="mt2"><button class="btn btn-o" style="color:#fff;border-color:rgba(255,255,255,.3)" onclick="stopBreath()">Arreter</button></div>
+</div>
+
+<h3 class="mb1 mt3">💜 Ma gratitude</h3>
+<p class="hlp mb2">Prends un moment pour dire merci dans ton coeur.</p>
+<div class="c cg-pk mb2 tc"><p style="color:#2D2040;font-size:.88rem;line-height:1.7" id="calmGrat"></p></div>
+
+<div class="tc mt2 mb2"><p style="font-size:.82rem;color:var(--vi);font-weight:600;font-style:italic">La paix dans ton coeur est une vraie force. 💜</p></div>
+</div></div>
+
+<!-- ONBOARDING -->
+<div class="mo" id="onbMo" style="align-items:center;justify-content:center">
+<div style="background:var(--bgc);border-radius:20px;padding:28px 20px;width:90%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:su .5s ease">
+  <div class="onb-s act" id="onb-0">
+    <div style="font-size:3.2rem;margin-bottom:14px">💜</div>
+    <h1 style="font-size:1.5rem;color:var(--vi)">Bienvenue Cassy</h1>
+    <p style="margin-top:12px;font-size:.9rem;line-height:1.7;color:var(--ts)">Cette application est ton coach du quotidien. Elle est faite pour toi, avec amour, par Papa.</p>
+  </div>
+  <div class="onb-s" id="onb-1">
+    <div style="font-size:3.2rem;margin-bottom:14px">✨</div>
+    <h2 style="color:var(--vi)">Elle va t'aider a</h2>
+    <div style="text-align:left;margin:14px auto;max-width:250px">
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">🍽️ Bien manger au bon moment</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">💧 Bien boire toute la journee</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">💪 Mieux recuperer apres le basket</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">😴 Mieux dormir chaque nuit</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">📖 Lire et faire grandir ton esprit</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">💜 Prendre soin de toi</p>
+    </div>
+  </div>
+  <div class="onb-s" id="onb-2">
+    <div style="font-size:3.2rem;margin-bottom:14px">📋</div>
+    <h2 style="color:var(--vi)">Chaque jour, tu peux</h2>
+    <div style="text-align:left;margin:14px auto;max-width:270px">
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">✅ Cocher tes repas et objectifs</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">💧 Compter tes verres d'eau</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">🏆 Relever des defis</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">🏅 Gagner des badges</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">📖 Suivre tes lectures</p>
+      <p style="font-size:.9rem;margin:8px 0;color:var(--ts)">📊 Voir ton score et ta progression</p>
+    </div>
+  </div>
+  <div class="onb-s" id="onb-3">
+    <div style="font-size:3.2rem;margin-bottom:14px">🌟</div>
+    <h2 style="color:var(--pk)">Pas besoin d'etre parfaite</h2>
+    <p style="margin-top:12px;font-size:.9rem;line-height:1.7;color:var(--ts)">Le but est d'avancer chaque jour, un petit pas a la fois. Chaque geste compte. Chaque effort te rend plus forte.</p>
+    <p style="margin-top:10px;font-size:.86rem;line-height:1.6;color:var(--vi);font-weight:600">Ce n'est pas une punition. C'est un outil pour t'aider a devenir la meilleure version de toi.</p>
+  </div>
+  <div class="onb-s" id="onb-4">
+    <div style="font-size:3.2rem;margin-bottom:14px">🚀</div>
+    <h2 style="color:var(--vi)">Tu es prete ?</h2>
+    <p style="margin-top:12px;font-size:.9rem;line-height:1.7;color:var(--ts)">Ton aventure commence maintenant. Ouvre l'application chaque matin, suis ta journee, et regarde-toi progresser.</p>
+    <button class="btn btn-pk mt3" style="width:100%;font-size:1rem;padding:14px" onclick="closeOnb()">C'est parti ! 💜</button>
+  </div>
+  <div class="fx jc ac mt2" id="onbDotsC"><div class="fx g1" id="onbDots"></div></div>
+  <div class="fx jb mt2" id="onbBtns">
+    <button class="btn btn-o" id="onbPrevB" onclick="onbGo(-1)" style="font-size:.82rem;padding:8px 16px;visibility:hidden">Precedent</button>
+    <button class="btn btn-vi" id="onbNextB" onclick="onbGo(1)" style="font-size:.82rem;padding:8px 16px">Suivant</button>
+  </div>
+</div>
+</div>
+
+<!-- NAV -->
+<div class="bnav">
+  <div class="ni act" onclick="sw('home')" id="n-home"><span class="ni-i">🏠</span><span class="ni-l">Accueil</span></div>
+  <div class="ni" onclick="sw('energy')" id="n-energy"><span class="ni-i">⚡</span><span class="ni-l">Energie</span></div>
+  <div class="ni" onclick="sw('water')" id="n-water"><span class="ni-i">💧</span><span class="ni-l">Eau</span></div>
+  <div class="ni" onclick="sw('challenges')" id="n-challenges"><span class="ni-i">🏆</span><span class="ni-l">Defis</span></div>
+  <div class="ni" onclick="sw('lecture')" id="n-lecture"><span class="ni-i">📖</span><span class="ni-l">Lecture</span></div>
+  <div class="ni" onclick="sw('profil')" id="n-profil"><span class="ni-i">👤</span><span class="ni-l">Profil</span></div>
+</div>
+<script>
+// === DATES ===
+const T=new Date(),TK=dk(T),AS=new Date(2026,3,6),WAR=new Date(2026,3,6);
+const HOL=[{n:'Printemps',s:new Date(2026,3,18),e:new Date(2026,4,4)},{n:'Ete',s:new Date(2026,5,26),e:new Date(2026,8,1)}];
+function dk(d){d=d||T;return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function isH(d){return HOL.some(h=>d>=h.s&&d<=h.e)}
+function isWE(d){return d.getDay()===0||d.getDay()===6}
+function gWT(d){return Math.floor((d-WAR)/864e5/7)%2===0?'A':'B'}
+function gDT(d){if(isH(d))return'vacances';if(isWE(d))return'weekend';const w=d.getDay();if(w===3)return'mercredi_basket';if(w===1||w===4)return'basket_club';if(w===5)return'basket_ecole';return'ecole'}
+function isBD(t){return['mercredi_basket','basket_club','basket_ecole'].includes(t)}
+function fDF(d){const j=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],m=['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];return j[d.getDay()]+' '+d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear()}
+function dsS(s,e){return Math.max(0,Math.floor((e-s)/864e5))}
+function sv(k,d){try{localStorage.setItem('c3_'+k,JSON.stringify(d))}catch(e){}}
+function ld(k,d){try{const v=localStorage.getItem('c3_'+k);return v?JSON.parse(v):d}catch(e){return d}}
+function rnd(a){return a[Math.floor(Math.random()*a.length)]}
+
+// === STATE ===
+const S={
+  today:TK,dt:gDT(T),wt:gWT(T),
+  ck:ld('d_'+TK,{}),gl:ld('g_'+TK,0),
+  ch:ld('ch',{}),bd:ld('bd',{}),str:ld('str',0),bs:ld('bs',0),hi:ld('hi',{}),dm:ld('dm',false),
+  readToday:ld('r_'+TK,0),readWeek:ld('rw',0),booksRead:ld('br',[]),
+  bookStates:ld('bst',{}),bookNotes:ld('bn',{}),readSoirDays:ld('rsd',[]),lch:ld('lch',{}),lbd:ld('lbd',{}),
+  myBooks:ld('myb',[]),onb:ld('onb',false)
+};
+if(S.dm)document.documentElement.classList.add('dark');
+function sS(){sv('d_'+S.today,S.ck);sv('g_'+S.today,S.gl);sv('ch',S.ch);sv('bd',S.bd);sv('str',S.str);sv('bs',S.bs);sv('hi',S.hi);sv('dm',S.dm);sv('r_'+S.today,S.readToday);sv('rw',S.readWeek);sv('br',S.booksRead);sv('bst',S.bookStates);sv('bn',S.bookNotes);sv('rsd',S.readSoirDays);sv('lch',S.lch);sv('lbd',S.lbd);sv('myb',S.myBooks);sv('onb',S.onb)}
+
+// === MESSAGES (120+) ===
+const M={
+g:["Chaque bon choix construit la sportive que tu deviens.","Les habitudes d'aujourd'hui font la championne de demain.","Prendre soin de toi, c'est une vraie force.","Tu es plus forte que tu ne le crois.","Chaque jour est une nouvelle chance de progresser.","La regularite, c'est le secret des grandes joueuses.","Ton corps te dit merci quand tu en prends soin.","Avance pas a pas. Chaque petit geste compte.","La meilleure version de toi se construit aujourd'hui.","Etre disciplinee, c'est se respecter soi-meme.","Tu n'as pas besoin d'etre parfaite pour etre incroyable.","Les petites victoires du quotidien font les grandes reussites.","Fais de ton mieux, c'est toujours suffisant.","Chaque effort te rapproche de tes reves.","La confiance se construit action apres action.","Tu as tout ce qu'il faut pour reussir.","Aujourd'hui est un bon jour pour avancer.","Le progres, meme petit, reste du progres.","Ta determination est ta plus grande qualite.","Continue comme ca, tu es sur le bon chemin."],
+b:["Jour de basket ! Prepare-toi bien, ton corps a besoin d'energie.","Aujourd'hui tu vas courir, sauter, progresser. C'est parti !","Les meilleures joueuses se preparent avant le terrain.","Chaque entrainement te rend plus forte.","Le basket, c'est du plaisir ET de la discipline. Tu as les deux.","Hydrate-toi bien, mange bien, le basket sera encore meilleur.","Les championnes ne sont pas nees championnes. Elles se sont entrainees.","Tes jambes seront plus fortes si tu as bien mange et bien dormi.","Chaque dribble, chaque passe te fait progresser.","Apres l'effort, pense recuperation. C'est ca etre sportive.","Ton alimentation fait la difference sur le terrain.","Donne tout a l'entrainement. Tu en es capable.","Prepare ta collation, prepare ta gourde. Sois prete.","Le terrain t'attend. Montre ce que tu sais faire.","Jour de basket = jour de carburant premium pour ton corps."],
+e:["Bien manger, c'est aussi bien reflechir en classe.","Ton cerveau a besoin d'energie pour apprendre.","Une bonne nuit = une journee d'ecole plus facile.","L'eau aide ton cerveau a rester concentre.","Petit-dejeuner complet = concentration maximale en cours.","L'ecole et le sport se completent.","Sois fiere de chaque effort en classe.","La concentration se prepare des le matin.","Chaque bonne habitude t'aide aussi a l'ecole.","Tu deviens plus intelligente et plus forte chaque jour."],
+f:["Fatiguee ? Prends soin de toi, ton corps te le rendra.","Les jours de fatigue, l'essentiel c'est manger et dormir.","Meme les championnes ont des jours de fatigue. Recupere.","Sois douce avec toi-meme. Demain sera meilleur.","Un jour calme n'est pas un jour perdu.","La recuperation fait partie de la performance.","Reposer ton corps, c'est le rendre plus fort pour demain.","Pas besoin d'etre parfaite. Fais ce que tu peux.","Ecoute ton corps. Il sait ce dont il a besoin.","Les jours de repos construisent aussi la championne."],
+w:["Le week-end, c'est aussi un moment pour recharger.","Week-end ne veut pas dire abandonner ses habitudes !","Reveille-toi, bois de l'eau, mange bien. Meme le week-end.","Profite de la lumiere du jour. Sors, bouge, respire.","Bien dormir le week-end = bien commencer la semaine.","Prends le temps d'un bon petit-dejeuner ce matin.","Detends-toi mais garde tes reflexes.","Le week-end est parfait pour preparer la semaine."],
+v:["Vacances : le moment parfait pour renforcer tes habitudes.","Vacances ne veut pas dire tout lacher. Garde le rythme.","Les grandes sportives gardent leurs habitudes en vacances.","Plus de temps pour prendre soin de toi. Utilise-le !","Reveille-toi a une heure raisonnable, meme en vacances.","Chaque jour de vacances, deviens un peu plus forte.","Vacances = repos intelligent, pas abandon."],
+s:["Tu as tout coche ! Tu es incroyable. 🌟","100% ! Vraie machine de discipline !","Journee parfaite ! Continue, impressionnante.","Bravo ! Tu te rapproches de tes objectifs.","Quel score ! Sois fiere de toi.","Journee complete ! Ton corps te remercie.","La discipline, ca paye. La preuve.","Tu as donne le meilleur. Chapeau !","Excellente journee ! La regularite, c'est ton super-pouvoir."],
+en:["Tu n'as pas besoin d'etre parfaite, juste d'avancer.","Meme les championnes ont des jours difficiles.","Demain est une nouvelle chance.","Chaque petit pas compte.","L'important c'est de ne jamais abandonner.","Sois fiere de ce que tu as fait, meme si c'est pas tout.","Le progres n'est pas toujours lineaire. C'est normal.","Chaque effort a de la valeur.","Ce n'est pas grave de ne pas tout reussir. C'est grave de ne plus essayer.","Tu as commence, c'est deja enorme."]
+};
+function gCM(){const sc=cSc();if(sc>=90)return rnd(M.s);if(S.dt==='vacances')return rnd(M.v);if(S.dt==='weekend')return rnd(M.w);if(isBD(S.dt))return rnd(M.b);return rnd(M.g)}
+
+// === MEALS by DAY TYPE ===
+const MEALS={
+ecole:[
+  {t:'6h45',n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet AVANT ecrans',opt:['Porridge fruits + miel','Tartines beurre cacahuete + banane','Oeufs brouilles + pain complet','Cereales + lait + fruit'],pts:8},
+  {t:'10h00',n:'Collation matin',e:'🍎',d:'Si tu as un petit creux',opt:['1 fruit','Compote','Barre cereales','Quelques amandes'],pts:3},
+  {t:'12h00',n:'Dejeuner',e:'🍽️',d:'Repas equilibre a la cantine',opt:['Feculents + proteines + legumes','Bien manger pour l\'apres-midi'],pts:6},
+  {t:'16h30',n:'Gouter',e:'🍪',d:'Recharger pour la fin de journee',opt:['Pain + chocolat','Fruit + biscuit','Yaourt + cereales'],pts:4},
+  {t:'19h30',n:'Diner',e:'🌙',d:'Leger mais complet',opt:['Soupe + pain + fromage','Pates + legumes','Riz + poisson + salade'],pts:6}
+],
+basket_club:[
+  {t:'6h45',n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet — jour de basket !',opt:['Porridge fruits (energie longue duree)','Tartines + oeuf + fruit','Pancakes + miel + banane'],pts:8},
+  {t:'10h00',n:'Collation matin',e:'🍎',d:'Fruit ou compote',opt:['1 banane','Compote','Quelques fruits secs'],pts:3},
+  {t:'12h00',n:'Dejeuner',e:'🍽️',d:'Bien manger ! Basket ce soir',opt:['Feculents + proteines + legumes','Mange bien, tu vas en avoir besoin'],pts:6},
+  {t:'16h00',n:'🏀 Collation AVANT basket',e:'🍌',d:'1h30 avant l\'entrainement — ESSENTIEL',opt:['1 banane (l\'alliee des sportives !)','Pain + confiture','Compote + quelques amandes','Barre cereales maison'],pts:8},
+  {t:'18h00–19h30',n:'🏀 BASKET CLUB',e:'🏀',d:'Entrainement a Cugnaux',opt:['Donne tout !','Bois pendant les pauses'],pts:0},
+  {t:'19h30',n:'Recuperation + diner',e:'💪',d:'Dans les 30 min apres l\'effort',opt:['Lait chocolate (le secret des pros !)','Puis diner : pates/riz + proteines + legumes','Tartine PB + banane si pas tres faim'],pts:8}
+],
+mercredi_basket:[
+  {t:'7h30',n:'Petit-dejeuner',e:'☀️',d:'Mercredi = bien manger le matin',opt:['Porridge complet','Tartines + oeuf','Smoothie bowl + cereales'],pts:8},
+  {t:'10h00',n:'Collation',e:'🍎',d:'Fruit ou compote',opt:['Banane','Compote','Fruits secs'],pts:3},
+  {t:'12h00',n:'Dejeuner',e:'🍽️',d:'Bien manger ! Basket cet apres-midi',opt:['Repas complet et equilibre','Feculents pour l\'energie du basket'],pts:6},
+  {t:'13h30',n:'🏀 Collation AVANT basket',e:'🍌',d:'Legere, 30 min avant',opt:['Banane','Compote','Pain + miel'],pts:6},
+  {t:'14h00–15h30',n:'🏀 BASKET ECOLE',e:'🏀',d:'1h30 de basket a l\'ecole',opt:['Bois pendant les pauses'],pts:0},
+  {t:'15h30',n:'Recuperation',e:'💪',d:'Apres l\'effort',opt:['Lait chocolate','Fruit + biscuit','Yaourt + granola'],pts:6},
+  {t:'19h30',n:'Diner',e:'🌙',d:'Repas du soir equilibre',opt:['Soupe + pain','Pates + legumes','Riz + poisson'],pts:6}
+],
+basket_ecole:[
+  {t:'6h45',n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet',opt:['Porridge','Tartines','Cereales + fruit'],pts:8},
+  {t:'10h00',n:'Collation',e:'🍎',d:'Fruit',opt:['Banane','Pomme','Compote'],pts:3},
+  {t:'12h00',n:'Dejeuner',e:'🍽️',d:'Bien manger, basket dans la journee',opt:['Repas equilibre'],pts:6},
+  {t:'16h30',n:'Gouter / Recuperation',e:'💪',d:'Apres le basket',opt:['Lait chocolate','Fruit + biscuit','Pain + chocolat'],pts:5},
+  {t:'19h30',n:'Diner',e:'🌙',d:'Leger mais complet',opt:['Soupe + pain','Gratin legumes','Salade complete'],pts:6}
+],
+weekend:[
+  {t:'8h30',n:'Petit-dejeuner',e:'☀️',d:'Prends le temps ! Mais AVANT ecrans',opt:['Pancakes + fruits + miel','Porridge gourmand','Oeufs + tartines + jus frais','Smoothie bowl'],pts:8},
+  {t:'12h30',n:'Dejeuner',e:'🍽️',d:'Repas en famille',opt:['Repas equilibre','Profite du moment'],pts:6},
+  {t:'16h00',n:'Gouter',e:'🍪',d:'Petit plaisir',opt:['Gateau maison','Fruit + yaourt','Tartine'],pts:4},
+  {t:'19h30',n:'Diner',e:'🌙',d:'Repas du soir',opt:['Diner en famille','Leger et equilibre'],pts:6}
+],
+vacances:[
+  {t:'9h00',n:'Petit-dejeuner',e:'☀️',d:'Pas trop tard ! Et AVANT ecrans',opt:['Porridge','Pancakes','Tartines variees','Smoothie'],pts:8},
+  {t:'12h30',n:'Dejeuner',e:'🍽️',d:'Equilibre meme en vacances',opt:['Salade complete','Sandwich maison','Repas en famille'],pts:6},
+  {t:'16h00',n:'Gouter',e:'🍪',d:'Collation',opt:['Fruit','Yaourt','Biscuits maison'],pts:4},
+  {t:'19h30',n:'Diner',e:'🌙',d:'Repas du soir',opt:['Leger et equilibre'],pts:6}
+]};
+
+function getMeals(){return MEALS[S.dt]||MEALS['ecole']}
+
+// === OBJECTIVES ===
+function gObjs(){
+  const dt=S.dt,b=[
+    {id:'o_pd',e:'🥣',l:'Petit-dejeuner complet avant ecrans',p:10},
+    {id:'o_ea',e:'💧',l:isBD(dt)?'Boire 8 verres d\'eau':'Boire 6 verres d\'eau',p:10},
+    {id:'o_ph',e:'📱',l:'Telephone pose a 20h00',p:15},
+    {id:'o_co',e:'🌙',l:'Au lit a 21h30',p:15},
+    {id:'o_lm',e:'🌤️',l:'Lumiere du jour le matin',p:5},
+    {id:'o_lec',e:'📖',l:'Lecture du soir (10-20 min)',p:10}
+  ];
+  if(isBD(dt)){
+    b.splice(4,0,{id:'o_cl',e:'🍌',l:'Collation avant le basket',p:10});
+    b.splice(5,0,{id:'o_rc',e:'💪',l:'Recuperation apres basket',p:10});
+  }
+  return b;
+}
+
+// === SCORING ===
+function cSc(){
+  let t=0,mx=0;
+  gObjs().forEach(o=>{mx+=o.p;if(S.ck[o.id])t+=o.p});
+  const wg=isBD(S.dt)?8:6,wp=Math.min(20,Math.round((S.gl/wg)*20));t+=wp;mx+=20;
+  const meals=getMeals();meals.forEach(m=>{if(m.pts>0){mx+=m.pts;if(S.ck['m_'+m.t])t+=m.pts}});
+  return mx>0?Math.round(t/mx*100):0;
+}
+function gLv(s){if(s>=91)return{n:'Legende',sg:5,c:'var(--go)'};if(s>=71)return{n:'Championne',sg:4,c:'var(--pk)'};if(s>=51)return{n:'Solide',sg:3,c:'var(--vi)'};if(s>=31)return{n:'Reguliere',sg:2,c:'var(--bl)'};return{n:'En route',sg:1,c:'var(--tm)'}}
+function gPP(s){if(s>=91)return"Exceptionnelle ! Continue, Legende !";if(s>=71)return"Impressionnant ! Vraie championne.";if(s>=51)return"Bien joue ! Ta discipline porte ses fruits.";if(s>=31)return"Tu avances. Chaque effort compte.";if(s>0)return"C'est un debut ! Tu vas progresser.";return"Commence ta journee !"}
+
+// === CHALLENGES ===
+const CD=[
+  {id:'hydratation',e:'💧',n:'Challenge Hydratation',d:'Objectif eau atteint chaque jour',dy:7,c:'cg-bl',b:'gourde_or'},
+  {id:'sommeil',e:'😴',n:'Challenge Sommeil',d:'Telephone 20h00 + coucher 21h30',dy:7,c:'cg-vi',b:'sommeil'},
+  {id:'petitdej',e:'🥣',n:'Challenge Petit-Dej',d:'Petit-dej complet avant ecrans, 7 jours',dy:7,c:'cg-or',b:'petitdej'},
+  {id:'collation',e:'🍌',n:'Challenge Collation',d:'Collation avant chaque entrainement',dy:5,c:'cg-gn',b:'collation'},
+  {id:'recuperation',e:'🧘',n:'Challenge Recuperation',d:'Recup apres chaque basket',dy:5,c:'cg-pk',b:'recuperation'},
+  {id:'telephone',e:'📱',n:'Challenge Telephone',d:'Telephone pose a 20h00 chaque soir',dy:7,c:'cg-go',b:'telephone'},
+  {id:'semaine',e:'⭐',n:'Semaine Parfaite',d:'Score 80%+ chaque jour, 7 jours',dy:7,c:'cg-vi',b:'semaine_parfaite'},
+  {id:'lecture',e:'📖',n:'Challenge Lecture',d:'10 min de lecture chaque soir',dy:7,c:'cg-pk',b:'lecture'}
+];
+const BD=[
+  {id:'regularite',e:'🔥',n:'Regularite',d:'3 jours a 70%+'},
+  {id:'gourde_or',e:'💧',n:'Gourde d\'Or',d:'Hydratation 5j'},
+  {id:'sommeil',e:'😴',n:'Sommeil',d:'Routine soir 7j'},
+  {id:'journee',e:'⭐',n:'Journee Complete',d:'Tout fait'},
+  {id:'telephone',e:'📱',n:'Tel. Maitrise',d:'20h00 tenu 5j'},
+  {id:'petitdej',e:'🥣',n:'Petit-Dej',d:'7 jours'},
+  {id:'semaine_parfaite',e:'🏆',n:'Semaine Parfaite',d:'7j a 80%+'},
+  {id:'flamme',e:'🔥',n:'Flamme',d:'14j de streak'},
+  {id:'collation',e:'🍌',n:'Collation Pro',d:'Challenge reussi'},
+  {id:'recuperation',e:'🧘',n:'Recuperation',d:'Challenge reussi'},
+  {id:'lecture',e:'📖',n:'Lectrice',d:'7j de lecture'},
+  {id:'lectrice_or',e:'📚',n:'Lectrice d\'Or',d:'3 livres lus'}
+];
+function eBd(id){if(S.bd[id])return;S.bd[id]=TK;sS();const b=BD.find(x=>x.id===id);if(b){sT(b.e+' Badge : '+b.n+' !');lC()}rA()}
+function cBd(){const sc=cSc();if(sc>=95&&!S.bd.journee)eBd('journee');if(S.str>=3&&!S.bd.regularite)eBd('regularite');if(S.str>=14&&!S.bd.flamme)eBd('flamme');if(S.booksRead.length>=3&&!S.bd.lectrice_or)eBd('lectrice_or')}
+
+// === ROUTINES ===
+const RT=[
+  {id:'me',e:'☀️',n:'Matin Ecole',w:'Bien demarrer avec energie, calme et concentration.',t:'~30 min',st:['Reveil a l\'heure','Verre d\'eau des le reveil','Lumiere du jour (5 min fenetre/dehors)','Lis ton message du matin sur l\'app','Petite priere du matin','Respiration courte (1 min)','Petit-dej complet AVANT ecrans','Prepare tes affaires','Verifie ton sac + gourde']},
+  {id:'mw',e:'🌴',n:'Matin Week-end / Vacances',w:'Meme le week-end, bien commencer la journee.',t:'~25 min',st:['Reveille-toi avant 9h30','Verre d\'eau des le reveil','Lumiere du jour','Lis ton message du matin','Petite priere du matin','Respiration courte','Petit-dej complet AVANT ecrans','Profite du calme du matin']},
+  {id:'ab',e:'🏀',n:'Avant Basket',w:'Se preparer = se donner les moyens de performer.',t:'~15 min',st:['Collation 1h-1h30 avant','Bois un bon verre d\'eau','Verifie ton sac : gourde, tenue, chaussures','Respiration concentration (2 min)','Arrive prete et concentree']},
+  {id:'apb',e:'💪',n:'Apres Basket',w:'La recuperation est aussi importante que l\'entrainement.',t:'~20 min',st:['Bois de l\'eau immediatement','Etirements 5-10 min','Collation recuperation (30 min max)','Douche','Repose-toi si besoin']},
+  {id:'se',e:'🌙',n:'Soir',w:'La routine du soir prepare ton sommeil. Bien dormir = s\'entrainer pour demain.',t:'~1h30',st:['Diner equilibre (pas trop tard)','Prepare ton sac pour demain','📱 TELEPHONE POSE A 20H00','📖 Lecture calme 15-20 min','🙏 Priere ou gratitude (5 min)','🌬️ Respiration calme (5 min)','🪥 Routine hygiene : dents, visage','😴 AU LIT A 21H30 — besoin de 9-10h de sommeil']}
+];
+const RECIPES=[
+  {e:'🥣',n:'Porridge Energie',t:'10 min',i:'Flocons avoine, lait, banane, miel, fruits',s:'Chauffe lait → ajoute flocons 5 min → fruits + miel'},
+  {e:'🥤',n:'Smoothie Champion',t:'5 min',i:'Banane, lait, beurre cacahuete, miel',s:'Tout au blender → mixe 30s → deguste'},
+  {e:'🥛',n:'Lait Choco Recup',t:'3 min',i:'Lait, cacao, miel',s:'Melange tout — le secret des pros !'},
+  {e:'🍫',n:'Energy Balls',t:'15 min',i:'Flocons, beurre cacahuete, miel, pepites choco',s:'Melange → forme des boules → frigo 30 min'},
+  {e:'🍞',n:'Tartine PB Banane',t:'3 min',i:'Pain complet, beurre cacahuete, banane',s:'Toaste → tartine → rondelles banane'}
+];
+
+// === BOOKS ===
+const BOOKS=[
+  {id:'b1',e:'🏀',t:'Les reines du basket',a:'',d:'Un roman sur le basket, l\'amitie et le depassement de soi.',w:'Parce qu\'il parle d\'un univers que j\'aime et qu\'il montre qu\'on peut progresser ensemble.',c:'cg-or'},
+  {id:'b2',e:'💪',t:'J\'ai confiance en moi !',a:'',d:'Un livre pour mieux se connaitre et croire un peu plus en soi.',w:'Parce qu\'il aide a devenir plus forte a l\'interieur.',c:'cg-pk'},
+  {id:'b3',e:'🌟',t:'Etre moi, mode d\'emploi',a:'',d:'Un livre pour comprendre qui je suis et apprendre a mieux m\'accepter.',w:'Parce que grandir, c\'est aussi apprendre a se connaitre.',c:'cg-vi'},
+  {id:'b4',e:'🌱',t:'La confiance en soi, ca se cultive',a:'',d:'Un livre pour faire pousser la confiance petit a petit.',w:'Parce que la confiance se construit, comme l\'entrainement.',c:'cg-gn'},
+  {id:'b5',e:'🔥',t:'Tu n\'arriveras jamais a rien !',a:'',d:'Des histoires inspirantes de personnes qui ont reussi malgre les difficultes.',w:'Parce que ca rappelle qu\'on peut avancer meme quand ce n\'est pas facile.',c:'cg-bl'}
+];
+// Book states: 'want' (default), 'started', 'done'
+// S.bookStates = {b1:'done', b2:'started', ...}
+// S.bookNotes = {b1:{stars:4, note:'...'}, ...}
+// S.readSoirDays = ['2026-04-06',...]  (soirs de lecture valides)
+
+// === LECTURE MESSAGES ===
+const ML=[
+  "Lire, c'est entrainer aussi ton esprit.",
+  "Chaque page lue te rend un peu plus forte.",
+  "Un livre peut t'apporter du calme et de la confiance.",
+  "Lire le soir aide ton cerveau a ralentir.",
+  "Remplacer le telephone par un livre, c'est un vrai pouvoir.",
+  "Tu fais grandir ton esprit en silence.",
+  "Les championnes lisent aussi pour devenir plus fortes.",
+  "Un livre peut etre un ami calme.",
+  "Plus tu lis, plus tu grandis de l'interieur.",
+  "Lire avant de dormir, c'est offrir du calme a ton cerveau.",
+  "La lecture est une victoire douce.",
+  "Chaque soir de lecture compte.",
+  "Un esprit fort se construit aussi page apres page.",
+  "Un livre ne te jugera jamais. Il t'accueille comme tu es.",
+  "Lire, c'est voyager sans bouger.",
+  "Les mots sont des graines. Chaque page les fait pousser.",
+  "Un chapitre ce soir, un pas de plus vers la meilleure version de toi.",
+  "Ton cerveau adore quand tu lis. Il devient plus calme et plus fort.",
+  "La lecture est le seul entrainement ou tu progresses en te reposant.",
+  "Meme 5 minutes de lecture, c'est deja une victoire."
+];
+
+// === LECTURE CHALLENGES ===
+const LCD=[
+  {id:'lc_soir1',e:'🌙',n:'Premiere lecture du soir',d:'Lire un soir apres 20h00',dy:1,c:'cg-vi',b:'lc_premiere'},
+  {id:'lc_3soirs',e:'🔥',n:'3 soirs d\'affilee',d:'Lire 3 soirs de suite',dy:3,c:'cg-or',b:'lc_3soirs'},
+  {id:'lc_5soirs',e:'⭐',n:'5 soirs cette semaine',d:'Lire 5 soirs dans la semaine',dy:5,c:'cg-pk',b:'lc_5soirs'},
+  {id:'lc_7soirs',e:'💎',n:'Semaine lecture',d:'Lire 7 soirs d\'affilee',dy:7,c:'cg-go',b:'lc_semaine'},
+  {id:'lc_livre',e:'📖',n:'1 livre termine',d:'Finir un livre en entier',dy:1,c:'cg-gn',b:'lc_livre'},
+  {id:'lc_phone',e:'📱',n:'Lecture au lieu du telephone',d:'Remplacer le telephone par un livre le soir',dy:3,c:'cg-bl',b:'lc_phone'}
+];
+const LBD=[
+  {id:'lc_premiere',e:'🌙',n:'Premiere lecture',d:'1 soir de lecture'},
+  {id:'lc_3soirs',e:'🔥',n:'3 soirs',d:'3 soirs d\'affilee'},
+  {id:'lc_5soirs',e:'⭐',n:'5 soirs',d:'5 soirs / semaine'},
+  {id:'lc_semaine',e:'💎',n:'Semaine lecture',d:'7 soirs d\'affilee'},
+  {id:'lc_livre',e:'📖',n:'1 livre fini',d:'Terminer un livre'},
+  {id:'lc_phone',e:'📱',n:'Tel. remplace',d:'Livre au lieu du tel'},
+  {id:'lc_esprit',e:'🧠',n:'Esprit fort',d:'30 soirs total'}
+];
+
+// === MORNING / EVENING MESSAGES ===
+const MM=[
+  "Bonjour Cassy, aujourd'hui est une nouvelle chance.",
+  "Commence doucement, mais commence avec confiance.",
+  "Ton corps est precieux, prends-en soin des ce matin.",
+  "Aujourd'hui, choisis l'energie, la paix et la force.",
+  "Chaque matin t'aide a devenir un peu plus forte.",
+  "Bois, respire, avance.",
+  "Tu peux faire de belles choses aujourd'hui.",
+  "La facon dont tu commences compte.",
+  "Aujourd'hui, sois douce avec toi-meme et serieuse dans tes efforts.",
+  "Tu es capable, courageuse et precieuse.",
+  "Aujourd'hui est un bon jour pour avancer.",
+  "Tu peux etre calme et forte en meme temps.",
+  "Chaque petit bon choix compte.",
+  "Dieu t'accompagne aujourd'hui.",
+  "Commence cette journee avec confiance.",
+  "Ton energie se construit des maintenant.",
+  "Respire, souris, avance.",
+  "Tu peux faire du bien a ton corps aujourd'hui.",
+  "Cette journee est une nouvelle page.",
+  "Aujourd'hui encore, tu peux grandir un peu plus."
+];
+const ME=[
+  "Bravo pour cette journee, Cassy.",
+  "Tu peux maintenant ralentir et retrouver le calme.",
+  "Ce soir, ton corps merite du repos.",
+  "Merci pour les efforts que tu as faits aujourd'hui.",
+  "Meme si tout n'etait pas parfait, tu peux etre fiere de toi.",
+  "Le calme du soir est une vraie force.",
+  "Ce soir, choisis la paix plutot que la pression.",
+  "Ton corps recupere pendant que tu dors.",
+  "Tu peux laisser partir ta journee.",
+  "Ce soir, offre du calme a ton coeur.",
+  "Demain sera une nouvelle chance.",
+  "Le repos est aussi une force.",
+  "Tu peux respirer doucement et relacher ta journee.",
+  "Dieu veille sur toi pendant ton sommeil.",
+  "Merci pour tout ce que tu as vecu aujourd'hui.",
+  "Tu as le droit de te reposer.",
+  "Le calme aide ton coeur et ton corps.",
+  "Laisse partir ce qui est lourd.",
+  "Ce soir, choisis le repos et la gratitude.",
+  "Bonne nuit Cassy, demain sera un beau jour."
+];
+
+// === PRAYERS ===
+const PRAYERS=[
+  {id:'pr_m1',e:'☀️',t:'Priere du matin — Confiance',c:'cg-go',ctx:'matin',
+   txt:"Seigneur, merci pour cette nouvelle journee.\nAide-moi a faire de bons choix,\na garder la paix dans mon coeur\net a avancer avec confiance.\nAmen."},
+  {id:'pr_m2',e:'☀️',t:'Priere du matin — Gratitude',c:'cg-go',ctx:'matin',
+   txt:"Merci pour mon corps, ma famille\net tout ce que j'apprends.\nAide-moi a prendre soin de moi aujourd'hui.\nAmen."},
+  {id:'pr_m3',e:'☀️',t:'Priere du matin — Courage',c:'cg-go',ctx:'matin',
+   txt:"Seigneur, donne-moi du courage\npour l'ecole, le basket\net tout ce que je dois faire aujourd'hui.\nAmen."},
+  {id:'pr_m4',e:'☀️',t:'Priere du matin — Force',c:'cg-go',ctx:'matin',
+   txt:"Merci pour cette journee qui commence.\nAide-moi a etre calme, forte\net pleine de gratitude.\nAmen."},
+  {id:'pr_e1',e:'📚',t:'Priere avant l\'ecole',c:'cg-bl',ctx:'ecole',
+   txt:"Seigneur, aide-moi a etre attentive,\ncalme et courageuse aujourd'hui.\nAide-moi a apprendre avec confiance\net a garder un bon coeur.\nAmen."},
+  {id:'pr_e2',e:'📚',t:'Priere pour une journee importante',c:'cg-bl',ctx:'ecole',
+   txt:"Aide-moi a faire de mon mieux\nsans peur et sans stress.\nAmen."},
+  {id:'pr_b1',e:'🏀',t:'Priere avant basket',c:'cg-or',ctx:'basket',
+   txt:"Seigneur, donne-moi de la force,\ndu calme et de la concentration.\nAide-moi a jouer avec confiance,\nrespect et courage.\nAmen."},
+  {id:'pr_b2',e:'🏀',t:'Priere apres basket',c:'cg-or',ctx:'basket',
+   txt:"Merci pour mon corps, mon energie\net les efforts que je peux faire.\nAide-moi a bien recuperer.\nAmen."},
+  {id:'pr_f1',e:'💜',t:'Priere quand je suis fatiguee',c:'cg-pk',ctx:'fatigue',
+   txt:"Seigneur, aide-moi quand je me sens\nfatiguee, stressee ou decouragee.\nDonne-moi de la paix, de la force\net du courage.\nAmen."},
+  {id:'pr_f2',e:'💜',t:'Priere quand je doute',c:'cg-pk',ctx:'fatigue',
+   txt:"Aide-moi a garder confiance quand je doute\net a rester calme quand je suis stressee.\nAmen."},
+  {id:'pr_s1',e:'🌙',t:'Priere du soir — Merci',c:'cg-vi',ctx:'soir',
+   txt:"Merci Seigneur pour cette journee.\nMerci pour ce que j'ai vecu,\nappris et traverse.\nProtege mon coeur, mon sommeil\net ma paix cette nuit.\nAmen."},
+  {id:'pr_s2',e:'🌙',t:'Priere du soir — Pardon',c:'cg-vi',ctx:'soir',
+   txt:"Merci pour cette journee.\nMeme si elle n'a pas ete parfaite,\nmerci pour tout ce que j'ai vecu et appris.\nAmen."},
+  {id:'pr_s3',e:'🌙',t:'Priere du soir — Gratitude',c:'cg-vi',ctx:'soir',
+   txt:"Merci pour mes forces, mes qualites\net toutes les personnes qui m'aiment.\nAmen."},
+  {id:'pr_s4',e:'🌙',t:'Priere du soir — Repos',c:'cg-vi',ctx:'soir',
+   txt:"Merci pour le repos qui arrive.\nAide mon corps a bien recuperer\net mon coeur a rester en paix.\nAmen."},
+  {id:'pr_s5',e:'🌙',t:'Priere du soir — Demain',c:'cg-vi',ctx:'soir',
+   txt:"Seigneur, guide-moi demain,\naide-moi a etre forte, calme\net pleine de gratitude.\nAmen."}
+];
+
+// === MEDITATIONS ===
+const MEDITS=[
+  {id:'md_matin',e:'☀️',t:'Respiration du matin',d:'Pour bien commencer ta journee.',ctx:'matin',
+   intro:'Ferme doucement les yeux.',
+   steps:[{txt:'Inspire par le nez...',dur:4,type:'in'},{txt:'Expire par la bouche...',dur:4,type:'out'}],cycles:3,
+   outro:'"Je commence ma journee avec calme, force et confiance."'},
+  {id:'md_ecole',e:'📚',t:'Respiration avant l\'ecole',d:'Pour etre calme et concentree.',ctx:'ecole',
+   intro:'Pose une main sur ton coeur.',
+   steps:[{txt:'Inspire doucement...',dur:4,type:'in'},{txt:'Expire lentement...',dur:4,type:'out'}],cycles:3,
+   outro:'"Je peux apprendre, comprendre et avancer."'},
+  {id:'md_basket',e:'🏀',t:'Respiration avant basket',d:'Pour te concentrer et etre prete.',ctx:'basket',
+   intro:'Debout ou assise. Relache tes epaules.',
+   steps:[{txt:'Inspire profondement...',dur:4,type:'in'},{txt:'Bloque doucement...',dur:2,type:'hold'},{txt:'Expire lentement...',dur:4,type:'out'}],cycles:4,
+   outro:'"Je suis prete, concentree et forte."'},
+  {id:'md_apbasket',e:'💪',t:'Respiration apres basket',d:'Pour bien recuperer.',ctx:'basket',
+   intro:'Assise ou allongee. Relache tout.',
+   steps:[{txt:'Inspire calmement...',dur:4,type:'in'},{txt:'Expire toute la fatigue...',dur:5,type:'out'}],cycles:4,
+   outro:'"J\'ai fait de mon mieux, maintenant je recupere."'},
+  {id:'md_fatigue',e:'💤',t:'Respiration fatigue',d:'Pour te ressourcer quand tu es fatiguee.',ctx:'fatigue',
+   intro:'Ferme les yeux. Relache ton front, ta machoire, tes epaules.',
+   steps:[{txt:'Inspire doucement...',dur:4,type:'in'},{txt:'Expire lentement...',dur:5,type:'out'}],cycles:4,
+   outro:'"Je peux ralentir. Je peux reprendre des forces."'},
+  {id:'md_stress',e:'🌊',t:'Respiration anti-stress',d:'Pour retrouver le calme.',ctx:'fatigue',
+   intro:'Pose tes mains sur tes jambes. Respire.',
+   steps:[{txt:'Inspire profondement...',dur:4,type:'in'},{txt:'Bloque doucement...',dur:2,type:'hold'},{txt:'Expire lentement...',dur:4,type:'out'}],cycles:5,
+   outro:'"Le calme revient en moi."'},
+  {id:'md_doute',e:'🦋',t:'Respiration confiance',d:'Pour retrouver confiance quand tu doutes.',ctx:'fatigue',
+   intro:'Pose les mains sur tes jambes. Respire lentement.',
+   steps:[{txt:'Inspire la confiance...',dur:4,type:'in'},{txt:'Expire le doute...',dur:5,type:'out'}],cycles:4,
+   outro:'"Je ne dois pas tout reussir d\'un coup. J\'avance pas a pas."'},
+  {id:'md_soir',e:'🌙',t:'Respiration du soir',d:'Pour relacher ta journee.',ctx:'soir',
+   intro:'Allongee ou assise. Ferme les yeux. Relache tout ton corps.',
+   steps:[{txt:'Inspire le calme...',dur:4,type:'in'},{txt:'Expire la fatigue...',dur:5,type:'out'}],cycles:5,
+   outro:'"Je laisse partir ma journee. Je peux me reposer."'},
+  {id:'md_grat',e:'🙏',t:'Respiration gratitude',d:'Pour dire merci dans ton coeur.',ctx:'soir',
+   intro:'Respire doucement. Pense a 3 belles choses de ta journee.',
+   steps:[{txt:'Inspire la gratitude...',dur:4,type:'in'},{txt:'Garde ce merci en toi...',dur:3,type:'hold'},{txt:'Expire avec le sourire...',dur:4,type:'out'}],cycles:3,
+   outro:'Dis merci dans ton coeur. Reste calme quelques secondes.'},
+  {id:'md_sommeil',e:'😴',t:'Respiration pour dormir',d:'Pour t\'endormir en paix.',ctx:'sommeil',
+   intro:'Allongee dans ton lit. Ferme les yeux.',
+   steps:[{txt:'Inspire doucement...',dur:4,type:'in'},{txt:'Expire tres lentement...',dur:6,type:'out'}],cycles:5,
+   outro:'"Je suis en securite. Je suis en paix. Je peux dormir."'}
+];
+
+// === GRATITUDE ===
+const GRAT=[
+  "Aujourd'hui, je suis reconnaissante pour tout ce que j'ai.",
+  "Merci pour ma famille, mon corps et mes forces.",
+  "Ce qui me rend heureuse, c'est aussi ce qui me rend forte.",
+  "Merci pour les personnes qui m'aiment et qui m'aident.",
+  "Je suis reconnaissante pour chaque nouvelle journee.",
+  "Merci pour tout ce que j'apprends et tout ce que je deviens.",
+  "La gratitude rend le coeur plus fort et plus leger.",
+  "Merci pour les moments de joie, meme les plus petits.",
+  "Je suis reconnaissante pour ma sante et mon energie.",
+  "Merci pour le basket, la lecture et tout ce qui me fait grandir."
+];
+
+// === CONTEXTUAL MESSAGES ===
+const M_ECO=[
+  "Ton cerveau a besoin d'energie pour bien apprendre.",
+  "Bien manger, c'est aussi mieux reflechir.",
+  "L'ecole est aussi un entrainement pour ton esprit.",
+  "Chaque effort en classe compte.",
+  "Tu peux etre calme, concentree et forte.",
+  "Bois de l'eau, ton cerveau en a besoin.",
+  "Petit-dejeuner et concentration vont ensemble.",
+  "Tu apprends, tu grandis, tu avances.",
+  "La patience et l'attention sont aussi des forces.",
+  "Aujourd'hui, donne le meilleur de toi-meme, pas plus, pas moins."
+];
+const M_BB=[
+  "Aujourd'hui, ton corps a besoin d'energie pour bien jouer.",
+  "Prepare-toi bien, tu vas progresser.",
+  "Une bonne joueuse se prepare avant d'entrer sur le terrain.",
+  "Ta collation, ton eau et ton calme font partie du match.",
+  "Le basket, c'est du plaisir et de la discipline.",
+  "Tu peux etre concentree, forte et sereine.",
+  "Chaque entrainement te construit.",
+  "Le terrain t'attend, donne le meilleur de toi.",
+  "Ta preparation compte autant que ton effort.",
+  "Aujourd'hui encore, tu peux progresser."
+];
+const M_AB=[
+  "Bravo pour ton effort.",
+  "Maintenant, ton corps a besoin de recuperer.",
+  "Recuperer fait aussi partie du sport.",
+  "Bois, mange un peu, respire.",
+  "Tu as travaille, maintenant tu reconstruis ton energie.",
+  "Chaque recuperation bien faite t'aide a progresser.",
+  "Ton corps te remercie quand tu prends soin de lui.",
+  "L'effort est fini, le soin commence.",
+  "Repose-toi avec fierte.",
+  "Tu as bien travaille, maintenant recupere intelligemment."
+];
+const M_FAT=[
+  "Ce n'est pas grave d'etre fatiguee.",
+  "Meme les championnes ont des jours plus lourds.",
+  "Tu n'as pas besoin d'etre parfaite, juste de continuer.",
+  "Quand tu es fatiguee, ralentir est aussi une force.",
+  "Respire, bois, repose-toi, puis recommence.",
+  "Ton corps parle, ecoute-le.",
+  "Un jour plus calme n'est pas un jour perdu.",
+  "Tu peux avancer pas a pas.",
+  "Le calme est aussi un pouvoir.",
+  "Prends soin de toi avant de vouloir tout faire."
+];
+const M_SOM=[
+  "Bien dormir aide ton corps a grandir.",
+  "Le sommeil aide tes jambes, ton cerveau et ton coeur.",
+  "Se coucher a l'heure, c'est deja progresser.",
+  "Le repos est une partie de ta force.",
+  "Ton corps travaille aussi pendant la nuit.",
+  "Dormir, c'est recuperer pour demain.",
+  "Un bon sommeil aide a mieux jouer et mieux apprendre.",
+  "Le calme du soir prepare une belle nuit.",
+  "Poser le telephone, c'est offrir du repos a ton cerveau.",
+  "Le sommeil est un cadeau pour ton corps."
+];
+
+// === CHECKLISTS ===
+const CK_ECOLE=[
+  {id:'ce_1',e:'📚',l:'Cahiers et livres du jour'},
+  {id:'ce_2',e:'✏️',l:'Trousse complete'},
+  {id:'ce_3',e:'💧',l:'Gourde remplie'},
+  {id:'ce_4',e:'🍎',l:'Collation si besoin'},
+  {id:'ce_5',e:'📱',l:'Telephone charge'},
+  {id:'ce_6',e:'🔑',l:'Cles / badge'}
+];
+const CK_BASKET=[
+  {id:'cb_1',e:'👟',l:'Chaussures de basket'},
+  {id:'cb_2',e:'👕',l:'Tenue de sport'},
+  {id:'cb_3',e:'💧',l:'Gourde pleine'},
+  {id:'cb_4',e:'🍌',l:'Collation preparee'},
+  {id:'cb_5',e:'🧦',l:'Chaussettes de sport'},
+  {id:'cb_6',e:'🧴',l:'Affaires de douche'}
+];
+
+// === DAILY CHALLENGE ===
+function gDC(){
+  const ch=["Bois 2 verres avant 10h","Petit-dej sans toucher ton telephone","5 min de stretching ce soir","Pose ton telephone a 20h00 pile","Un verre d'eau a chaque repas","Couche-toi a 21h30 pile","Lis 15 minutes avant de dormir"];
+  if(isBD(S.dt))ch.push("Collation 1h avant le basket","2 verres d'eau supplementaires","Etirements apres l'entrainement");
+  return ch[(T.getDate()+T.getMonth()*31)%ch.length];
+}
+
+// === NEXT ACTION ===
+function gNA(){
+  const h=T.getHours(),m=T.getMinutes(),hm=h*60+m;
+  if(hm<420)return'⏰ Reveil + verre d\'eau + lumiere du jour';
+  if(hm<450)return'🥣 Petit-dejeuner complet (AVANT ecrans)';
+  if(hm<600)return'💧 Bois un verre d\'eau';
+  if(hm<720)return'💧 Pense a boire avant midi';
+  if(hm<780)return'🍽️ Dejeuner equilibre';
+  if(isBD(S.dt)&&S.dt==='basket_club'&&hm<1020)return'🍌 Prepare ta collation avant basket (16h)';
+  if(isBD(S.dt)&&S.dt==='basket_club'&&hm<1080)return'🏀 Basket ! Bois pendant les pauses';
+  if(isBD(S.dt)&&S.dt==='basket_club'&&hm<1200)return'💪 Recuperation : bois + collation + etirements';
+  if(hm<1140)return'💧 Continue a boire regulierement';
+  if(hm<1200)return'🍽️ Diner equilibre';
+  if(hm<1230)return'📱 Telephone a poser a 20h00 !';
+  if(hm<1260)return'📖 C\'est le moment de lire 15 min';
+  if(hm<1290)return'🌙 Prepare-toi pour dormir';
+  return'😴 Au lit ! Bonne nuit Cassy';
+}
+
+// === NEXT MEAL ===
+function gNM(){
+  const h=T.getHours(),m=T.getMinutes(),hm=h*60+m;
+  const meals=getMeals();
+  for(const ml of meals){
+    const parts=ml.t.match(/(\d+)h(\d+)?/);
+    if(parts){const mh=parseInt(parts[1])*60+parseInt(parts[2]||0);if(hm<mh+30)return ml.e+' '+ml.n+' — '+ml.t+' ('+ml.opt[0]+')';}
+  }
+  return'✅ Tous les repas sont passes !';
+}
+
+// === UI ===
+function tDk(){document.documentElement.classList.toggle('dark');S.dm=document.documentElement.classList.contains('dark');sS();document.querySelectorAll('.dtg')[1].textContent=S.dm?'☀️':'🌙'}
+function refreshMsg(){const b=document.getElementById('refBtn');b.style.transition='transform .5s ease';b.style.transform='rotate(360deg)';setTimeout(()=>{b.style.transition='none';b.style.transform='rotate(0)';setTimeout(()=>b.style.transition='transform .5s ease',50)},500);document.getElementById('hMsg').textContent=gCM();rH(cSc(),gLv(cSc()));sT('✨ Nouveau message !')}
+function sw(t){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('act'));document.querySelectorAll('.ni').forEach(n=>n.classList.remove('act'));document.getElementById('s-'+t).classList.add('act');document.getElementById('n-'+t).classList.add('act');window.scrollTo(0,0)}
+function tEx(id){const c=document.getElementById(id),a=document.getElementById('a-'+id);if(c)c.classList.toggle('op');if(a)a.classList.toggle('op')}
+function tCk(id,p){S.ck[id]=!S.ck[id];sS();cBd();rA();if(S.ck[id])sT('✅ +'+(p||0)+' pts')}
+function tGl(i){if(i===S.gl)S.gl++;else if(i===S.gl-1)S.gl--;else S.gl=i+1;sS();rA();const g=isBD(S.dt)?8:6;if(S.gl>=g)sT('💧 Objectif atteint !')}
+function sT(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),2500)}
+function lC(){const c=document.getElementById('confetti');c.classList.add('act');const cl=['#E491B2','#9B8EC4','#6BA4D9','#F4845F','#6EBD73','#F0C45A'];for(let i=0;i<25;i++){const p=document.createElement('div');p.className='cfp';p.style.left=Math.random()*100+'%';p.style.background=cl[Math.floor(Math.random()*cl.length)];p.style.animationDelay=Math.random()*.5+'s';p.style.animationDuration=(2+Math.random()*2)+'s';c.appendChild(p);setTimeout(()=>p.remove(),4000)}setTimeout(()=>c.classList.remove('act'),5000)}
+function stCh(id){if(!S.ch[id])S.ch[id]={s:null,d:[]};S.ch[id].s=TK;S.ch[id].d=[TK];sS();sT('🏆 Challenge demarre !');rA()}
+function addRead(min){S.readToday+=min;S.readWeek+=min;sS();sT('📖 +'+min+' min de lecture !');rA();if(S.readToday>=10&&!S.bd.lecture){const ch=S.ch.lecture;if(ch&&ch.d){if(!ch.d.includes(TK))ch.d.push(TK);if(ch.d.length>=7)eBd('lecture')}}}
+function setBookState(id,st){S.bookStates[id]=st;if(st==='done'&&!S.booksRead.includes(id)){S.booksRead.push(id);if(S.booksRead.length>=1&&!S.lbd.lc_livre){S.lbd.lc_livre=TK;sT('📖 Badge : 1 livre termine !');}if(S.booksRead.length>=3&&!S.bd.lectrice_or)eBd('lectrice_or');}sS();cBd();rA()}
+function setBookStars(id,n){if(!S.bookNotes[id])S.bookNotes[id]={stars:0,note:''};S.bookNotes[id].stars=n;sS();rA()}
+function setBookNote(id,txt){if(!S.bookNotes[id])S.bookNotes[id]={stars:0,note:''};S.bookNotes[id].note=txt;sS()}
+function swL(sub){document.querySelectorAll('.lsc').forEach(s=>s.classList.remove('act'));document.getElementById('l-'+sub).classList.add('act');document.querySelectorAll('.ln-btn').forEach((b,i)=>{b.classList.remove('act')});const map={home:0,books:1,maison:2,read:3,soir:4,defi:5,why:6};const idx=map[sub];if(idx!==undefined)document.querySelectorAll('.ln-btn')[idx].classList.add('act');rL();document.querySelector('#s-lecture').scrollTo(0,0)}
+function valLectureSoir(){if(!S.readSoirDays.includes(TK)){S.readSoirDays.push(TK);sS();sT('🌙 Lecture du soir validee !');if(S.readSoirDays.length>=1&&!S.lbd.lc_premiere){S.lbd.lc_premiere=TK;sT('🏅 Badge : Premiere lecture du soir !')}if(S.readSoirDays.length>=30&&!S.lbd.lc_esprit){S.lbd.lc_esprit=TK;sT('🧠 Badge : Esprit fort !')}chkLSoirStreak();rA();}else{sT('Deja valide pour ce soir !')}}
+function chkLSoirStreak(){let s=0;const d=new Date(T);while(true){const k=dk(d);if(S.readSoirDays.includes(k)){s++;d.setDate(d.getDate()-1)}else break}if(s>=3&&!S.lbd.lc_3soirs){S.lbd.lc_3soirs=TK;sT('🔥 Badge : 3 soirs d\'affilee !');}if(s>=7&&!S.lbd.lc_semaine){S.lbd.lc_semaine=TK;sT('💎 Badge : Semaine lecture !');}sS();return s}
+function stLCh(id){if(!S.lch[id])S.lch[id]={s:null,d:[]};S.lch[id].s=TK;S.lch[id].d=[TK];sS();sT('🎯 Defi demarre !');rA()}
+function valLCh(id){if(!S.lch[id])return;if(!S.lch[id].d.includes(TK)){S.lch[id].d.push(TK);sS()}const c=LCD.find(x=>x.id===id);if(c&&S.lch[id].d.length>=c.dy){if(!S.lbd[c.b]){S.lbd[c.b]=TK;sT('🏅 Defi lecture reussi : '+c.n+' !');lC();}sS();}else{sT('✅ Jour valide !')}rA()}
+
+// === MY BOOKS (maison) ===
+let mbCatSel='autre';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function selMbCat(el,cat){mbCatSel=cat;document.querySelectorAll('#mbCats .ln-btn').forEach(b=>b.classList.remove('act'));el.classList.add('act')}
+function addMyBook(){
+  const t=document.getElementById('mbTitle').value.trim();
+  if(!t){sT('Ecris le titre du livre !');return}
+  const b={id:'mb_'+Date.now(),t:t,a:document.getElementById('mbAuthor').value.trim(),n:document.getElementById('mbNote').value.trim(),w:document.getElementById('mbWhy').value.trim(),cat:mbCatSel,st:'want',added:TK};
+  S.myBooks.push(b);sS();
+  document.getElementById('mbTitle').value='';document.getElementById('mbAuthor').value='';document.getElementById('mbNote').value='';document.getElementById('mbWhy').value='';
+  mbCatSel='autre';document.querySelectorAll('#mbCats .ln-btn').forEach(x=>x.classList.remove('act'));document.querySelectorAll('#mbCats .ln-btn').forEach(x=>{if(x.textContent.includes('Autre'))x.classList.add('act')});
+  document.getElementById('mb-form').classList.remove('op');
+  sT('📚 Livre ajoute !');rA()
+}
+function setMyBookSt(id,st){
+  const b=S.myBooks.find(x=>x.id===id);
+  if(!b)return;b.st=st;sS();
+  if(st==='done'){sT('📖 Livre termine ! Bravo !');const totalDone=S.booksRead.length+S.myBooks.filter(x=>x.st==='done').length;if(totalDone>=3&&!S.bd.lectrice_or)eBd('lectrice_or')}
+  else if(st==='started'){sT('📖 Bonne lecture !')}
+  rA()
+}
+function delMyBook(id){if(confirm('Supprimer ce livre ?')){S.myBooks=S.myBooks.filter(x=>x.id!==id);sS();sT('Livre supprime.');rA()}}
+function rMB(){
+  const wait=S.myBooks.filter(b=>b.st==='want').length;
+  const started=S.myBooks.filter(b=>b.st==='started').length;
+  const done=S.myBooks.filter(b=>b.st==='done').length;
+  document.getElementById('mbWait').textContent=wait;
+  document.getElementById('mbStarted').textContent=started;
+  document.getElementById('mbDone').textContent=done;
+  const next=S.myBooks.find(b=>b.st==='want');
+  const nc=document.getElementById('mbNextCard');
+  if(next){nc.style.display='';document.getElementById('mbNext').textContent=next.t}else{nc.style.display=S.myBooks.length>0?'none':'';document.getElementById('mbNext').textContent='Ajoute un livre !'}
+  const catE={sport:'🏀',confiance:'💪',aventure:'🌟',calme:'🌙',soir:'📖',motivation:'🔥',autre:'✨'};
+  const catN={sport:'Sport',confiance:'Confiance',aventure:'Aventure',calme:'Calme',soir:'Pour le soir',motivation:'Motivation',autre:'Autre'};
+  const stC={want:'var(--vi)',started:'var(--or)',done:'var(--gn)'};
+  const stL={want:'A lire',started:'En cours',done:'Termine'};
+  const stB={want:'bg-vi',started:'bg-or',done:'bg-gn'};
+  const list=document.getElementById('mbList');list.innerHTML='';
+  if(S.myBooks.length===0){list.innerHTML='<div class="c tc"><p style="color:var(--tm);font-size:.86rem;padding:14px">Aucun livre pour le moment. Ajoute ton premier livre !</p></div>';return}
+  const sorted=[...S.myBooks.filter(b=>b.st==='started'),...S.myBooks.filter(b=>b.st==='want'),...S.myBooks.filter(b=>b.st==='done')];
+  sorted.forEach(b=>{
+    let h='<div class="book-card" style="border-left:4px solid '+stC[b.st]+'">';
+    h+='<div class="fx ac jb mb1"><div class="fx ac g2" style="flex:1;min-width:0"><span style="font-size:1.2rem">'+(catE[b.cat]||'📚')+'</span><div style="min-width:0"><strong style="font-size:.9rem;word-break:break-word">'+esc(b.t)+'</strong>';
+    if(b.a)h+='<br><small style="color:var(--tm)">'+esc(b.a)+'</small>';
+    h+='</div></div><span class="bg '+stB[b.st]+'" style="flex-shrink:0">'+stL[b.st]+'</span></div>';
+    if(b.n)h+='<p style="font-size:.8rem;color:var(--ts);margin:4px 0;word-break:break-word">'+esc(b.n)+'</p>';
+    if(b.w)h+='<div style="background:var(--bga);border-radius:8px;padding:8px;margin:6px 0"><p style="font-size:.76rem;font-weight:600;color:var(--vi)">Pourquoi je veux le lire :</p><p style="font-size:.76rem;margin-top:2px;color:var(--ts);word-break:break-word">'+esc(b.w)+'</p></div>';
+    if(b.cat&&b.cat!=='autre')h+='<div style="margin:4px 0"><span class="bg bg-vi" style="font-size:.62rem">'+(catE[b.cat]||'')+' '+(catN[b.cat]||'')+'</span></div>';
+    h+='<div class="fx g2 mt1" style="flex-wrap:wrap">';
+    if(b.st==='want')h+='<button class="btn btn-vi" style="font-size:.76rem;padding:8px 14px" onclick="setMyBookSt(\''+b.id+'\',\'started\')">Commencer</button>';
+    if(b.st==='started'){h+='<button class="btn btn-pk" style="font-size:.76rem;padding:8px 14px" onclick="setMyBookSt(\''+b.id+'\',\'done\')">Termine !</button>';h+='<button class="btn btn-o" style="font-size:.76rem;padding:8px 14px" onclick="setMyBookSt(\''+b.id+'\',\'want\')">Pas encore</button>'}
+    if(b.st==='done')h+='<button class="btn btn-o" style="font-size:.76rem;padding:8px 14px" onclick="setMyBookSt(\''+b.id+'\',\'started\')">Relire</button>';
+    h+='<button class="btn btn-o" style="font-size:.76rem;padding:8px 14px;color:var(--tm);border-color:var(--tm)" onclick="delMyBook(\''+b.id+'\')">Supprimer</button>';
+    h+='</div></div>';
+    list.innerHTML+=h;
+  });
+}
+
+// === MON MOMENT CALME ===
+function showCalm(){document.getElementById('calmMo').classList.add('sh');rCalm()}
+function closeCalm(){document.getElementById('calmMo').classList.remove('sh');stopBreath()}
+function rCalm(){
+  const h=T.getHours();
+  // Context-aware message
+  let msg;
+  const hm2=h*60+T.getMinutes();
+  if(h>=6&&h<12)msg=rnd(MM);
+  else if(hm2>=1170)msg=rnd(ME);
+  else if(isBD(S.dt))msg=rnd(M_BB.concat(M_AB));
+  else msg=rnd(M_FAT.concat(["La paix dans ton coeur est une vraie force.","Tu peux etre calme et forte en meme temps.","Respire, avance, garde confiance.","Le calme est aussi un pouvoir."]));
+  document.getElementById('calmMsgTxt').textContent=msg;
+  // Prayers - show relevant ones first, then all
+  const pc=document.getElementById('calmPrayers');pc.innerHTML='';
+  let ctx='matin';
+  if(h*60+T.getMinutes()>=1170)ctx='soir';
+  else if(h>=12&&isBD(S.dt))ctx='basket';
+  else if(h>=7&&h<12&&(S.dt==='ecole'||S.dt==='basket_ecole'))ctx='ecole';
+  // Relevant first
+  const relevant=PRAYERS.filter(p=>p.ctx===ctx);
+  const others=PRAYERS.filter(p=>p.ctx!==ctx);
+  const ordered=relevant.concat(others);
+  ordered.forEach(p=>{
+    let html='<div class="c '+p.c+' mb2"><div class="fx ac g2 mb1"><span style="font-size:1.2rem">'+p.e+'</span><strong style="font-size:.9rem">'+p.t+'</strong></div>';
+    html+='<div class="exh" onclick="tEx(\''+p.id+'\')"><small style="color:#2D2040;opacity:.7">Lire cette priere</small><span class="exa" id="a-'+p.id+'">▼</span></div>';
+    html+='<div class="exc" id="'+p.id+'"><p style="font-size:.86rem;color:#2D2040;line-height:1.8;margin-top:8px;white-space:pre-line;font-style:italic">'+p.txt+'</p></div>';
+    html+='</div>';
+    pc.innerHTML+=html;
+  });
+  // Meditations - relevant first
+  const mc=document.getElementById('calmMedits');mc.innerHTML='';
+  let mctx='matin';
+  if(h*60+T.getMinutes()>=1290)mctx='sommeil';
+  else if(h*60+T.getMinutes()>=1170)mctx='soir';
+  else if(h>=12&&isBD(S.dt))mctx='basket';
+  else if(h>=7&&h<12&&(S.dt==='ecole'||S.dt==='basket_ecole'))mctx='ecole';
+  const relM=MEDITS.filter(m=>m.ctx===mctx);
+  const othM=MEDITS.filter(m=>m.ctx!==mctx);
+  const ordM=relM.concat(othM);
+  ordM.forEach(m=>{
+    mc.innerHTML+='<div class="c mb2" style="border-left:4px solid var(--vi)"><div class="fx ac jb"><div class="fx ac g2"><span style="font-size:1.2rem">'+m.e+'</span><div><strong style="font-size:.88rem">'+m.t+'</strong><p style="font-size:.76rem;color:var(--ts);margin-top:2px">'+m.d+'</p></div></div></div><button class="btn btn-vi mt2 wf" style="font-size:.82rem" onclick="startBreath(\''+m.id+'\')">Commencer</button></div>';
+  });
+  // Gratitude
+  document.getElementById('calmGrat').textContent=GRAT[(T.getDate()+T.getMonth()*7)%GRAT.length];
+}
+
+// === BREATHING ===
+let brInt=null,brCyc=0,brStp=0,brMed=null;
+function startBreath(id){
+  brMed=MEDITS.find(m=>m.id===id);if(!brMed)return;
+  brCyc=0;brStp=0;
+  document.getElementById('brIntro').textContent=brMed.intro;
+  document.getElementById('brActive').style.display='block';
+  document.getElementById('brCycleCount').textContent='Cycle 1/'+brMed.cycles;
+  runBrStep();
+}
+function runBrStep(){
+  if(!brMed)return;
+  const step=brMed.steps[brStp];
+  document.getElementById('brText').textContent=step.txt;
+  document.getElementById('brCircle').className='br-circle br-'+step.type;
+  let cnt=step.dur;
+  document.getElementById('brCount').textContent=cnt;
+  brInt=setInterval(()=>{
+    cnt--;
+    if(cnt>0){document.getElementById('brCount').textContent=cnt}
+    else{
+      clearInterval(brInt);brStp++;
+      if(brStp>=brMed.steps.length){
+        brStp=0;brCyc++;
+        if(brCyc>=brMed.cycles){
+          document.getElementById('brText').textContent=brMed.outro;
+          document.getElementById('brCount').textContent='';
+          document.getElementById('brCircle').className='br-circle';
+          document.getElementById('brCycleCount').textContent='Termine !';
+          return;
+        }
+        document.getElementById('brCycleCount').textContent='Cycle '+(brCyc+1)+'/'+brMed.cycles;
+      }
+      runBrStep();
+    }
+  },1000);
+}
+function stopBreath(){if(brInt)clearInterval(brInt);brMed=null;const el=document.getElementById('brActive');if(el)el.style.display='none'}
+
+// === ONBOARDING ===
+let onbSl=0;
+function showOnb(){document.getElementById('onbMo').classList.add('sh');onbSl=0;rOnb()}
+function closeOnb(){document.getElementById('onbMo').classList.remove('sh');S.onb=true;sS()}
+function onbGo(d){onbSl=Math.max(0,Math.min(4,onbSl+d));rOnb()}
+function rOnb(){
+  for(let i=0;i<5;i++){const el=document.getElementById('onb-'+i);if(el)el.classList.toggle('act',i===onbSl)}
+  const dots=document.getElementById('onbDots');dots.innerHTML='';
+  for(let i=0;i<5;i++){dots.innerHTML+='<div style="width:8px;height:8px;border-radius:50%;background:'+(i===onbSl?'var(--vi)':'var(--vi-l)')+';cursor:pointer" onclick="onbSl='+i+';rOnb()"></div>'}
+  document.getElementById('onbPrevB').style.visibility=onbSl>0?'visible':'hidden';
+  const isLast=onbSl===4;
+  document.getElementById('onbBtns').style.display=isLast?'none':'flex';
+  document.getElementById('onbDotsC').style.display=isLast?'none':'flex';
+}
+
+// === CLOCK ===
+function uClock(){const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0');document.getElementById('hClock').textContent=h+':'+m+':'+s;document.getElementById('hWeek').textContent='Sem. '+S.wt}
+setInterval(uClock,1000);
+
+// === CALENDAR ===
+let calMonth=T.getMonth(),calYear=T.getFullYear();
+function showCal(){document.getElementById('calMo').classList.add('sh');rCal()}
+function closeCal(){document.getElementById('calMo').classList.remove('sh')}
+function calNav(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++}if(calMonth<0){calMonth=11;calYear--}rCal()}
+function rCal(){
+  const ms=['Janvier','Fevrier','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Decembre'];
+  document.getElementById('calTitle').textContent=ms[calMonth]+' '+calYear;
+  const g=document.getElementById('calGrid');g.innerHTML='';
+  ['L','M','M','J','V','S','D'].forEach(d=>g.innerHTML+='<div class="cal-head">'+d+'</div>');
+  const first=new Date(calYear,calMonth,1),startDay=(first.getDay()+6)%7;
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  for(let i=0;i<startDay;i++)g.innerHTML+='<div class="cal-cell"></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const dt=new Date(calYear,calMonth,d),type=gDT(dt);
+    let cls='cal-cell';
+    if(dt.toDateString()===T.toDateString())cls+=' today';
+    else if(isBD(type))cls+=' basket';
+    else if(type==='vacances')cls+=' holiday';
+    g.innerHTML+='<div class="'+cls+'">'+d+'</div>';
+  }
+}
+
+// === PARENTS ===
+let pin='';
+function sPM(){document.getElementById('pMo').classList.add('sh');pin='';rPn();document.getElementById('pPn').style.display='block';document.getElementById('pDs').style.display='none'}
+function cPM(){document.getElementById('pMo').classList.remove('sh')}
+function ePin(n){if(pin.length>=4)return;pin+=n;rPn();if(pin.length===4){if(pin==='2026'){document.getElementById('pPn').style.display='none';document.getElementById('pDs').style.display='block';document.getElementById('piE').style.display='none';rPa()}else{document.getElementById('piE').style.display='block';pin='';setTimeout(rPn,300)}}}
+function dPin(){pin=pin.slice(0,-1);rPn()}
+function rPn(){for(let i=0;i<4;i++){const d=document.getElementById('p-'+i);d.textContent=i<pin.length?'●':'';d.classList.toggle('fl',i<pin.length)}}
+
+function uStr(){let s=0;const d=new Date(T);d.setDate(d.getDate()-1);while(true){const k=dk(d);if(S.hi[k]&&S.hi[k]>=60){s++;d.setDate(d.getDate()-1)}else break}if(cSc()>=60)s++;S.str=s;sS();document.getElementById('hStr').textContent=s}
+
+// === RENDER ALL ===
+function rA(){
+  const sc=cSc(),lv=gLv(sc);
+  S.hi[TK]=sc;if(sc>S.bs)S.bs=sc;sS();
+  uStr();cBd();
+  rH(sc,lv);rE();rW();rCh();rL();rP(sc,lv);
+}
+
+// === HOME ===
+function rH(sc,lv){
+  const h=T.getHours();
+  const hm=h*60+T.getMinutes();
+  let gr='Bonjour Cassy';if(h>=13&&h<18)gr='Bon apres-midi Cassy';if(h>=18)gr='Bonsoir Cassy';if(h>=22||h<5)gr='Bonne nuit Cassy';
+  document.getElementById('hGrt').textContent=gr+'  ✨';
+  document.getElementById('hDate').textContent=fDF(T);
+  // Tags
+  const tg=document.getElementById('hTags');
+  const dtL={'ecole':'📚 Ecole','basket_club':'🏀 Basket Club','mercredi_basket':'🏀 Mercredi Basket','basket_ecole':'🏀 Basket Ecole','weekend':'🏖️ Week-end','vacances':'🌴 Vacances'};
+  const dtC={'ecole':'bg-bl','basket_club':'bg-or','mercredi_basket':'bg-or','basket_ecole':'bg-or','weekend':'bg-gn','vacances':'bg-go'};
+  tg.innerHTML='<span class="bg '+dtC[S.dt]+'">'+(dtL[S.dt]||S.dt)+'</span>';
+  if(isBD(S.dt))tg.innerHTML+='<span class="bg bg-pk">Jour de match</span>';
+  // Message
+  document.getElementById('hMsg').textContent=gCM();
+  // Score ring
+  const offset=219.91-(219.91*sc/100);
+  document.getElementById('hRing').style.strokeDashoffset=offset;
+  document.getElementById('hRing').style.stroke=lv.c;
+  document.getElementById('hScN').textContent=sc;
+  document.getElementById('hScN').style.color=lv.c;
+  document.getElementById('hLvl').textContent=lv.n;
+  document.getElementById('hLvl').style.color=lv.c;
+  document.getElementById('hPr').textContent=gPP(sc);
+  document.getElementById('hLB').style.width=(sc)+'%';
+  document.getElementById('hLB').style.background=lv.c;
+  // Next action & meal & defi
+  document.getElementById('hNext').textContent=gNA();
+  document.getElementById('hMeal').textContent=gNM();
+  document.getElementById('hDefi').textContent=gDC();
+  // Objectives
+  const objs=gObjs(),oc=document.getElementById('hObjs');
+  let done=0;oc.innerHTML='';
+  objs.forEach(o=>{
+    const ck=S.ck[o.id]?true:false;if(ck)done++;
+    oc.innerHTML+='<div class="ci'+(ck?' ck':'')+'" onclick="tCk(\''+o.id+'\','+o.p+');rA()"><div class="cb">'+(ck?'✓':'')+'</div><span class="ce">'+o.e+'</span><span class="cl" style="flex:1;font-size:.84rem">'+o.l+'</span><span style="font-size:.7rem;color:var(--tm)">+'+o.p+'</span></div>';
+  });
+  document.getElementById('hOC').textContent=done+'/'+objs.length;
+  // === RITUEL MATIN / SOIR / CONTEXTE ===
+  const hRit=document.getElementById('hRituel');
+  const dayIdx=(T.getDate()+T.getMonth()*11)%20;
+  if(h>=6&&h<12){
+    // MATIN (6h-12h): message + priere + respiration integres
+    const msg=MM[dayIdx%MM.length];
+    const pr=PRAYERS.filter(p=>p.ctx==='matin')[dayIdx%4];
+    const md=MEDITS.find(m=>m.id==='md_matin');
+    let rh='<div class="c cg-go mb2"><div style="font-size:.68rem;font-weight:700;opacity:.7;margin-bottom:6px">☀️ MON RITUEL DU MATIN</div>';
+    rh+='<p style="color:#2D2040;font-weight:600;font-size:.9rem;line-height:1.55;margin-bottom:10px">'+msg+'</p>';
+    rh+='<div style="background:rgba(255,255,255,.35);border-radius:10px;padding:10px;margin-bottom:8px"><div class="fx ac g2 mb1"><span>🙏</span><strong style="font-size:.82rem;color:#2D2040">'+pr.t+'</strong></div>';
+    rh+='<p style="font-size:.82rem;color:#2D2040;line-height:1.6;white-space:pre-line;font-style:italic">'+pr.txt+'</p></div>';
+    rh+='<div style="background:rgba(255,255,255,.25);border-radius:10px;padding:10px"><div class="fx ac jb"><div class="fx ac g2"><span>🌬️</span><strong style="font-size:.82rem;color:#2D2040">'+md.t+'</strong></div>';
+    rh+='<button class="btn" style="padding:5px 12px;font-size:.76rem;background:rgba(255,255,255,.5);color:#2D2040;border:none" onclick="showCalm();startBreath(\'md_matin\')">Respirer</button></div></div>';
+    rh+='</div>';
+    // Context message if school or basket day
+    if(S.dt==='ecole'||S.dt==='basket_ecole'){
+      rh+='<div class="c mb2" style="border-left:4px solid var(--bl)"><div class="fx ac g2"><span style="font-size:1.1rem">📚</span><div><div style="font-size:.68rem;font-weight:600;color:var(--bl)">MESSAGE ECOLE</div><p style="font-weight:600;color:var(--tx);font-size:.84rem">'+M_ECO[dayIdx%M_ECO.length]+'</p></div></div></div>';
+    }
+    if(isBD(S.dt)){
+      rh+='<div class="c mb2" style="border-left:4px solid var(--or)"><div class="fx ac g2"><span style="font-size:1.1rem">🏀</span><div><div style="font-size:.68rem;font-weight:600;color:var(--or)">MESSAGE BASKET</div><p style="font-weight:600;color:var(--tx);font-size:.84rem">'+M_BB[dayIdx%M_BB.length]+'</p></div></div></div>';
+    }
+    hRit.style.display='';hRit.innerHTML=rh;
+  }else if(h*60+T.getMinutes()>=1170){
+    // SOIR (19h30+): experience complete du soir
+    const msg=ME[dayIdx%ME.length];
+    const somMsg=M_SOM[dayIdx%M_SOM.length];
+    const pr=PRAYERS.filter(p=>p.ctx==='soir')[dayIdx%5];
+    let rh='<div class="c cg-dk mb2"><div style="font-size:.68rem;font-weight:700;color:var(--pk-l);margin-bottom:6px">🌙 MON RITUEL DU SOIR</div>';
+    rh+='<p style="color:rgba(255,255,255,.95);font-weight:600;font-size:.9rem;line-height:1.55;margin-bottom:10px">'+msg+'</p>';
+    rh+='<div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px;margin-bottom:8px"><div class="fx ac g2 mb1"><span>🙏</span><strong style="font-size:.82rem;color:#fff">'+pr.t+'</strong></div>';
+    rh+='<p style="font-size:.82rem;color:rgba(255,255,255,.85);line-height:1.6;white-space:pre-line;font-style:italic">'+pr.txt+'</p></div>';
+    rh+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">';
+    rh+='<div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="showCalm();startBreath(\'md_soir\')"><span style="font-size:1.3rem">🌬️</span><p style="font-size:.76rem;color:rgba(255,255,255,.8);margin-top:4px;font-weight:600">Respiration du soir</p></div>';
+    rh+='<div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="showCalm();startBreath(\'md_grat\')"><span style="font-size:1.3rem">🙏</span><p style="font-size:.76rem;color:rgba(255,255,255,.8);margin-top:4px;font-weight:600">Ma gratitude</p></div></div>';
+    rh+='<p style="font-size:.8rem;color:var(--pk-l);font-style:italic;text-align:center">'+somMsg+'</p>';
+    rh+='</div>';
+    hRit.style.display='';hRit.innerHTML=rh;
+  }else if(h>=12&&h<18&&isBD(S.dt)){
+    // AVANT BASKET: motivation + respiration
+    let rh='<div class="c cg-or mb2"><div style="font-size:.68rem;font-weight:700;opacity:.7;margin-bottom:6px">🏀 AVANT TON BASKET</div>';
+    rh+='<p style="color:#2D2040;font-weight:600;font-size:.9rem;line-height:1.55;margin-bottom:10px">'+M_BB[dayIdx%M_BB.length]+'</p>';
+    rh+='<div style="background:rgba(255,255,255,.3);border-radius:10px;padding:10px"><div class="fx ac jb"><div class="fx ac g2"><span>🌬️</span><strong style="font-size:.82rem;color:#2D2040">Respiration concentration</strong></div>';
+    rh+='<button class="btn" style="padding:5px 12px;font-size:.76rem;background:rgba(255,255,255,.5);color:#2D2040;border:none" onclick="showCalm();startBreath(\'md_basket\')">Respirer</button></div></div>';
+    rh+='</div>';
+    hRit.style.display='';hRit.innerHTML=rh;
+  }else if(h>=18&&h*60+T.getMinutes()<1170&&isBD(S.dt)){
+    // APRES BASKET: recuperation
+    let rh='<div class="c mb2" style="border-left:4px solid var(--gn);background:var(--bgc)"><div style="font-size:.68rem;font-weight:600;color:var(--gn);margin-bottom:4px">💪 APRES TON BASKET</div>';
+    rh+='<p style="font-weight:600;color:var(--tx);font-size:.88rem;line-height:1.5">'+M_AB[dayIdx%M_AB.length]+'</p></div>';
+    hRit.style.display='';hRit.innerHTML=rh;
+  }else{
+    // JOURNEE: message ecole ou contexte si pertinent
+    if(S.dt==='ecole'||S.dt==='basket_ecole'){
+      let rh='<div class="c mb2" style="border-left:4px solid var(--bl)"><div class="fx ac g2"><span style="font-size:1.1rem">📚</span><div><div style="font-size:.68rem;font-weight:600;color:var(--bl)">COURAGE A L\'ECOLE</div><p style="font-weight:600;color:var(--tx);font-size:.84rem">'+M_ECO[dayIdx%M_ECO.length]+'</p></div></div></div>';
+      hRit.style.display='';hRit.innerHTML=rh;
+    }else{hRit.style.display='none';hRit.innerHTML=''}
+  }
+
+  // Basket rappel
+  if(isBD(S.dt)){
+    document.getElementById('hRappelBasket').style.display='flex';
+    const bt={'basket_club':'Basket 18h-19h30','mercredi_basket':'Basket 14h-15h30','basket_ecole':'Basket a l\'ecole'};
+    document.getElementById('hRappelBkTxt').textContent=bt[S.dt]||'Basket aujourd\'hui';
+  }else{document.getElementById('hRappelBasket').style.display='none'}
+  // Quick status
+  const wg=isBD(S.dt)?8:6;
+  document.getElementById('sW').textContent=S.gl+'/'+wg;
+  const meals=getMeals(),mc=meals.filter(m=>m.pts>0),md=mc.filter(m=>S.ck['m_'+m.t]);
+  document.getElementById('sE').textContent=md.length+'/'+mc.length;
+  document.getElementById('sS').textContent=S.ck['o_co']?'✅':'--';
+  document.getElementById('sP').textContent=S.ck['o_ph']?'✅':'--';
+  document.getElementById('sB').textContent=isBD(S.dt)?(S.ck['o_cl']?'✅':'--'):'--';
+  // Mini calendar
+  rMiniCal();
+}
+
+// === MINI CALENDAR ===
+function rMiniCal(){
+  const mc=document.getElementById('hMiniCal');
+  const days=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const mon=T.getDay(),start=new Date(T);start.setDate(start.getDate()-((mon+6)%7));
+  let h='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center">';
+  for(let i=0;i<7;i++){
+    const d=new Date(start);d.setDate(d.getDate()+i);
+    const type=gDT(d);
+    const isT=d.toDateString()===T.toDateString();
+    let bg='var(--bga)',col='var(--tx)';
+    if(isT){bg='var(--vi)';col='#fff'}
+    else if(isBD(type)){bg='var(--or-l)';col='var(--or-d)'}
+    else if(type==='vacances'){bg='var(--gn-l)';col='var(--gn-d)'}
+    else if(type==='weekend'){bg='var(--bl-l)';col='var(--bl-d)'}
+    h+='<div style="padding:6px 2px;border-radius:8px;background:'+bg+';color:'+col+'"><div style="font-size:.6rem;font-weight:600">'+days[i]+'</div><div style="font-size:.92rem;font-weight:700">'+d.getDate()+'</div></div>';
+  }
+  h+='</div>';
+  mc.innerHTML=h;
+}
+
+// === ENERGY ===
+function rE(){
+  const meals=getMeals();
+  const dtL={'ecole':'jour d\'ecole','basket_club':'jour de basket','mercredi_basket':'mercredi basket','basket_ecole':'vendredi basket','weekend':'week-end','vacances':'vacances'};
+  document.getElementById('eMealTitle').textContent='🕐 Repas — '+(dtL[S.dt]||'aujourd\'hui');
+  // Timeline
+  const tl=document.getElementById('eMealTL');tl.innerHTML='';
+  meals.forEach(ml=>{
+    const ck=ml.pts>0&&S.ck['m_'+ml.t];
+    const mkk='m_'+ml.t;
+    let mh='<div class="meal-item'+(ck?' done':'')+'"'+(ml.pts>0?' onclick="tCk(\''+mkk+'\','+ml.pts+');rA()" style="cursor:pointer"':'')+'>'+
+      '<div class="meal-time">'+ml.t+'</div>'+
+      '<div class="meal-dot'+(ck?' ck':'')+'"></div>'+
+      '<div class="meal-info"><div class="fx ac g2"><span>'+ml.e+'</span><strong style="font-size:.88rem">'+ml.n+'</strong>'+
+      (ml.pts>0?'<span style="font-size:.65rem;background:var(--bga);padding:2px 6px;border-radius:10px;color:var(--tm)">+'+ml.pts+' pts</span>':'')+
+      '</div><p style="font-size:.78rem;margin:2px 0">'+ml.d+'</p>';
+    if(ml.opt&&ml.opt.length>0){
+      mh+='<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">';
+      ml.opt.forEach(o=>mh+='<span style="font-size:.7rem;background:var(--bga);padding:2px 8px;border-radius:12px;color:var(--ts)">'+o+'</span>');
+      mh+='</div>';
+    }
+    mh+='</div></div>';
+    tl.innerHTML+=mh;
+  });
+  // Score
+  let pts=0,mx=0;
+  meals.forEach(m=>{if(m.pts>0){mx+=m.pts;if(S.ck['m_'+m.t])pts+=m.pts}});
+  document.getElementById('eSc').textContent=pts+'/'+mx+' pts';
+  const pct=mx>0?pts/mx:0;
+  document.getElementById('eEm').textContent=pct>=.8?'🔥':pct>=.5?'⚡':pct>0?'🔋':'💤';
+  // Energy items (objectives related to energy)
+  const ei=document.getElementById('eItems');ei.innerHTML='';
+  const eo=[{id:'o_pd',e:'🥣',l:'Petit-dej complet avant ecrans',p:10},{id:'o_lm',e:'🌤️',l:'Lumiere du jour le matin',p:5}];
+  if(isBD(S.dt)){eo.push({id:'o_cl',e:'🍌',l:'Collation avant basket',p:10});eo.push({id:'o_rc',e:'💪',l:'Recuperation apres basket',p:10})}
+  eo.forEach(o=>{const ck=S.ck[o.id];
+    ei.innerHTML+='<div class="ci'+(ck?' ck':'')+'" onclick="tCk(\''+o.id+'\','+o.p+');rA()"><div class="cb">'+(ck?'✓':'')+'</div><span class="ce">'+o.e+'</span><span class="cl" style="flex:1;font-size:.84rem">'+o.l+'</span><span style="font-size:.7rem;color:var(--tm)">+'+o.p+'</span></div>';
+  });
+  // Recipes
+  const rc=document.getElementById('rcC');rc.innerHTML='';
+  RECIPES.forEach(r=>{
+    rc.innerHTML+='<div class="ci" style="cursor:default;flex-wrap:wrap"><span class="ce">'+r.e+'</span><div style="flex:1"><strong style="font-size:.84rem">'+r.n+'</strong> <span style="font-size:.7rem;color:var(--tm)">'+r.t+'</span><p style="font-size:.76rem;margin-top:2px">'+r.i+'</p><p style="font-size:.74rem;color:var(--vi);margin-top:2px;font-style:italic">'+r.s+'</p></div></div>';
+  });
+}
+
+// === WATER ===
+function rW(){
+  const g=isBD(S.dt)?8:6;
+  document.getElementById('wG').textContent=g+' verres';
+  const rm=g-S.gl;
+  document.getElementById('wR').textContent=rm>0?'Encore '+rm+' verre'+(rm>1?'s':'')+' !':'Objectif atteint !';
+  // Glass grid
+  const gr=document.getElementById('wGr');gr.innerHTML='';
+  for(let i=0;i<g;i++){
+    const filled=i<S.gl;
+    gr.innerHTML+='<div class="gs'+(filled?' fl':'')+'" onclick="tGl('+i+')"><span style="font-size:1.4rem">'+(filled?'💧':'🫗')+'</span></div>';
+  }
+  // Progress
+  const pct=Math.min(100,Math.round(S.gl/g*100));
+  document.getElementById('wP').style.width=pct+'%';
+  // Encouragement
+  let enc='Commence a boire !';
+  if(S.gl>=g)enc='🎉 Objectif atteint ! Bravo !';
+  else if(S.gl>=g*0.75)enc='Presque ! Continue !';
+  else if(S.gl>=g*0.5)enc='Bien parti ! Tu es a la moitie.';
+  else if(S.gl>0)enc='Bon debut ! Continue.';
+  document.getElementById('wE').textContent=enc;
+  // Mini goal
+  const h=T.getHours();
+  let mg='Bois un verre en te levant';
+  if(h>=8&&h<12)mg='2 verres minimum avant midi';
+  else if(h>=12&&h<15)mg='Un verre a chaque repas';
+  else if(h>=15&&h<18)mg='Hydrate-toi bien pour finir la journee';
+  else if(h>=18)mg='Un dernier verre avant le diner';
+  document.getElementById('wM').textContent=mg;
+}
+
+// === CHALLENGES ===
+function rCh(){
+  const cl=document.getElementById('chL');cl.innerHTML='';
+  CD.forEach(c=>{
+    const ch=S.ch[c.id]||{s:null,d:[]};
+    const started=ch.s!==null;
+    const done=ch.d?ch.d.length:0;
+    const pct=Math.round(done/c.dy*100);
+    const completed=done>=c.dy;
+    let h='<div class="c '+c.c+' mb2"><div class="fx ac jb mb1"><div class="fx ac g2"><span style="font-size:1.2rem">'+c.e+'</span><div><strong style="font-size:.9rem">'+c.n+'</strong><p style="font-size:.76rem;margin-top:1px;opacity:.8">'+c.d+'</p></div></div>';
+    if(completed)h+='<span class="bg bg-gn">✅ Fini</span>';
+    else if(started)h+='<span class="bg bg-vi">'+done+'/'+c.dy+'j</span>';
+    h+='</div>';
+    // Progress dots
+    h+='<div class="fx g1 mt1">';
+    for(let i=0;i<c.dy;i++){
+      const f=i<done;
+      h+='<div style="width:100%;height:6px;border-radius:3px;background:'+(f?'rgba(255,255,255,.9)':'rgba(255,255,255,.25)')+'"></div>';
+    }
+    h+='</div>';
+    if(!started)h+='<button class="btn btn-pk mt2" style="width:100%;font-size:.8rem" onclick="stCh(\''+c.id+'\')">Commencer le challenge</button>';
+    else if(!completed){
+      // Check if today is validatable
+      const todayDone=ch.d&&ch.d.includes(TK);
+      if(!todayDone)h+='<button class="btn btn-pk mt2" style="width:100%;font-size:.8rem" onclick="valCh(\''+c.id+'\')">✅ Valider aujourd\'hui</button>';
+      else h+='<div class="tc mt1"><small style="color:rgba(255,255,255,.7)">✅ Fait aujourd\'hui</small></div>';
+    }
+    h+='</div>';
+    cl.innerHTML+=h;
+  });
+}
+function valCh(id){
+  if(!S.ch[id])return;
+  if(!S.ch[id].d.includes(TK)){S.ch[id].d.push(TK);sS()}
+  const c=CD.find(x=>x.id===id);
+  if(c&&S.ch[id].d.length>=c.dy){eBd(c.b);sT('🏆 Challenge '+c.n+' reussi !');}
+  else{sT('✅ Jour valide !')}
+  rA();
+}
+
+// === LECTURE ===
+function rL(){
+  // Message inspi
+  document.getElementById('lMsgInspi').textContent=ML[(T.getDate()+T.getMonth()*13)%ML.length];
+  // Stats
+  const myDone=S.myBooks.filter(b=>b.st==='done').length;
+  document.getElementById('lStatBooks').textContent=S.booksRead.length+myDone;
+  document.getElementById('lStatWeek').textContent=S.readWeek;
+  const soirStrk=chkLSoirStreak();
+  document.getElementById('lStatStreak').textContent=soirStrk;
+  // Objectif
+  const pct=Math.min(100,Math.round(S.readWeek/70*100));
+  document.getElementById('lProg').style.width=pct+'%';
+  document.getElementById('lObjBadge').textContent=S.readWeek+'/70 min';
+  // Today
+  document.getElementById('lToday').textContent=S.readToday+' min';
+  // Next book
+  const nextB=BOOKS.find(b=>!S.booksRead.includes(b.id)&&S.bookStates[b.id]!=='done');
+  document.getElementById('lNextBook').textContent=nextB?(nextB.e+' '+nextB.t):'Tous les livres sont lus !';
+
+  // === BOOKS TO READ ===
+  const btr=document.getElementById('booksToRead');btr.innerHTML='';
+  BOOKS.forEach(b=>{
+    const st=S.bookStates[b.id]||'want';
+    if(st==='done')return;
+    let h='<div class="book-card '+b.c+'" style="color:#2D2040">';
+    h+='<div class="fx ac g2 mb1"><span style="font-size:1.5rem">'+b.e+'</span><div style="flex:1"><strong style="font-size:.94rem">'+b.t+'</strong></div>';
+    if(st==='started')h+='<span class="book-badge" style="background:rgba(255,255,255,.5);color:#2D2040">En cours</span>';
+    h+='</div>';
+    h+='<p style="font-size:.82rem;margin:4px 0">'+b.d+'</p>';
+    h+='<div style="background:rgba(255,255,255,.25);border-radius:8px;padding:8px;margin:6px 0"><p style="font-size:.78rem;font-weight:600">Pourquoi c\'est bien pour moi :</p><p style="font-size:.78rem;margin-top:2px">'+b.w+'</p></div>';
+    h+='<div class="fx g2 mt1" style="flex-wrap:wrap">';
+    if(st==='want'){
+      h+='<button class="btn btn-pk" style="font-size:.76rem;padding:7px 14px" onclick="event.stopPropagation();setBookState(\''+b.id+'\',\'started\')">Commence</button>';
+    }else if(st==='started'){
+      h+='<button class="btn btn-vi" style="font-size:.76rem;padding:7px 14px" onclick="event.stopPropagation();setBookState(\''+b.id+'\',\'done\')">Termine !</button>';
+      h+='<button class="btn btn-o" style="font-size:.76rem;padding:7px 14px" onclick="event.stopPropagation();setBookState(\''+b.id+'\',\'want\')">Pas encore</button>';
+    }
+    h+='</div></div>';
+    btr.innerHTML+=h;
+  });
+  if(btr.innerHTML==='')btr.innerHTML='<div class="c tc cg-gn"><p style="color:#2D2040;font-weight:700;font-size:.9rem">🎉 Tu as lu tous les livres ! Bravo !</p></div>';
+
+  // === MY BOOKS (maison) ===
+  rMB();
+
+  // === BOOKS READ ===
+  const br=document.getElementById('booksRead');br.innerHTML='';
+  const bn=document.getElementById('bookNotes');bn.innerHTML='';
+  let hasRead=false;
+  BOOKS.forEach(b=>{
+    if(S.bookStates[b.id]==='done'||S.booksRead.includes(b.id)){
+      hasRead=true;
+      const notes=S.bookNotes[b.id]||{stars:0,note:''};
+      let h='<div class="book-card" style="border-left:4px solid var(--gn)">';
+      h+='<div class="fx ac jb mb1"><div class="fx ac g2"><span style="font-size:1.2rem">'+b.e+'</span><strong style="font-size:.9rem">'+b.t+'</strong></div><span class="bg bg-gn">✅ Lu</span></div>';
+      // Stars
+      h+='<div class="fx ac g2 mb1"><small style="color:var(--tm)">Ma note :</small><div class="star-row">';
+      for(let i=1;i<=5;i++){
+        h+='<span class="star" onclick="setBookStars(\''+b.id+'\','+i+')">'+(i<=notes.stars?'💜':'🤍')+'</span>';
+      }
+      h+='</div></div>';
+      // Note
+      h+='<div style="margin-top:6px"><small style="color:var(--tm)">Ce que j\'ai aime / ce que ce livre m\'a appris :</small>';
+      h+='<textarea style="width:100%;min-height:48px;border:1px solid var(--vi-l);border-radius:8px;padding:8px;font-family:var(--f);font-size:.8rem;resize:vertical;background:var(--bga);color:var(--tx);margin-top:4px" placeholder="Ecris ici..." onblur="setBookNote(\''+b.id+'\',this.value)">'+notes.note+'</textarea>';
+      h+='</div></div>';
+      br.innerHTML+=h;
+    }
+  });
+  // My books done also show in Livres lus
+  S.myBooks.filter(b=>b.st==='done').forEach(b=>{
+    hasRead=true;
+    const catE={sport:'🏀',confiance:'💪',aventure:'🌟',calme:'🌙',soir:'📖',motivation:'🔥',autre:'✨'};
+    let h='<div class="book-card" style="border-left:4px solid var(--gn)">';
+    h+='<div class="fx ac jb mb1"><div class="fx ac g2"><span style="font-size:1.2rem">'+(catE[b.cat]||'📚')+'</span><strong style="font-size:.9rem">'+esc(b.t)+'</strong></div><span class="bg bg-gn">✅ Lu</span></div>';
+    if(b.a)h+='<p style="font-size:.78rem;color:var(--tm)">'+esc(b.a)+'</p>';
+    if(b.n)h+='<p style="font-size:.8rem;color:var(--ts);margin-top:4px">'+esc(b.n)+'</p>';
+    h+='</div>';
+    br.innerHTML+=h;
+  });
+  if(!hasRead)br.innerHTML='<div class="c tc"><p style="color:var(--tm);font-size:.86rem;padding:14px">Aucun livre lu pour le moment. Commence ta premiere aventure !</p></div>';
+
+  // === DEFI LECTURE ===
+  // Soir button state
+  const soirDone=S.readSoirDays.includes(TK);
+  const soirBtn=document.getElementById('lSoirBtn');
+  if(soirBtn){if(soirDone){soirBtn.textContent='✅ Fait ce soir';soirBtn.className='btn btn-o';soirBtn.disabled=true}else{soirBtn.textContent='Oui, j\'ai lu !';soirBtn.className='btn btn-vi';soirBtn.disabled=false}}
+  document.getElementById('lSoirStreak').textContent=soirStrk;
+
+  // Defi cards
+  const ldc=document.getElementById('lDefiCards');ldc.innerHTML='';
+  LCD.forEach(c=>{
+    const ch=S.lch[c.id]||{s:null,d:[]};
+    const started=ch.s!==null;
+    const done=ch.d?ch.d.length:0;
+    const completed=done>=c.dy;
+    let h='<div class="c '+c.c+' mb2" style="color:#2D2040"><div class="fx ac jb mb1"><div class="fx ac g2"><span style="font-size:1.2rem">'+c.e+'</span><div><strong style="font-size:.88rem">'+c.n+'</strong><p style="font-size:.74rem;margin-top:1px;opacity:.8">'+c.d+'</p></div></div>';
+    if(completed)h+='<span class="bg bg-gn">✅</span>';
+    else if(started)h+='<span class="book-badge" style="background:rgba(255,255,255,.4)">'+done+'/'+c.dy+'</span>';
+    h+='</div>';
+    if(c.dy>1){h+='<div class="fx g1 mt1">';for(let i=0;i<c.dy;i++){h+='<div style="width:100%;height:5px;border-radius:3px;background:'+(i<done?'rgba(255,255,255,.9)':'rgba(255,255,255,.25)')+'"></div>'}h+='</div>';}
+    if(!started)h+='<button class="btn btn-pk mt2" style="width:100%;font-size:.78rem" onclick="stLCh(\''+c.id+'\')">Commencer</button>';
+    else if(!completed){const todayD=ch.d&&ch.d.includes(TK);if(!todayD)h+='<button class="btn btn-pk mt2" style="width:100%;font-size:.78rem" onclick="valLCh(\''+c.id+'\')">✅ Valider</button>';else h+='<div class="tc mt1"><small style="opacity:.7">✅ Fait aujourd\'hui</small></div>';}
+    h+='</div>';
+    ldc.innerHTML+=h;
+  });
+
+  // Badges lecture
+  const lbg=document.getElementById('lBadges');lbg.innerHTML='';
+  LBD.forEach(b=>{
+    const earned=S.lbd[b.id];
+    lbg.innerHTML+='<div class="bge'+(earned?' er':'')+'"><span style="font-size:1.4rem'+(earned?'':';filter:grayscale(1);opacity:.3')+'">'+b.e+'</span><div style="font-size:.66rem;font-weight:600;margin-top:2px'+(earned?';color:var(--tx)':';color:var(--tm)')+'">'+b.n+'</div>'+(earned?'<div style="font-size:.56rem;color:var(--gn)">✅</div>':'<div style="font-size:.56rem;color:var(--tm)">'+b.d+'</div>')+'</div>';
+  });
+}
+
+// === PROFIL ===
+function rP(sc,lv){
+  // Age
+  const bday=new Date(2013,5,22);
+  let age=T.getFullYear()-bday.getFullYear();
+  if(T<new Date(T.getFullYear(),5,22))age--;
+  document.getElementById('pAge').textContent=age+' ans — Basketteuse a Cugnaux';
+  // Level
+  document.getElementById('pLvl').textContent=lv.n;
+  document.getElementById('pLvl').style.color=lv.c;
+  document.getElementById('pLB').style.width=sc+'%';
+  document.getElementById('pLB').style.background=lv.c;
+  // Stats
+  document.getElementById('pStr').textContent=S.str;
+  const startDate=new Date(2026,3,6);
+  const weekNum=Math.max(1,Math.ceil((T-startDate)/604800000));
+  document.getElementById('pWS').textContent='S'+weekNum;
+  document.getElementById('pBS').textContent=S.bs;
+  document.getElementById('pDy').textContent=dsS(startDate,T);
+  // Badges
+  const bg=document.getElementById('pBg');bg.innerHTML='';
+  BD.forEach(b=>{
+    const earned=S.bd[b.id];
+    bg.innerHTML+='<div class="bge'+(earned?' er':'')+'"><span style="font-size:1.5rem'+(earned?'':';filter:grayscale(1);opacity:.3')+'">'+b.e+'</span><div style="font-size:.68rem;font-weight:600;margin-top:2px'+(earned?';color:var(--tx)':';color:var(--tm)')+'">'+b.n+'</div>'+(earned?'<div style="font-size:.58rem;color:var(--gn)">✅</div>':'<div style="font-size:.58rem;color:var(--tm)">'+b.d+'</div>')+'</div>';
+  });
+  // Routines
+  const rtl=document.getElementById('rtL');rtl.innerHTML='';
+  RT.forEach(r=>{
+    let h='<div class="exh" onclick="tEx(\'rt-'+r.id+'\')"><div class="fx ac g2"><span>'+r.e+'</span><div><strong style="font-size:.86rem">'+r.n+'</strong><small class="ml1">'+r.t+'</small></div></div><span class="exa" id="a-rt-'+r.id+'">▼</span></div>';
+    h+='<div class="exc" id="rt-'+r.id+'"><p style="font-size:.8rem;color:var(--vi);font-style:italic;margin-bottom:8px">'+r.w+'</p>';
+    r.st.forEach((s,i)=>{
+      h+='<div class="rs"><div class="sn" style="background:var(--vi-l);color:var(--vi-d)">'+(i+1)+'</div><div class="st" style="font-size:.82rem">'+s+'</div></div>';
+    });
+    h+='</div>';
+    rtl.innerHTML+=h;
+  });
+  // Checklists
+  rCL('ckEcole',CK_ECOLE,'ck_');
+  rCL('ckBasket',CK_BASKET,'ck_');
+}
+function rCL(id,items,prefix){
+  const el=document.getElementById(id);el.innerHTML='';
+  items.forEach(it=>{
+    const ck=S.ck[prefix+it.id];
+    el.innerHTML+='<div class="ci'+(ck?' ck':'')+'" onclick="tCk(\''+prefix+it.id+'\',0);rA()"><div class="cb">'+(ck?'✓':'')+'</div><span class="ce">'+it.e+'</span><span class="cl" style="flex:1;font-size:.84rem">'+it.l+'</span></div>';
+  });
+}
+
+// === PARENTS DASHBOARD ===
+function rPa(){
+  const sc=cSc(),lv=gLv(sc);
+  document.getElementById('prSc').textContent=sc+'%';
+  document.getElementById('prSt').textContent=S.str+'j';
+  document.getElementById('prW').textContent=S.gl+'/'+(isBD(S.dt)?8:6);
+  document.getElementById('prLv').textContent=lv.n;
+  // Badges
+  const bd=document.getElementById('prBd');bd.innerHTML='';
+  const earned=BD.filter(b=>S.bd[b.id]);
+  if(earned.length===0)bd.innerHTML='<small>Aucun badge pour le moment.</small>';
+  else earned.forEach(b=>bd.innerHTML+='<div class="fx ac g2 mb1"><span>'+b.e+'</span><div><strong style="font-size:.82rem">'+b.n+'</strong><small class="ml1">'+S.bd[b.id]+'</small></div></div>');
+  // Challenges
+  const ch=document.getElementById('prCh');ch.innerHTML='';
+  CD.forEach(c=>{
+    const chd=S.ch[c.id]||{s:null,d:[]};
+    const done=chd.d?chd.d.length:0;
+    ch.innerHTML+='<div class="fx ac jb mb1" style="font-size:.82rem"><div class="fx ac g2"><span>'+c.e+'</span><span>'+c.n+'</span></div><span style="font-weight:700;color:'+(done>=c.dy?'var(--gn)':'var(--ts)')+'">'+done+'/'+c.dy+'</span></div>';
+  });
+  // Notes bien-etre
+  const nt=document.getElementById('prNotes');nt.innerHTML='';
+  const wg=isBD(S.dt)?8:6;const hydPct=Math.round(S.gl/wg*100);
+  const mealsDone=getMeals().filter(m=>m.pts>0&&S.ck['m_'+m.t]).length;const mealsTotal=getMeals().filter(m=>m.pts>0).length;
+  // Sommeil
+  nt.innerHTML+='<div style="padding:8px 10px;background:var(--bga);border-radius:8px;margin-bottom:6px"><div class="fx ac g2"><span>😴</span><div><strong style="font-size:.82rem">Sommeil</strong><p style="font-size:.78rem;color:var(--ts);margin-top:2px">'+(S.ck.o_co&&S.ck.o_ph?'Telephone et coucher respectes. Excellent.':S.ck.o_ph?'Telephone pose a 20h. Coucher a verifier.':S.ck.o_co?'Couchee a l\'heure. Telephone a surveiller.':'Ni telephone ni coucher coches. A surveiller doucement.')+'</p></div></div></div>';
+  // Repas
+  nt.innerHTML+='<div style="padding:8px 10px;background:var(--bga);border-radius:8px;margin-bottom:6px"><div class="fx ac g2"><span>🍽️</span><div><strong style="font-size:.82rem">Repas</strong><p style="font-size:.78rem;color:var(--ts);margin-top:2px">'+mealsDone+'/'+mealsTotal+' repas valides. '+(mealsDone>=mealsTotal?'Tres bien !':mealsDone>=mealsTotal/2?'Correct, encourager a completer.':'Repas a surveiller aujourd\'hui.')+'</p></div></div></div>';
+  // Hydratation
+  nt.innerHTML+='<div style="padding:8px 10px;background:var(--bga);border-radius:8px;margin-bottom:6px"><div class="fx ac g2"><span>💧</span><div><strong style="font-size:.82rem">Hydratation</strong><p style="font-size:.78rem;color:var(--ts);margin-top:2px">'+S.gl+'/'+wg+' verres ('+(hydPct>=100?'objectif atteint':hydPct>=50?'en bonne voie':'a encourager')+').</p></div></div></div>';
+  // Croissance
+  nt.innerHTML+='<div style="padding:8px 10px;background:var(--bga);border-radius:8px;margin-bottom:6px"><div class="fx ac g2"><span>📏</span><div><strong style="font-size:.82rem">Croissance</strong><p style="font-size:.78rem;color:var(--ts);margin-top:2px">Cassy : 1m55, 33 kg. A 12 ans, le sommeil, l\'alimentation et l\'hydratation sont essentiels pour la croissance. Le basket aide a la structuration osseuse et musculaire.</p></div></div></div>';
+  // Rythme global
+  nt.innerHTML+='<div style="padding:8px 10px;background:var(--bga);border-radius:8px"><div class="fx ac g2"><span>📊</span><div><strong style="font-size:.82rem">Rythme global</strong><p style="font-size:.78rem;color:var(--ts);margin-top:2px">'+(sc>=70?'Tres bon rythme. Cassy est reguliere et disciplinee.':sc>=50?'Rythme correct. Quelques points a ameliorer.':sc>=30?'Rythme a renforcer. Encourager doucement sans pression.':'Journee difficile. Rester bienveillant et accompagner.')+'</p></div></div></div>';
+
+  // History 7 days
+  const hi=document.getElementById('prHi');hi.innerHTML='';
+  for(let i=6;i>=0;i--){
+    const d=new Date(T);d.setDate(d.getDate()-i);
+    const k=dk(d);
+    const s=S.hi[k]||0;
+    const isT=k===TK;
+    const dn=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    hi.innerHTML+='<div class="fx ac jb mb1" style="font-size:.82rem'+(isT?';font-weight:700':'')+'"><span>'+dn[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1)+'</span><div class="fx ac g2"><div style="width:80px;height:5px;background:var(--bga);border-radius:3px;overflow:hidden"><div style="width:'+s+'%;height:100%;background:'+(s>=70?'var(--gn)':s>=40?'var(--go)':'var(--or)')+';border-radius:3px"></div></div><span style="font-weight:700;color:'+(s>=70?'var(--gn)':s>=40?'var(--go)':'var(--or)')+'">'+s+'%</span></div></div>';
+  }
+}
+
+// === INIT ===
+function init(){
+  uClock();
+  rA();
+  // Onboarding check
+  if(!S.onb)setTimeout(showOnb,600);
+  // Birthday check
+  if(T.getMonth()===5&&T.getDate()===22){
+    setTimeout(()=>{document.getElementById('bMo').classList.add('sh');lC()},1500);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
