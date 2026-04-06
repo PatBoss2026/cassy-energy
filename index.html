@@ -612,11 +612,13 @@ p{font-size:.88rem;line-height:1.55;color:var(--ts)}small{font-size:.76rem;color
 // === DATES ===
 const T=new Date(),TK=dk(T),AS=new Date(2026,3,6),WAR=new Date(2026,3,6);
 const HOL=[{n:'Printemps',s:new Date(2026,3,18),e:new Date(2026,4,4)},{n:'Ete',s:new Date(2026,5,26),e:new Date(2026,8,1)}];
+const FERIES=['2026-01-01','2026-04-06','2026-04-07','2026-05-01','2026-05-08','2026-05-14','2026-05-25','2026-07-14','2026-08-15','2026-11-01','2026-11-11','2026-12-25'];
+function isFerie(d){return FERIES.includes(dk(d))}
 function dk(d){d=d||T;return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function isH(d){return HOL.some(h=>d>=h.s&&d<=h.e)}
 function isWE(d){return d.getDay()===0||d.getDay()===6}
 function gWT(d){return Math.floor((d-WAR)/864e5/7)%2===0?'A':'B'}
-function gDT(d){if(isH(d))return'vacances';if(isWE(d))return'weekend';const w=d.getDay();if(w===3)return'mercredi_basket';if(w===1||w===4)return'basket_club';if(w===5)return'basket_ecole';return'ecole'}
+function gDT(d){if(isH(d))return'vacances';if(isFerie(d))return'ferie';if(isWE(d))return'weekend';const w=d.getDay();if(w===3)return'mercredi_basket';if(w===1||w===4)return'basket_club';if(w===5)return'basket_ecole';return'ecole'}
 function isBD(t){return['mercredi_basket','basket_club','basket_ecole'].includes(t)}
 function fDF(d){const j=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],m=['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];return j[d.getDay()]+' '+d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear()}
 function dsS(s,e){return Math.max(0,Math.floor((e-s)/864e5))}
@@ -627,7 +629,7 @@ function rnd(a){return a[Math.floor(Math.random()*a.length)]}
 // === STATE ===
 const S={
   today:TK,dt:gDT(T),wt:gWT(T),
-  wtc:ld('wtc',{ecole:390,basket_club:390,basket_ecole:390,mercredi_basket:450,weekend:510,vacances:540}),
+  wtc:ld('wtc',{ecole:390,basket_club:390,basket_ecole:390,mercredi_basket:450,weekend:510,vacances:540,ferie:510}),
   wokeAt:null,wokeAtDay:null,
   ck:ld('d_'+TK,{}),gl:ld('g_'+TK,0),
   ch:ld('ch',{}),bd:ld('bd',{}),str:ld('str',0),bs:ld('bs',0),hi:ld('hi',{}),dm:ld('dm',false),
@@ -728,51 +730,54 @@ function getMeals(){
   const snackAMMin=Math.max(snackAM,570);
   const lunch=Math.max(w+300,720);
   const snackPM=990;
+  const skipSnackAM=(lunch-snackAMMin)<90;
 
-  if(dt==='ecole')return[
-    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet AVANT ecrans',opt:['Porridge fruits + miel','Tartines beurre cacahuete + banane','Oeufs brouilles + pain complet','Cereales + lait + fruit'],pts:8},
-    {t:fT(snackAMMin),n:'Collation matin',e:'🍎',d:'Si tu as un petit creux',opt:['1 fruit','Compote','Barre cereales','Quelques amandes'],pts:3},
-    {t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Repas equilibre a la cantine',opt:['Feculents + proteines + legumes','Bien manger pour l\'apres-midi'],pts:6},
+  if(dt==='ecole'){const m=[
+    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet AVANT ecrans',opt:['Porridge fruits + miel','Tartines beurre cacahuete + banane','Oeufs brouilles + pain complet','Cereales + lait + fruit'],pts:8}];
+    if(!skipSnackAM)m.push({t:fT(snackAMMin),n:'Collation matin',e:'🍎',d:'Si tu as un petit creux',opt:['1 fruit','Compote','Barre cereales','Quelques amandes'],pts:3});
+    m.push({t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Repas equilibre a la cantine',opt:['Feculents + proteines + legumes','Bien manger pour l\'apres-midi'],pts:6},
     {t:fT(snackPM),n:'Gouter',e:'🍪',d:'Recharger pour la fin de journee',opt:['Pain + chocolat','Fruit + biscuit','Yaourt + cereales'],pts:4},
-    {t:fT(DINNER),n:'Diner',e:'🌙',d:'Leger mais complet',opt:['Soupe + pain + fromage','Pates + legumes','Riz + poisson + salade'],pts:6}
-  ];
-  if(dt==='basket_club')return[
-    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet — jour de basket !',opt:['Porridge fruits (energie longue duree)','Tartines + oeuf + fruit','Pancakes + miel + banane'],pts:8},
-    {t:fT(snackAMMin),n:'Collation matin',e:'🍎',d:'Fruit ou compote',opt:['1 banane','Compote','Quelques fruits secs'],pts:3},
-    {t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Bien manger ! Basket ce soir',opt:['Feculents + proteines + legumes','Mange bien, tu vas en avoir besoin'],pts:6},
+    {t:fT(DINNER),n:'Diner',e:'🌙',d:'Leger mais complet',opt:['Soupe + pain + fromage','Pates + legumes','Riz + poisson + salade'],pts:6});
+    return m;
+  }
+  if(dt==='basket_club'){const m=[
+    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet — jour de basket !',opt:['Porridge fruits (energie longue duree)','Tartines + oeuf + fruit','Pancakes + miel + banane'],pts:8}];
+    if(!skipSnackAM)m.push({t:fT(snackAMMin),n:'Collation matin',e:'🍎',d:'Fruit ou compote',opt:['1 banane','Compote','Quelques fruits secs'],pts:3});
+    m.push({t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Bien manger ! Basket ce soir',opt:['Feculents + proteines + legumes','Mange bien, tu vas en avoir besoin'],pts:6},
     {t:'16h00',n:'🏀 Collation AVANT basket',e:'🍌',d:'1h30 avant l\'entrainement — ESSENTIEL',opt:['1 banane (l\'alliee des sportives !)','Pain + confiture','Compote + quelques amandes','Barre cereales maison'],pts:8},
     {t:'18h00–19h30',n:'🏀 BASKET CLUB',e:'🏀',d:'Entrainement a Cugnaux',opt:['Donne tout !','Bois pendant les pauses'],pts:0},
-    {t:fT(DINNER),n:'Recuperation + diner',e:'💪',d:'Dans les 30 min apres l\'effort',opt:['Lait chocolate (le secret des pros !)','Puis diner : pates/riz + proteines + legumes','Tartine PB + banane si pas tres faim'],pts:8}
-  ];
-  if(dt==='mercredi_basket')return[
-    {t:fT(w+60),n:'Petit-dejeuner',e:'☀️',d:'Mercredi = bien manger le matin',opt:['Porridge complet','Tartines + oeuf','Smoothie bowl + cereales'],pts:8},
-    {t:fT(snackAMMin),n:'Collation',e:'🍎',d:'Fruit ou compote',opt:['Banane','Compote','Fruits secs'],pts:3},
-    {t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Bien manger ! Basket cet apres-midi',opt:['Repas complet et equilibre','Feculents pour l\'energie du basket'],pts:6},
+    {t:fT(DINNER),n:'Recuperation + diner',e:'💪',d:'Dans les 30 min apres l\'effort',opt:['Lait chocolate (le secret des pros !)','Puis diner : pates/riz + proteines + legumes','Tartine PB + banane si pas tres faim'],pts:8});
+    return m;
+  }
+  if(dt==='mercredi_basket'){const m=[
+    {t:fT(w+60),n:'Petit-dejeuner',e:'☀️',d:'Mercredi = bien manger le matin',opt:['Porridge complet','Tartines + oeuf','Smoothie bowl + cereales'],pts:8}];
+    if(!skipSnackAM)m.push({t:fT(snackAMMin),n:'Collation',e:'🍎',d:'Fruit ou compote',opt:['Banane','Compote','Fruits secs'],pts:3});
+    m.push({t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Bien manger ! Basket cet apres-midi',opt:['Repas complet et equilibre','Feculents pour l\'energie du basket'],pts:6},
     {t:'13h30',n:'🏀 Collation AVANT basket',e:'🍌',d:'Legere, 30 min avant',opt:['Banane','Compote','Pain + miel'],pts:6},
     {t:'14h00–15h30',n:'🏀 BASKET ECOLE',e:'🏀',d:'1h30 de basket a l\'ecole',opt:['Bois pendant les pauses'],pts:0},
     {t:'15h30',n:'Recuperation',e:'💪',d:'Apres l\'effort',opt:['Lait chocolate','Fruit + biscuit','Yaourt + granola'],pts:6},
-    {t:fT(DINNER),n:'Diner',e:'🌙',d:'Repas du soir equilibre',opt:['Soupe + pain','Pates + legumes','Riz + poisson'],pts:6}
-  ];
-  if(dt==='basket_ecole')return[
-    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet',opt:['Porridge','Tartines','Cereales + fruit'],pts:8},
-    {t:fT(snackAMMin),n:'Collation',e:'🍎',d:'Fruit',opt:['Banane','Pomme','Compote'],pts:3},
-    {t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Bien manger, basket dans la journee',opt:['Repas equilibre'],pts:6},
+    {t:fT(DINNER),n:'Diner',e:'🌙',d:'Repas du soir equilibre',opt:['Soupe + pain','Pates + legumes','Riz + poisson'],pts:6});
+    return m;}
+  if(dt==='basket_ecole'){const m=[
+    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Petit-dej complet',opt:['Porridge','Tartines','Cereales + fruit'],pts:8}];
+    if(!skipSnackAM)m.push({t:fT(snackAMMin),n:'Collation',e:'🍎',d:'Fruit',opt:['Banane','Pomme','Compote'],pts:3});
+    m.push({t:fT(lunch),n:'Dejeuner',e:'🍽️',d:'Bien manger, basket dans la journee',opt:['Repas equilibre'],pts:6},
     {t:fT(snackPM),n:'Gouter / Recuperation',e:'💪',d:'Apres le basket',opt:['Lait chocolate','Fruit + biscuit','Pain + chocolat'],pts:5},
-    {t:fT(DINNER),n:'Diner',e:'🌙',d:'Leger mais complet',opt:['Soupe + pain','Gratin legumes','Salade complete'],pts:6}
-  ];
+    {t:fT(DINNER),n:'Diner',e:'🌙',d:'Leger mais complet',opt:['Soupe + pain','Gratin legumes','Salade complete'],pts:6});
+    return m;}
   if(dt==='weekend')return[
     {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Prends le temps ! Mais AVANT ecrans',opt:['Pancakes + fruits + miel','Porridge gourmand','Oeufs + tartines + jus frais','Smoothie bowl'],pts:8},
     {t:fT(Math.max(w+240,750)),n:'Dejeuner',e:'🍽️',d:'Repas en famille',opt:['Repas equilibre','Profite du moment'],pts:6},
     {t:fT(960),n:'Gouter',e:'🍪',d:'Petit plaisir',opt:['Gateau maison','Fruit + yaourt','Tartine'],pts:4},
     {t:fT(DINNER),n:'Diner',e:'🌙',d:'Repas du soir',opt:['Diner en famille','Leger et equilibre'],pts:6}
   ];
-  if(dt==='vacances')return[
-    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:'Pas trop tard ! Et AVANT ecrans',opt:['Porridge','Pancakes','Tartines variees','Smoothie'],pts:8},
-    {t:fT(Math.max(w+210,750)),n:'Dejeuner',e:'🍽️',d:'Equilibre meme en vacances',opt:['Salade complete','Sandwich maison','Repas en famille'],pts:6},
+  if(dt==='vacances'||dt==='ferie')return[
+    {t:fT(bfast),n:'Petit-dejeuner',e:'☀️',d:dt==='ferie'?'Jour ferie, prends le temps !':'Pas trop tard ! Et AVANT ecrans',opt:['Porridge','Pancakes','Tartines variees','Smoothie'],pts:8},
+    {t:fT(Math.max(w+210,750)),n:'Dejeuner',e:'🍽️',d:'Equilibre meme en repos',opt:['Salade complete','Sandwich maison','Repas en famille'],pts:6},
     {t:fT(960),n:'Gouter',e:'🍪',d:'Collation',opt:['Fruit','Yaourt','Biscuits maison'],pts:4},
     {t:fT(DINNER),n:'Diner',e:'🌙',d:'Repas du soir',opt:['Leger et equilibre'],pts:6}
   ];
-  return MEALS['ecole'];
+  return getMeals.call(null);
 }
 
 // === OBJECTIVES ===
@@ -1154,9 +1159,18 @@ function gNA(){
 function gNM(){
   const _n=new Date(),h=_n.getHours(),m=_n.getMinutes(),hm=h*60+m;
   const meals=getMeals();
+  const w=getWakeTime();
   for(const ml of meals){
+    if(ml.pts===0)continue;
     const parts=ml.t.match(/(\d+)h(\d+)?/);
-    if(parts){const mh=parseInt(parts[1])*60+parseInt(parts[2]||0);if(hm<mh+30)return ml.e+' '+ml.n+' — '+ml.t+' ('+ml.opt[0]+')';}
+    if(!parts)continue;
+    const mh=parseInt(parts[1])*60+parseInt(parts[2]||0);
+    if(mh<w&&ml.n.includes('Collation matin'))continue;
+    if(ml.n.includes('Collation matin')){
+      const lunchM=meals.find(x=>x.n.includes('ejeuner')&&!x.n.includes('Petit'));
+      if(lunchM){const lp=lunchM.t.match(/(\d+)h(\d+)?/);if(lp){const lh=parseInt(lp[1])*60+parseInt(lp[2]||0);if(mh>lh-90)continue;}}
+    }
+    if(hm<mh+30)return ml.e+' '+ml.n+' — '+ml.t+' ('+ml.opt[0]+')';
   }
   return'✅ Tous les repas sont passes !';
 }
@@ -1407,8 +1421,8 @@ function rH(sc,lv){
   document.getElementById('hDate').textContent=fDF(T);
   // Tags
   const tg=document.getElementById('hTags');
-  const dtL={'ecole':'📚 Ecole','basket_club':'🏀 Basket Club','mercredi_basket':'🏀 Mercredi Basket','basket_ecole':'🏀 Basket Ecole','weekend':'🏖️ Week-end','vacances':'🌴 Vacances'};
-  const dtC={'ecole':'bg-bl','basket_club':'bg-or','mercredi_basket':'bg-or','basket_ecole':'bg-or','weekend':'bg-gn','vacances':'bg-go'};
+  const dtL={'ecole':'📚 Ecole','basket_club':'🏀 Basket Club','mercredi_basket':'🏀 Mercredi Basket','basket_ecole':'🏀 Basket Ecole','weekend':'🏖️ Week-end','vacances':'🌴 Vacances','ferie':'🎉 Jour ferie'};
+  const dtC={'ecole':'bg-bl','basket_club':'bg-or','mercredi_basket':'bg-or','basket_ecole':'bg-or','weekend':'bg-gn','vacances':'bg-go','ferie':'bg-pk'};
   tg.innerHTML='<span class="bg '+dtC[S.dt]+'">'+(dtL[S.dt]||S.dt)+'</span>';
   if(isBD(S.dt))tg.innerHTML+='<span class="bg bg-pk">Jour de match</span>';
   // Message
@@ -1544,7 +1558,7 @@ function rMiniCal(){
 // === ENERGY ===
 function rE(){
   const meals=getMeals();
-  const dtL={'ecole':'jour d\'ecole','basket_club':'jour de basket','mercredi_basket':'mercredi basket','basket_ecole':'vendredi basket','weekend':'week-end','vacances':'vacances'};
+  const dtL={'ecole':'jour d\'ecole','basket_club':'jour de basket','mercredi_basket':'mercredi basket','basket_ecole':'vendredi basket','weekend':'week-end','vacances':'vacances','ferie':'jour ferie'};
   document.getElementById('eMealTitle').textContent='🕐 Repas — '+(dtL[S.dt]||'aujourd\'hui');
   // Timeline
   const tl=document.getElementById('eMealTL');tl.innerHTML='';
