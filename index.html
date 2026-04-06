@@ -1045,7 +1045,7 @@ function gDC(){
 
 // === NEXT ACTION ===
 function gNA(){
-  const h=T.getHours(),m=T.getMinutes(),hm=h*60+m;
+  const _n=new Date(),h=_n.getHours(),m=_n.getMinutes(),hm=h*60+m;
   if(hm<420)return'⏰ Reveil + verre d\'eau + lumiere du jour';
   if(hm<450)return'🥣 Petit-dejeuner complet (AVANT ecrans)';
   if(hm<600)return'💧 Bois un verre d\'eau';
@@ -1064,7 +1064,7 @@ function gNA(){
 
 // === NEXT MEAL ===
 function gNM(){
-  const h=T.getHours(),m=T.getMinutes(),hm=h*60+m;
+  const _n=new Date(),h=_n.getHours(),m=_n.getMinutes(),hm=h*60+m;
   const meals=getMeals();
   for(const ml of meals){
     const parts=ml.t.match(/(\d+)h(\d+)?/);
@@ -1155,7 +1155,7 @@ function rMB(){
 function showCalm(){document.getElementById('calmMo').classList.add('sh');rCalm()}
 function closeCalm(){document.getElementById('calmMo').classList.remove('sh');stopBreath()}
 function rCalm(){
-  const h=T.getHours();
+  const h=new Date().getHours();
   // Context-aware message
   let msg;
   const hm2=h*60+T.getMinutes();
@@ -1255,6 +1255,7 @@ function rOnb(){
 // === CLOCK ===
 function uClock(){const n=new Date(),h=String(n.getHours()).padStart(2,'0'),m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0');document.getElementById('hClock').textContent=h+':'+m+':'+s;document.getElementById('hWeek').textContent='Sem. '+S.wt}
 setInterval(uClock,1000);
+setInterval(()=>{if(typeof rA==='function')rA()},60000);
 
 // === CALENDAR ===
 let calMonth=T.getMonth(),calYear=T.getFullYear();
@@ -1299,8 +1300,8 @@ function rA(){
 
 // === HOME ===
 function rH(sc,lv){
-  const h=T.getHours();
-  const hm=h*60+T.getMinutes();
+  const now=new Date(),h=now.getHours();
+  const hm=h*60+now.getMinutes();
   let gr='Bonjour Cassy';if(h>=13&&h<18)gr='Bon apres-midi Cassy';if(h>=18)gr='Bonsoir Cassy';if(h>=22||h<5)gr='Bonne nuit Cassy';
   document.getElementById('hGrt').textContent=gr+'  ✨';
   document.getElementById('hDate').textContent=fDF(T);
@@ -1500,7 +1501,7 @@ function rW(){
   else if(S.gl>0)enc='Bon debut ! Continue.';
   document.getElementById('wE').textContent=enc;
   // Mini goal
-  const h=T.getHours();
+  const h=new Date().getHours();
   let mg='Bois un verre en te levant';
   if(h>=8&&h<12)mg='2 verres minimum avant midi';
   else if(h>=12&&h<15)mg='Un verre a chaque repas';
