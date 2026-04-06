@@ -501,7 +501,7 @@ p{font-size:.88rem;line-height:1.55;color:var(--ts)}small{font-size:.76rem;color
 <div class="c mb2"><h3 class="mb1">Challenges</h3><div id="prCh"></div></div>
 <div class="c mb2"><h3 class="mb1">Historique (7j)</h3><div id="prHi"></div></div>
 <div class="c mb2"><h3 class="mb1">Notes bien-etre</h3><div id="prNotes"></div></div>
-<div class="c mb2"><h3>⏰ Heures de reveil</h3><p style="margin:6px 0 10px;font-size:.82rem">Ajuste les heures selon le rythme de Cassy</p><div style="display:flex;flex-direction:column;gap:8px"><div class="fx ac jb"><span style="font-size:.82rem">Ecole</span><input type="time" id="wtEcole" class="wt-input" value="06:30" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Mercredi Basket</span><input type="time" id="wtMercredi" class="wt-input" value="07:30" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Week-end</span><input type="time" id="wtWeekend" class="wt-input" value="08:30" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Vacances</span><input type="time" id="wtVacances" class="wt-input" value="09:00" onchange="saveWT()"></div></div></div>
+<div class="c mb2"><h3>⏰ Heures de reveil</h3><p style="margin:6px 0 10px;font-size:.82rem">Ajuste les heures selon le rythme de Cassy</p><div style="display:flex;flex-direction:column;gap:8px"><div class="fx ac jb"><span style="font-size:.82rem">Ecole</span><input type="time" id="wtEcole" class="wt-input" value="06:30" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Mercredi Basket</span><input type="time" id="wtMercredi" class="wt-input" value="07:30" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Week-end</span><input type="time" id="wtWeekend" class="wt-input" value="08:30" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Vacances</span><input type="time" id="wtVacances" class="wt-input" value="09:00" onchange="saveWT()"></div><div class="fx ac jb"><span style="font-size:.82rem">Jour ferie</span><input type="time" id="wtFerie" class="wt-input" value="08:30" onchange="saveWT()"></div></div></div>
 <div class="ib"><p><strong>Note :</strong> Application de discipline positive. Aucune donnee medicale. Les scores mesurent la regularite. L'objectif est la progression, pas la perfection.</p></div>
 </div></div></div>
 
@@ -629,7 +629,7 @@ function rnd(a){return a[Math.floor(Math.random()*a.length)]}
 // === STATE ===
 const S={
   today:TK,dt:gDT(T),wt:gWT(T),
-  wtc:ld('wtc',{ecole:390,basket_club:390,basket_ecole:390,mercredi_basket:450,weekend:510,vacances:540,ferie:510}),
+  wtc:(function(){const def={ecole:390,basket_club:390,basket_ecole:390,mercredi_basket:450,weekend:510,vacances:540,ferie:510};const saved=ld('wtc',def);for(const k in def)if(saved[k]===undefined)saved[k]=def[k];return saved})(),
   wokeAt:null,wokeAtDay:null,
   ck:ld('d_'+TK,{}),gl:ld('g_'+TK,0),
   ch:ld('ch',{}),bd:ld('bd',{}),str:ld('str',0),bs:ld('bs',0),hi:ld('hi',{}),dm:ld('dm',false),
@@ -651,7 +651,7 @@ v:["Vacances : le moment parfait pour renforcer tes habitudes.","Vacances ne veu
 s:["Tu as tout coche ! Tu es incroyable. 🌟","100% ! Vraie machine de discipline !","Journee parfaite ! Continue, impressionnante.","Bravo ! Tu te rapproches de tes objectifs.","Quel score ! Sois fiere de toi.","Journee complete ! Ton corps te remercie.","La discipline, ca paye. La preuve.","Tu as donne le meilleur. Chapeau !","Excellente journee ! La regularite, c'est ton super-pouvoir."],
 en:["Tu n'as pas besoin d'etre parfaite, juste d'avancer.","Meme les championnes ont des jours difficiles.","Demain est une nouvelle chance.","Chaque petit pas compte.","L'important c'est de ne jamais abandonner.","Sois fiere de ce que tu as fait, meme si c'est pas tout.","Le progres n'est pas toujours lineaire. C'est normal.","Chaque effort a de la valeur.","Ce n'est pas grave de ne pas tout reussir. C'est grave de ne plus essayer.","Tu as commence, c'est deja enorme."]
 };
-function gCM(){const sc=cSc();if(sc>=90)return rnd(M.s);if(S.dt==='vacances')return rnd(M.v);if(S.dt==='weekend')return rnd(M.w);if(isBD(S.dt))return rnd(M.b);return rnd(M.g)}
+function gCM(){const sc=cSc();if(sc>=90)return rnd(M.s);if(S.dt==='ferie')return rnd(M.v);if(S.dt==='vacances')return rnd(M.v);if(S.dt==='weekend')return rnd(M.w);if(isBD(S.dt))return rnd(M.b);return rnd(M.g)}
 
 // === HELPER FUNCTIONS ===
 function fT(m){
@@ -1137,10 +1137,16 @@ function gDC(){
 function gNA(){
   const _n=new Date(),h=_n.getHours(),m=_n.getMinutes(),hm=h*60+m;
   const w=getWakeTime();
-  const awake=S.wokeAt!==null;
-  if(hm<w&&!awake)return'😴 Repose-toi bien, ta journee va bientot commencer';
-  if(!awake&&hm<w+30)return'⏰ Reveil + verre d\'eau + lumiere du jour';
-  if(hm<w+45||awake&&hm<S.wokeAt+45)return'🥣 Petit-dejeuner complet (AVANT ecrans)';
+  const awake=S.wokeAt!==null&&S.wokeAtDay===TK;
+  if(!awake&&hm<=840){
+    if(S.dt==='ferie')return'🎉 Jour ferie ! Prends ton temps, appuie sur "Je suis reveillée" quand tu es prete';
+    if(S.dt==='vacances')return'🌴 Vacances ! Appuie sur "Je suis reveillée" quand tu te leves';
+    if(S.dt==='weekend')return'🏖️ Bon week-end ! Appuie sur "Je suis reveillée" quand tu es prete';
+    if(hm<w)return'😴 Repose-toi bien, ta journee va bientot commencer';
+    return'⏰ Reveil + verre d\'eau + lumiere du jour';
+  }
+  if(awake&&hm<S.wokeAt+45)return'🥣 Petit-dejeuner complet (AVANT ecrans)';
+  if(!awake&&hm<w+45)return'🥣 Petit-dejeuner complet (AVANT ecrans)';
   if(hm<600)return'💧 Bois un verre d\'eau';
   if(hm<720)return'💧 Pense a boire avant midi';
   if(hm<780)return'🍽️ Dejeuner equilibre';
@@ -1160,15 +1166,22 @@ function gNM(){
   const _n=new Date(),h=_n.getHours(),m=_n.getMinutes(),hm=h*60+m;
   const meals=getMeals();
   const w=getWakeTime();
+  const awake=S.wokeAt!==null&&S.wokeAtDay===TK;
+  // Si pas reveillée, le prochain repas est le petit-dej
+  if(!awake&&hm<=840){
+    const pdej=meals.find(ml=>ml.n.includes('Petit-dejeuner'));
+    if(pdej)return pdej.e+' '+pdej.n+' (apres le reveil)';
+  }
   for(const ml of meals){
     if(ml.pts===0)continue;
     const parts=ml.t.match(/(\d+)h(\d+)?/);
     if(!parts)continue;
     const mh=parseInt(parts[1])*60+parseInt(parts[2]||0);
-    if(mh<w&&ml.n.includes('Collation matin'))continue;
-    if(ml.n.includes('Collation matin')){
+    // Skip collation matin si avant le reveil ou trop proche du dejeuner
+    if(ml.n.includes('Collation')){
+      if(mh<w)continue;
       const lunchM=meals.find(x=>x.n.includes('ejeuner')&&!x.n.includes('Petit'));
-      if(lunchM){const lp=lunchM.t.match(/(\d+)h(\d+)?/);if(lp){const lh=parseInt(lp[1])*60+parseInt(lp[2]||0);if(mh>lh-90)continue;}}
+      if(lunchM){const lp=lunchM.t.match(/(\d+)h(\d+)?/);if(lp){const lh=parseInt(lp[1])*60+parseInt(lp[2]||0);if(ml.n.includes('matin')&&mh>lh-90)continue;}}
     }
     if(hm<mh+30)return ml.e+' '+ml.n+' — '+ml.t+' ('+ml.opt[0]+')';
   }
@@ -1411,12 +1424,18 @@ function rH(sc,lv){
   const now=new Date(),h=now.getHours();
   const hm=h*60+now.getMinutes();
   const w=getWakeTime();
+  const awake=S.wokeAt!==null&&S.wokeAtDay===TK;
   let gr='Bonjour Cassy';
-  if(hm<w)gr='Dors bien Cassy';
-  else if(hm<w+120)gr='Bonjour Cassy';
+  if(h>=22||h<4)gr='Bonne nuit Cassy';
+  else if(!awake&&hm<w+60){
+    if(S.dt==='ferie')gr='Jour ferie ! Profite bien Cassy';
+    else if(S.dt==='vacances')gr='Vacances ! Prends ton temps Cassy';
+    else if(S.dt==='weekend')gr='Bon week-end Cassy';
+    else gr='Dors bien Cassy';
+  }
+  else if(hm<w+120)gr=S.dt==='ferie'?'Bonne journee feriee Cassy':'Bonjour Cassy';
   else if(h>=13&&h<18)gr='Bon apres-midi Cassy';
   else if(h>=18)gr='Bonsoir Cassy';
-  if(h>=22||h<4)gr='Bonne nuit Cassy';
   document.getElementById('hGrt').textContent=gr+'  ✨';
   document.getElementById('hDate').textContent=fDF(T);
   // Tags
@@ -1427,11 +1446,11 @@ function rH(sc,lv){
   if(isBD(S.dt))tg.innerHTML+='<span class="bg bg-pk">Jour de match</span>';
   // Message
   document.getElementById('hMsg').textContent=gCM();
-  // Wake button
+  // Wake button — visible tant qu'elle n'a pas confirme son reveil (6h-14h)
   const wakeDiv=document.getElementById('hWake');
   if(wakeDiv){
-    const wt=S.wtc[S.dt]||390;
-    const shouldShow=!S.wokeAt&&hm>=wt-30&&hm<=wt+180;
+    const awake=S.wokeAt!==null&&S.wokeAtDay===TK;
+    const shouldShow=!awake&&hm>=360&&hm<=840;
     wakeDiv.style.display=shouldShow?'block':'none';
   }
   // Score ring
@@ -1891,6 +1910,8 @@ function saveWT(){
   if(m){const [h,mm]=m.value.split(':').map(Number);S.wtc.mercredi_basket=h*60+mm;}
   if(w){const [h,mm]=w.value.split(':').map(Number);S.wtc.weekend=h*60+mm;}
   if(v){const [h,mm]=v.value.split(':').map(Number);S.wtc.vacances=h*60+mm;}
+  const f=document.getElementById('wtFerie');
+  if(f){const [h,mm]=f.value.split(':').map(Number);S.wtc.ferie=h*60+mm;}
   sS();
   rA();
   sT('Heures de reveil enregistrees');
@@ -1904,6 +1925,8 @@ function loadWT(){
   if(m)m.value=String(Math.floor(S.wtc.mercredi_basket/60)).padStart(2,'0')+':'+String(S.wtc.mercredi_basket%60).padStart(2,'0');
   if(w)w.value=String(Math.floor(S.wtc.weekend/60)).padStart(2,'0')+':'+String(S.wtc.weekend%60).padStart(2,'0');
   if(v)v.value=String(Math.floor(S.wtc.vacances/60)).padStart(2,'0')+':'+String(S.wtc.vacances%60).padStart(2,'0');
+  const f=document.getElementById('wtFerie');
+  if(f)f.value=String(Math.floor(S.wtc.ferie/60)).padStart(2,'0')+':'+String(S.wtc.ferie%60).padStart(2,'0');
 }
 
 // === INIT ===
